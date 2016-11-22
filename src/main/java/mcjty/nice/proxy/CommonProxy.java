@@ -1,0 +1,40 @@
+package mcjty.nice.proxy;
+
+import mcjty.nice.blocks.ModBlocks;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+
+public class CommonProxy {
+
+    // Config instance
+//    public static Configuration config;
+
+    public void preInit(FMLPreInitializationEvent e) {
+//        File directory = e.getModConfigurationDirectory();
+//        config = new Configuration(new File(directory.getPath(), "modtut.cfg"));
+//        Config.readConfig();
+
+        // Initialize our packet handler. Make sure the name is
+        // 20 characters or less!
+//        PacketHandler.registerMessages("modtut");
+
+        // Initialization of blocks and items typically goes here:
+        ModBlocks.init();
+//        ModItems.init();
+
+//        MainCompatHandler.registerWaila();
+//        MainCompatHandler.registerTOP();
+
+    }
+
+    public void init(FMLInitializationEvent e) {
+//        NetworkRegistry.INSTANCE.registerGuiHandler(Nice.instance, new GuiProxy());
+    }
+
+    public void postInit(FMLPostInitializationEvent e) {
+//        if (config.hasChanged()) {
+//            config.save();
+//        }
+    }
+}

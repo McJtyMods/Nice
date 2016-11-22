@@ -1,0 +1,16 @@
+[
+{
+  "modid": "nice",
+  "name": "Nice",
+  "description": "Nice Innovative Creative Enhancements",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["McJty", "xVipstarx"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
