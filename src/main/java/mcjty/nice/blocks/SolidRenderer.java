@@ -11,14 +11,14 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
 
 @SideOnly(Side.CLIENT)
-public class AltarCenterRenderer extends TileEntitySpecialRenderer<AltarCenterTileEntity> {
+public class SolidRenderer extends TileEntitySpecialRenderer<SolidTileEntity> {
 
     ResourceLocation blueSphereTexture = new ResourceLocation(Nice.MODID, "textures/effects/bluesphere.png");
 
     @Override
-    public void renderTileEntityAt(AltarCenterTileEntity te, double x, double y, double z, float partialTicks, int destroyStage) {
+    public void renderTileEntityAt(SolidTileEntity te, double x, double y, double z, float partialTicks, int destroyStage) {
         IBlockState blockState = getWorld().getBlockState(te.getPos());
-        if (blockState.getBlock() != ModBlocks.altarCenterBlock) {
+        if (blockState.getBlock() != ModBlocks.solidBlock) {
             return;
         }
 

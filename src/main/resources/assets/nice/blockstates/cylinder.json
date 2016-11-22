@@ -1,0 +1,16 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "custom": { "flip-v": true },
+    "model": "nice:cylinder.obj",
+    "textures": {
+      "particle": "nice:blocks/template",
+      "#nice:blocks/template": "nice:blocks/template"
+    },
+    "transform": "forge:default-block"
+  },
+  "variants": {
+    "normal": [{}],
+    "inventory": [{}]
+  }
+}

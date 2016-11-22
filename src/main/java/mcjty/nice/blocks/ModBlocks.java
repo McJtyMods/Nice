@@ -5,15 +5,18 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ModBlocks {
 
-    public static AltarCenterBlock altarCenterBlock;
+    public static CylinderBlock cylinderBlock;
+    public static SolidBlock solidBlock;
 
     public static void init() {
-        altarCenterBlock = new AltarCenterBlock();
+        cylinderBlock = new CylinderBlock();
+        solidBlock = new SolidBlock();
     }
 
     @SideOnly(Side.CLIENT)
     public static void initModels() {
-        altarCenterBlock.initClient();
+        cylinderBlock.initClient();
+        solidBlock.initClient();
     }
 
     @SideOnly(Side.CLIENT)

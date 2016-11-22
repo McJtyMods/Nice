@@ -6,7 +6,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nonnull;
 
-public class AltarCenterTileEntity extends GenericTileEntity {
+public class CylinderTileEntity extends GenericTileEntity {
 
     @Override
     public boolean shouldRenderInPass(int pass) {

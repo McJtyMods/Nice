@@ -7,7 +7,6 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -33,7 +32,6 @@ public class GenericBlock extends Block {
     @SideOnly(Side.CLIENT)
     public void initClient() {
         ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), 0, new ModelResourceLocation(getRegistryName(), "inventory"));
-        ClientRegistry.bindTileEntitySpecialRenderer(AltarCenterTileEntity.class, new AltarCenterRenderer());
     }
 
     private ItemBlock createItemBlock(Class<? extends ItemBlock> itemBlockClass) {

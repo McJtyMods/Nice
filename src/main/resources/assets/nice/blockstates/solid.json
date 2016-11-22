@@ -1,0 +1,10 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "nice:solid"
+  },
+  "variants": {
+    "normal": [{}],
+    "inventory": [{}]
+  }
+}
