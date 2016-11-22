@@ -8,6 +8,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
@@ -48,6 +49,12 @@ public class CylinderBlock extends GenericBlock implements ITileEntityProvider {
     @SideOnly(Side.CLIENT)
     public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
         return false;
+    }
+
+    @SideOnly(Side.CLIENT)
+    @Override
+    public BlockRenderLayer getBlockLayer() {
+        return BlockRenderLayer.TRANSLUCENT;
     }
 
     @Override

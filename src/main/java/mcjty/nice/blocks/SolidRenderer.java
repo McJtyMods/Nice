@@ -34,7 +34,7 @@ public class SolidRenderer extends TileEntitySpecialRenderer<SolidTileEntity> {
         GlStateManager.translate((float) x + 0.5F, (float) y + 1.9F, (float) z + 0.5F);
 
         this.bindTexture(blueSphereTexture);
-        RenderTools.renderBillboardQuadBright(1.2f, 240);
+        RenderTools.renderBillboardQuadBright(1.2f, 240, 0, 0);
 
         GlStateManager.popMatrix();
 
