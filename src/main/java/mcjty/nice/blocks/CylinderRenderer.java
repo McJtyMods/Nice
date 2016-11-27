@@ -14,6 +14,7 @@ import org.lwjgl.opengl.GL11;
 public class CylinderRenderer extends TileEntitySpecialRenderer<CylinderTileEntity> {
 
     ResourceLocation blueSphereTexture = new ResourceLocation(Nice.MODID, "textures/effects/bluesphere.png");
+    ResourceLocation gasTexture = new ResourceLocation(Nice.MODID, "textures/effects/gas.png");
 
     private static class Offset {
         private final float dx;
@@ -41,7 +42,7 @@ public class CylinderRenderer extends TileEntitySpecialRenderer<CylinderTileEnti
         offsets[2] = new Offset(.1f, 0);
         offsets[3] = new Offset(0, .4f);
         offsets[4] = new Offset(.2f, .6f);
-        offsets[5] = new Offset(-4f, .8f);
+        offsets[5] = new Offset(-.4f, .8f);
     }
 
     @Override
@@ -60,15 +61,16 @@ public class CylinderRenderer extends TileEntitySpecialRenderer<CylinderTileEnti
         GlStateManager.disableAlpha();
 
         GlStateManager.pushMatrix();
-        GlStateManager.translate((float) x + 0.5F, (float) y + 1F, (float) z + 0.5F);
+        GlStateManager.translate((float) x + 0.5F, (float) y + 0F, (float) z + 0.5F);
 //        GlStateManager.scale(.1f, .1f, .1f);
 
-        this.bindTexture(blueSphereTexture);
+//        this.bindTexture(blueSphereTexture);
+        this.bindTexture(gasTexture);
 
         long time = System.currentTimeMillis();
         for (Offset o : offsets) {
             float offset = (time % 2000) / 2000.0f;
-            RenderTools.renderBillboardQuadBright(.1f, 240, o.dx, (o.dy + offset) % 1f);
+            RenderTools.renderBillboardQuadBright(/*.1f*/.4f, 240, o.dx, (o.dy + offset) % 1f);
         }
 
         GlStateManager.popMatrix();
