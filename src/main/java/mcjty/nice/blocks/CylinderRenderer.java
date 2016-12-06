@@ -4,8 +4,12 @@ import mcjty.nice.Nice;
 import mcjty.nice.client.RenderTools;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
@@ -34,15 +38,15 @@ public class CylinderRenderer extends TileEntitySpecialRenderer<CylinderTileEnti
         }
     }
 
-    private static Offset[] offsets = new Offset[6];
+    private static Vec3d[] offsets = new Vec3d[6];
 
     static {
-        offsets[0] = new Offset(0, .3f);
-        offsets[1] = new Offset(-.3f, 2f);
-        offsets[2] = new Offset(.1f, 0);
-        offsets[3] = new Offset(0, .4f);
-        offsets[4] = new Offset(.2f, .6f);
-        offsets[5] = new Offset(-.4f, .8f);
+        offsets[0] = new Vec3d(0, .3f, .2f);
+        offsets[1] = new Vec3d(-.3f, 2f, 0f);
+        offsets[2] = new Vec3d(.1f, 0, -.3f);
+        offsets[3] = new Vec3d(0, .4f, .5f);
+        offsets[4] = new Vec3d(.2f, .6f, -.3f);
+        offsets[5] = new Vec3d(-.4f, .8f, -.2f);
     }
 
     @Override
@@ -67,12 +71,30 @@ public class CylinderRenderer extends TileEntitySpecialRenderer<CylinderTileEnti
 //        this.bindTexture(blueSphereTexture);
         this.bindTexture(gasTexture);
 
+        int brightness = 240;
+        double scale = .4;
+        RenderTools.rotateToPlayer();
+
+        Tessellator tessellator = Tessellator.getInstance();
+        VertexBuffer buffer = tessellator.getBuffer();
+        buffer.begin(7, DefaultVertexFormats.POSITION_TEX_LMAP_COLOR);
+
         long time = System.currentTimeMillis();
-        for (Offset o : offsets) {
+        for (Vec3d o : offsets) {
             float offset = (time % 2000) / 2000.0f;
-            RenderTools.renderBillboardQuadBright(/*.1f*/.4f, 240, o.dx, (o.dy + offset) % 1f);
+            double ox = o.xCoord;
+            double oy = (o.yCoord + offset) % 1f;
+            double oz = o.zCoord;
+
+            int b1 = brightness >> 16 & 65535;
+            int b2 = brightness & 65535;
+            buffer.pos(ox - scale, oy-scale, oz).tex(0.0D, 0.0D).lightmap(b1, b2).color(255, 255, 255, 128).endVertex();
+            buffer.pos(ox - scale, oy+scale, oz).tex(0.0D, 1.0D).lightmap(b1, b2).color(255, 255, 255, 128).endVertex();
+            buffer.pos(ox + scale, oy+scale, oz).tex(1.0D, 1.0D).lightmap(b1, b2).color(255, 255, 255, 128).endVertex();
+            buffer.pos(ox + scale, oy-scale, oz).tex(1.0D, 0.0D).lightmap(b1, b2).color(255, 255, 255, 128).endVertex();
         }
 
+        tessellator.draw();
         GlStateManager.popMatrix();
 
 //        GlStateManager.enableBlend();
