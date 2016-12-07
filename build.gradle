@@ -63,7 +63,7 @@ artifacts {
 
 dependencies {
     deobfCompile "mezz.jei:jei_1.10.2:3.7.8.234"
-    deobfCompile "mcjty.theoneprobe:TheOneProbe:1.10-1.0.13-26"
+    deobfCompile "mcjty.theoneprobe:TheOneProbe:1.10-1.2.0-40"
 }
 
 processResources
