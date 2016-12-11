@@ -20,8 +20,7 @@ import org.lwjgl.opengl.GL11;
 @SideOnly(Side.CLIENT)
 public class CylinderRenderer extends TileEntitySpecialRenderer<CylinderTileEntity> {
 
-    ResourceLocation blueSphereTexture = new ResourceLocation(Nice.MODID, "textures/effects/bluesphere.png");
-    ResourceLocation gasTexture = new ResourceLocation(Nice.MODID, "textures/effects/gas.png");
+    ResourceLocation particles = new ResourceLocation(Nice.MODID, "textures/effects/particles.png");
 
     @Override
     public void renderTileEntityAt(CylinderTileEntity te, double x, double y, double z, float partialTicks, int destroyStage) {
@@ -44,7 +43,7 @@ public class CylinderRenderer extends TileEntitySpecialRenderer<CylinderTileEnti
 //        GlStateManager.scale(.1f, .1f, .1f);
 
 //        this.bindTexture(blueSphereTexture);
-        this.bindTexture(gasTexture);
+        this.bindTexture(particles);
 
         RenderTools.rotateToPlayer();
 
@@ -74,11 +73,16 @@ public class CylinderRenderer extends TileEntitySpecialRenderer<CylinderTileEnti
             double ox = particle.getOffset().xCoord;
             double oy = particle.getOffset().yCoord;
             double oz = particle.getOffset().zCoord;
+            double u1 = particle.getU1();
+            double u2 = particle.getU2();
+            double v1 = particle.getV1();
+            double v2 = particle.getV2();
             double scale = particle.getScale();
-            buffer.pos(ox - scale, oy-scale, oz).tex(0.0D, 0.0D).lightmap(b1, b2).color(255, 255, 255, 128).endVertex();
-            buffer.pos(ox - scale, oy+scale, oz).tex(0.0D, 1.0D).lightmap(b1, b2).color(255, 255, 255, 128).endVertex();
-            buffer.pos(ox + scale, oy+scale, oz).tex(1.0D, 1.0D).lightmap(b1, b2).color(255, 255, 255, 128).endVertex();
-            buffer.pos(ox + scale, oy-scale, oz).tex(1.0D, 0.0D).lightmap(b1, b2).color(255, 255, 255, 128).endVertex();
+
+            buffer.pos(ox - scale, oy-scale, oz).tex(u1, v1).lightmap(b1, b2).color(255, 255, 255, 128).endVertex();
+            buffer.pos(ox - scale, oy+scale, oz).tex(u1, v2).lightmap(b1, b2).color(255, 255, 255, 128).endVertex();
+            buffer.pos(ox + scale, oy+scale, oz).tex(u2, v2).lightmap(b1, b2).color(255, 255, 255, 128).endVertex();
+            buffer.pos(ox + scale, oy-scale, oz).tex(u2, v1).lightmap(b1, b2).color(255, 255, 255, 128).endVertex();
         }
     }
 }

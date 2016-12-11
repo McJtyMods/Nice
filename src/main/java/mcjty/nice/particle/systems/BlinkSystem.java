@@ -32,6 +32,7 @@ public class BlinkSystem implements IParticleSystem {
             particle.setOffset(o);
             float offset = (time % 2000) / 2000.0f;
             particle.setScale(offset * .4f);
+            particle.setUV(1D/8, 0, 2D/8, 1D/8);
         }
 
     }

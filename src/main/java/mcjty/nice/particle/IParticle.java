@@ -8,4 +8,10 @@ public interface IParticle {
 
     double getScale();
 
+    double getU1();
+    double getU2();
+
+    double getV1();
+    double getV2();
+
 }

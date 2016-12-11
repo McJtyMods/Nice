@@ -85,8 +85,10 @@ public class CylinderBlock extends GenericBlock implements ITileEntityProvider {
         if (te instanceof CylinderTileEntity) {
             CylinderTileEntity cylinder = (CylinderTileEntity) te;
             if (Items.DIAMOND.equals(heldItem.getItem())) {
+                System.out.println("CylinderBlock.onBlockActivated: set type 1");
                 cylinder.setType(1);
             } else if (Items.STRING.equals(heldItem.getItem())) {
+                System.out.println("CylinderBlock.onBlockActivated: set type 0");
                 cylinder.setType(0);
             }
         }

@@ -35,6 +35,7 @@ public class SmokeSystem implements IParticleSystem {
             DefaultParticle particle = (DefaultParticle) particles.get(i);
             particle.setOffset(new Vec3d(ox, oy, oz));
             particle.setScale(.4);
+            particle.setUV(0, 0, 1.0D / 8, 1.0D / 8);
         }
 
     }
