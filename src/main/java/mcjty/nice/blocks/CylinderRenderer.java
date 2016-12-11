@@ -39,7 +39,7 @@ public class CylinderRenderer extends TileEntitySpecialRenderer<CylinderTileEnti
         GlStateManager.disableAlpha();
 
         GlStateManager.pushMatrix();
-        GlStateManager.translate((float) x + 0.5F, (float) y + 0F, (float) z + 0.5F);
+        GlStateManager.translate((float) x + 0.5F, (float) y + 0.5F, (float) z + 0.5F);
 //        GlStateManager.scale(.1f, .1f, .1f);
 
 //        this.bindTexture(blueSphereTexture);

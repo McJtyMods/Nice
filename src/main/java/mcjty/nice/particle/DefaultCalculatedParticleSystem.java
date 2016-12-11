@@ -5,7 +5,7 @@ import java.util.List;
 
 public class DefaultCalculatedParticleSystem implements ICalculatedParticleSystem {
 
-    List<IParticle> particles;
+    protected List<IParticle> particles;
 
     public DefaultCalculatedParticleSystem(int size) {
         particles = new ArrayList<>(size);
