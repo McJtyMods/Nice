@@ -20,7 +20,15 @@ public class BlinkSystem implements IParticleSystem {
 
     @Override
     public ICalculatedParticleSystem createCalculatedParticleSystem() {
-        return new DefaultCalculatedParticleSystem(offsets.length);
+        DefaultCalculatedParticleSystem calculated = new DefaultCalculatedParticleSystem(offsets.length);
+        List<IParticle> particles = calculated.getParticles();
+        for (int i = 0 ; i < offsets.length ; i++) {
+            DefaultParticle particle = (DefaultParticle) particles.get(i);
+            particle.setUV(1D/8, 0, 2D/8, 1D/8);
+            particle.setColor(255, 255, 255, 255);
+        }
+
+        return calculated;
     }
 
     @Override
@@ -32,7 +40,6 @@ public class BlinkSystem implements IParticleSystem {
             particle.setOffset(o);
             float offset = (time % 2000) / 2000.0f;
             particle.setScale(offset * .4f);
-            particle.setUV(1D/8, 0, 2D/8, 1D/8);
         }
 
     }

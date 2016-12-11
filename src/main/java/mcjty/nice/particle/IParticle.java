@@ -14,4 +14,9 @@ public interface IParticle {
     double getV1();
     double getV2();
 
+    int getR();
+    int getG();
+    int getB();
+    int getA();
+
 }

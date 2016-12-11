@@ -10,6 +10,10 @@ public class DefaultParticle implements IParticle {
     private double u2;
     private double v1;
     private double v2;
+    private int r;
+    private int g;
+    private int b;
+    private int a;
 
     public DefaultParticle() {
     }
@@ -29,6 +33,13 @@ public class DefaultParticle implements IParticle {
 
     public void setScale(double scale) {
         this.scale = scale;
+    }
+
+    public void setColor(int r, int g, int b, int a) {
+        this.r = r;
+        this.g = g;
+        this.b = b;
+        this.a = a;
     }
 
     public void setUV(double u1, double v1, double u2, double v2) {
@@ -66,5 +77,25 @@ public class DefaultParticle implements IParticle {
     @Override
     public double getV2() {
         return v2;
+    }
+
+    @Override
+    public int getR() {
+        return r;
+    }
+
+    @Override
+    public int getG() {
+        return g;
+    }
+
+    @Override
+    public int getB() {
+        return b;
+    }
+
+    @Override
+    public int getA() {
+        return a;
     }
 }

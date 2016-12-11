@@ -77,12 +77,16 @@ public class CylinderRenderer extends TileEntitySpecialRenderer<CylinderTileEnti
             double u2 = particle.getU2();
             double v1 = particle.getV1();
             double v2 = particle.getV2();
+            int r = particle.getR();
+            int g = particle.getG();
+            int b = particle.getB();
+            int a = particle.getA();
             double scale = particle.getScale();
 
-            buffer.pos(ox - scale, oy-scale, oz).tex(u1, v1).lightmap(b1, b2).color(255, 255, 255, 128).endVertex();
-            buffer.pos(ox - scale, oy+scale, oz).tex(u1, v2).lightmap(b1, b2).color(255, 255, 255, 128).endVertex();
-            buffer.pos(ox + scale, oy+scale, oz).tex(u2, v2).lightmap(b1, b2).color(255, 255, 255, 128).endVertex();
-            buffer.pos(ox + scale, oy-scale, oz).tex(u2, v1).lightmap(b1, b2).color(255, 255, 255, 128).endVertex();
+            buffer.pos(ox - scale, oy-scale, oz).tex(u1, v1).lightmap(b1, b2).color(r, g, b, a).endVertex();
+            buffer.pos(ox - scale, oy+scale, oz).tex(u1, v2).lightmap(b1, b2).color(r, g, b, a).endVertex();
+            buffer.pos(ox + scale, oy+scale, oz).tex(u2, v2).lightmap(b1, b2).color(r, g, b, a).endVertex();
+            buffer.pos(ox + scale, oy-scale, oz).tex(u2, v1).lightmap(b1, b2).color(r, g, b, a).endVertex();
         }
     }
 }
