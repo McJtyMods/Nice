@@ -1,12 +1,12 @@
 {
   "parent": "block/cube",
   "textures": {
-    "particle": "nice:blocks/template",
-    "down": "nice:blocks/template",
-    "up": "nice:blocks/template",
-    "east": "nice:blocks/template",
-    "west": "nice:blocks/template",
-    "north": "nice:blocks/template",
-    "south": "nice:blocks/template"
+    "particle": "nice:blocks/buis_green",
+    "down": "nice:blocks/buis_green",
+    "up": "nice:blocks/buis_green",
+    "east": "nice:blocks/buis_green",
+    "west": "nice:blocks/buis_green",
+    "north": "nice:blocks/buis_green",
+    "south": "nice:blocks/buis_green"
   }
 }

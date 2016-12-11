@@ -1,6 +1,7 @@
 package mcjty.nice.blocks;
 
 import mcjty.nice.Nice;
+import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -13,6 +14,7 @@ import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -56,6 +58,9 @@ public class SolidBlock extends GenericBlock implements ITileEntityProvider {
             } else if (Items.STRING.equals(heldItem.getItem())) {
                 System.out.println("CylinderBlock.onBlockActivated: set type 0");
                 cylinder.setType(0);
+            } else if (Items.EMERALD.equals(heldItem.getItem())) {
+                System.out.println("CylinderBlock.onBlockActivated: set type 3");
+                cylinder.setType(3);
             }
         }
         return false;
@@ -79,4 +84,18 @@ public class SolidBlock extends GenericBlock implements ITileEntityProvider {
         return false;
     }
 
+    @SideOnly(Side.CLIENT)
+    public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
+        IBlockState iblockstate = blockAccess.getBlockState(pos.offset(side));
+        Block block = iblockstate.getBlock();
+
+        if (blockState != iblockstate) {
+            return true;
+        }
+
+        if (block == this) {
+            return false;
+        }
+        return super.shouldSideBeRendered(blockState, blockAccess, pos, side);
+    }
 }

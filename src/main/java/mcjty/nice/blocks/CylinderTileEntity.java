@@ -4,6 +4,7 @@ import mcjty.nice.particle.ICalculatedParticleSystem;
 import mcjty.nice.particle.IParticleProvider;
 import mcjty.nice.particle.IParticleSystem;
 import mcjty.nice.particle.systems.BlinkSystem;
+import mcjty.nice.particle.systems.BubbleSystem;
 import mcjty.nice.particle.systems.FishSystem;
 import mcjty.nice.particle.systems.SmokeSystem;
 import net.minecraft.nbt.NBTTagCompound;
@@ -18,6 +19,7 @@ public class CylinderTileEntity extends GenericTileEntity implements IParticlePr
     private static final IParticleSystem SMOKE = new SmokeSystem();
     private static final IParticleSystem BLINK = new BlinkSystem();
     private static final IParticleSystem FISH = new FishSystem();
+    private static final IParticleSystem BUBBLE = new BubbleSystem();
 
     private int type = 0;
 
@@ -62,6 +64,7 @@ public class CylinderTileEntity extends GenericTileEntity implements IParticlePr
             case 0: return SMOKE;
             case 1: return BLINK;
             case 2: return FISH;
+            case 3: return BUBBLE;
         }
         return SMOKE;
     }

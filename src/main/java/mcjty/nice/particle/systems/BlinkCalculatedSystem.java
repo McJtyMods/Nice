@@ -10,10 +10,10 @@ public class BlinkCalculatedSystem extends DefaultCalculatedParticleSystem {
 
     private static Random random = new Random();
 
-    private long offsets[] = new long[] { 200, 343, 708, 1700, 3, 1493 };
+    private static long offsets[] = new long[] { 1000, 500, 200, 343, 708, 1700, 3, 1200, 1493, 1200 };
 
     public BlinkCalculatedSystem() {
-        super(6);
+        super(offsets.length);
 
         int amount = particles.size();
         for (int i = 0 ; i < amount ; i++) {
@@ -29,7 +29,7 @@ public class BlinkCalculatedSystem extends DefaultCalculatedParticleSystem {
     public void update(long time) {
         for (int i = 0; i < particles.size(); i++) {
             DefaultParticle particle = (DefaultParticle) particles.get(i);
-            float offset = ((time + offsets[i]) % 2000) / 2000.0f;
+            float offset = ((time + offsets[i]) % 1000) / 1000.0f;
             if (offset > .5) {
                 offset = 1.0f-offset;
             }
