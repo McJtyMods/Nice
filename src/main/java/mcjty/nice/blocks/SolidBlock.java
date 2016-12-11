@@ -5,8 +5,14 @@ import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -14,6 +20,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 public class SolidBlock extends GenericBlock implements ITileEntityProvider {
 
@@ -29,6 +36,29 @@ public class SolidBlock extends GenericBlock implements ITileEntityProvider {
     @Nonnull
     public TileEntity createNewTileEntity(@Nonnull World worldIn, int meta) {
         return new SolidTileEntity();
+    }
+
+
+    @Override
+    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, @Nullable ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
+        if (heldItem == null) {
+            return false;
+        }
+        TileEntity te = world.getTileEntity(pos);
+        if (te instanceof SolidTileEntity) {
+            SolidTileEntity cylinder = (SolidTileEntity) te;
+            if (Items.DIAMOND.equals(heldItem.getItem())) {
+                System.out.println("CylinderBlock.onBlockActivated: set type 1");
+                cylinder.setType(1);
+            } else if (Items.FISH.equals(heldItem.getItem())) {
+                System.out.println("CylinderBlock.onBlockActivated: set type 2");
+                cylinder.setType(2);
+            } else if (Items.STRING.equals(heldItem.getItem())) {
+                System.out.println("CylinderBlock.onBlockActivated: set type 0");
+                cylinder.setType(0);
+            }
+        }
+        return false;
     }
 
     @Override
