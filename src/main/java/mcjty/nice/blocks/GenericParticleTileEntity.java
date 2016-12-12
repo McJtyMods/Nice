@@ -15,7 +15,7 @@ import javax.annotation.Nonnull;
 
 public class GenericParticleTileEntity extends GenericTileEntity implements IParticleProvider {
 
-    private static BlockColor color = BlockColor.BLUE;
+    private BlockColor color = BlockColor.BLUE;
 
     private ParticleType type = ParticleType.SMOKE;
 
@@ -39,8 +39,13 @@ public class GenericParticleTileEntity extends GenericTileEntity implements IPar
         markDirtyClient();
     }
 
-    public static BlockColor getColor() {
+    public BlockColor getColor() {
         return color;
+    }
+
+    public void setColor(BlockColor color) {
+        this.color = color;
+        markDirtyClient();
     }
 
     private ICalculatedParticleSystem calculatedParticleSystem;

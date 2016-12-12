@@ -9,8 +9,10 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -24,6 +26,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class GenericParticleBlock extends GenericBlock {
@@ -99,6 +102,36 @@ public class GenericParticleBlock extends GenericBlock {
             }
         }
         return false;
+    }
+
+    @Override
+    public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
+        super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
+        TileEntity te = worldIn.getTileEntity(pos);
+        if (te instanceof GenericParticleTileEntity) {
+            int col = 0;
+            if (stack.hasTagCompound()) {
+                col = stack.getTagCompound().getInteger("color");
+            }
+            ((GenericParticleTileEntity) te).setColor(BlockColor.values()[col]);
+        }
+    }
+
+    @Override
+    public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
+        TileEntity te = world.getTileEntity(pos);
+        if (te instanceof GenericParticleTileEntity) {
+            BlockColor color = ((GenericParticleTileEntity) te).getColor();
+            ItemStack stack = new ItemStack(Item.getItemFromBlock(this));
+            NBTTagCompound tagCompound = new NBTTagCompound();
+            tagCompound.setInteger("color", color.ordinal());
+            stack.setTagCompound(tagCompound);
+            List<ItemStack> result = new ArrayList<>();
+            result.add(stack);
+            return result;
+        } else {
+            return super.getDrops(world, pos, state, fortune);
+        }
     }
 
     @Override
