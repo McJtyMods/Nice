@@ -1,5 +1,6 @@
 package mcjty.nice.blocks;
 
+import mcjty.lib.compat.CompatBlock;
 import mcjty.nice.Nice;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -14,7 +15,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
-public class GenericBlock extends Block {
+public class GenericBlock extends CompatBlock {
 
     public GenericBlock(String name, Material materialIn) {
         this(name, materialIn, ItemBlock.class);

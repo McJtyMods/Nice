@@ -1,5 +1,6 @@
 package mcjty.nice.blocks;
 
+import mcjty.lib.tools.ItemStackTools;
 import mcjty.nice.Nice;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.SoundType;
@@ -77,8 +78,9 @@ public class CylinderBlock extends GenericBlock implements ITileEntityProvider {
     }
 
     @Override
-    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, @Nullable ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
-        if (heldItem == null) {
+    protected boolean clOnBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
+        ItemStack heldItem = player.getHeldItem(hand);
+        if (ItemStackTools.isEmpty(heldItem)) {
             return false;
         }
         TileEntity te = world.getTileEntity(pos);
