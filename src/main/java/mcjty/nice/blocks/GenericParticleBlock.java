@@ -18,10 +18,13 @@ import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import java.util.List;
 
 public class GenericParticleBlock extends GenericBlock {
 
@@ -37,6 +40,17 @@ public class GenericParticleBlock extends GenericBlock {
 
     protected IBlockState getState() {
         return blockState.getBaseState().withProperty(COLOR, BlockColor.BLUE);
+    }
+
+    @SideOnly(Side.CLIENT)
+    @Override
+    public void addInformation(ItemStack stack, EntityPlayer player, List<String> tooltip, boolean advanced) {
+        tooltip.add(TextFormatting.BLUE + "Right click with an item to change");
+        tooltip.add(TextFormatting.BLUE + "(the item is not consumed)");
+        tooltip.add("    Diamond for sparkles");
+        tooltip.add("    Slime for bubbles");
+        tooltip.add("    String for smoke");
+        tooltip.add("    Fish for fish");
     }
 
     @Override
@@ -72,12 +86,16 @@ public class GenericParticleBlock extends GenericBlock {
             GenericParticleTileEntity cylinder = (GenericParticleTileEntity) te;
             if (Items.DIAMOND.equals(heldItem.getItem())) {
                 cylinder.setType(ParticleType.BLINK);
+                return true;
             } else if (Items.FISH.equals(heldItem.getItem())) {
                 cylinder.setType(ParticleType.FISH);
+                return true;
             } else if (Items.STRING.equals(heldItem.getItem())) {
                 cylinder.setType(ParticleType.SMOKE);
+                return true;
             } else if (Items.SLIME_BALL.equals(heldItem.getItem())) {
                 cylinder.setType(ParticleType.BUBBLE);
+                return true;
             }
         }
         return false;
