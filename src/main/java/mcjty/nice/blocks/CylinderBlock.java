@@ -33,7 +33,7 @@ public class CylinderBlock extends GenericParticleBlock implements ITileEntityPr
 
     @Override
     protected IBlockState getState() {
-        return super.getState().withProperty(FACING, EnumFacing.NORTH);
+        return super.getState().withProperty(FACING, EnumFacing.UP);
     }
 
     @Override

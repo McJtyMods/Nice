@@ -32,6 +32,17 @@ public class GenericBlock extends CompatBlock {
 
     @SideOnly(Side.CLIENT)
     public void initClient() {
+//        ModelLoader.setCustomMeshDefinition(Item.getItemFromBlock(this), new ItemMeshDefinition() {
+//            @Override
+//            public ModelResourceLocation getModelLocation(ItemStack stack) {
+//                int col = 0;
+//                if (stack.hasTagCompound()) {
+//                    col = stack.getTagCompound().getInteger("color");
+//                }
+//                BlockColor color = BlockColor.values()[col];
+//                return new ModelResourceLocation(getRegistryName(), "inventory");
+//            }
+//        });
         ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), 0, new ModelResourceLocation(getRegistryName(), "inventory"));
     }
 

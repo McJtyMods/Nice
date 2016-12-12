@@ -11,6 +11,7 @@ import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -51,9 +52,13 @@ public class GenericParticleBlock extends GenericBlock {
         tooltip.add(TextFormatting.BLUE + "Right click with an item to change");
         tooltip.add(TextFormatting.BLUE + "(the item is not consumed)");
         tooltip.add("    Diamond for sparkles");
-        tooltip.add("    Slime for bubbles");
-        tooltip.add("    String for smoke");
+        tooltip.add("    Water bucket for bubbles");
+        tooltip.add("    Wool for smoke");
         tooltip.add("    Fish for fish");
+        if (stack.hasTagCompound()) {
+            int color = stack.getTagCompound().getInteger("color");
+            tooltip.add(TextFormatting.YELLOW + "Block color: " + BlockColor.values()[color].getName());
+        }
     }
 
     @Override
@@ -93,10 +98,10 @@ public class GenericParticleBlock extends GenericBlock {
             } else if (Items.FISH.equals(heldItem.getItem())) {
                 cylinder.setType(ParticleType.FISH);
                 return true;
-            } else if (Items.STRING.equals(heldItem.getItem())) {
+            } else if (Item.getItemFromBlock(Blocks.WOOL).equals(heldItem.getItem())) {
                 cylinder.setType(ParticleType.SMOKE);
                 return true;
-            } else if (Items.SLIME_BALL.equals(heldItem.getItem())) {
+            } else if (Items.WATER_BUCKET.equals(heldItem.getItem())) {
                 cylinder.setType(ParticleType.BUBBLE);
                 return true;
             }
