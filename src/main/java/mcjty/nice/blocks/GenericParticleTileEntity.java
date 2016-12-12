@@ -1,13 +1,10 @@
 package mcjty.nice.blocks;
 
+import mcjty.nice.client.BlockColor;
 import mcjty.nice.particle.ICalculatedParticleSystem;
 import mcjty.nice.particle.IParticleProvider;
 import mcjty.nice.particle.IParticleSystem;
 import mcjty.nice.particle.ParticleType;
-import mcjty.nice.particle.systems.BlinkSystem;
-import mcjty.nice.particle.systems.BubbleSystem;
-import mcjty.nice.particle.systems.FishSystem;
-import mcjty.nice.particle.systems.SmokeSystem;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.fml.relauncher.Side;
@@ -17,23 +14,21 @@ import javax.annotation.Nonnull;
 
 public class GenericParticleTileEntity extends GenericTileEntity implements IParticleProvider {
 
-    private static final IParticleSystem SMOKE = new SmokeSystem();
-    private static final IParticleSystem BLINK = new BlinkSystem();
-    private static final IParticleSystem FISH = new FishSystem();
-    private static final IParticleSystem BUBBLE = new BubbleSystem();
+    private static BlockColor color = BlockColor.BLUE;
 
-    private ParticleType type = null;
+    private ParticleType type = ParticleType.SMOKE;
 
     @Override
     public void readFromNBT(NBTTagCompound compound) {
-        int t = compound.getInteger("type");
-        this.type = ParticleType.values()[t];
+        this.type = ParticleType.values()[compound.getInteger("type")];
+        this.color = BlockColor.values()[compound.getInteger("color")];
         super.readFromNBT(compound);
     }
 
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
         compound.setInteger("type", type.ordinal());
+        compound.setInteger("color", color.ordinal());
         return super.writeToNBT(compound);
     }
 
@@ -41,6 +36,10 @@ public class GenericParticleTileEntity extends GenericTileEntity implements IPar
         this.type = type;
         calculatedParticleSystem = null;
         markDirtyClient();
+    }
+
+    public static BlockColor getColor() {
+        return color;
     }
 
     private ICalculatedParticleSystem calculatedParticleSystem;

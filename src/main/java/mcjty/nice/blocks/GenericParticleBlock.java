@@ -1,13 +1,18 @@
 package mcjty.nice.blocks;
 
 import mcjty.lib.tools.ItemStackTools;
+import mcjty.nice.client.BlockColor;
 import mcjty.nice.particle.ParticleType;
+import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.PropertyEnum;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
@@ -20,11 +25,18 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class GenericParticleBlock extends GenericBlock {
 
+    public static final PropertyEnum<BlockColor> COLOR = PropertyEnum.<BlockColor>create("color", BlockColor.class);
+
     public GenericParticleBlock(String name) {
         super(name, Material.ROCK);
         setHardness(3.0f);
         setResistance(5.0f);
         setSoundType(SoundType.GLASS);
+        setDefaultState(getState());
+    }
+
+    protected IBlockState getState() {
+        return blockState.getBaseState().withProperty(COLOR, BlockColor.BLUE);
     }
 
     @Override
@@ -69,5 +81,33 @@ public class GenericParticleBlock extends GenericBlock {
             }
         }
         return false;
+    }
+
+    @Override
+    public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
+        TileEntity te = worldIn.getTileEntity(pos);
+        BlockColor color = BlockColor.BLUE;
+        if (te instanceof GenericParticleTileEntity) {
+            color = ((GenericParticleTileEntity) te).getColor();
+        }
+        return state.withProperty(COLOR, color);
+    }
+
+    public static ItemStack makeColoredBlock(Block block, BlockColor color, int amount) {
+        ItemStack i = new ItemStack(block, amount);
+        NBTTagCompound nbt = new NBTTagCompound();
+        nbt.setInteger("color", color.ordinal());
+        i.setTagCompound(nbt);
+        return i;
+    }
+
+    @Override
+    public int getMetaFromState(IBlockState state) {
+        return 0;
+    }
+
+    @Override
+    protected BlockStateContainer createBlockState() {
+        return new BlockStateContainer(this, COLOR);
     }
 }

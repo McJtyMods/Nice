@@ -1,9 +1,13 @@
 package mcjty.nice.blocks;
 
 import mcjty.nice.Nice;
+import mcjty.nice.client.BlockColor;
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
@@ -16,6 +20,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nonnull;
+import java.util.List;
 
 public class SolidBlock extends GenericParticleBlock implements ITileEntityProvider {
 
@@ -41,6 +46,12 @@ public class SolidBlock extends GenericParticleBlock implements ITileEntityProvi
     @Override
     public BlockRenderLayer getBlockLayer() {
         return BlockRenderLayer.TRANSLUCENT;
+    }
+
+    @Override
+    protected void clGetSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
+        subItems.add(makeColoredBlock(this, BlockColor.BLUE, 1));
+        subItems.add(makeColoredBlock(this, BlockColor.GREEN, 1));
     }
 
     @Override

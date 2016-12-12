@@ -4,14 +4,20 @@
     "custom": { "flip-v": true },
     "model": "nice:cylinder.obj",
     "textures": {
-      "particle": "nice:blocks/template",
-      "#nice:blocks/template": "nice:blocks/template"
+      "particle": "nice:blocks/buis_green",
+      "#nice:blocks/buis_green": "nice:blocks/buis_green"
     },
     "transform": "forge:default-block"
   },
   "variants": {
     "normal": [{}],
     "inventory": [{}],
+    "color": {
+      "blue": { "textures": { "#nice:blocks/buis_green": "nice:blocks/buis" } },
+      "green": { "textures": { "#nice:blocks/buis_green": "nice:blocks/buis_green" } },
+      "red": {},
+      "white": {}
+    },
     "facing": {
       "north": {},
       "south": {"y": 180},

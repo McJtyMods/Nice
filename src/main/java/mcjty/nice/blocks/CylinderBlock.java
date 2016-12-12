@@ -1,11 +1,14 @@
 package mcjty.nice.blocks;
 
 import mcjty.nice.Nice;
+import mcjty.nice.client.BlockColor;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
@@ -17,6 +20,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nonnull;
+import java.util.List;
 
 public class CylinderBlock extends GenericParticleBlock implements ITileEntityProvider {
 
@@ -25,7 +29,11 @@ public class CylinderBlock extends GenericParticleBlock implements ITileEntityPr
     public CylinderBlock() {
         super("cylinder");
         GameRegistry.registerTileEntity(CylinderTileEntity.class, Nice.MODID + "_cylinder");
-        setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
+    }
+
+    @Override
+    protected IBlockState getState() {
+        return super.getState().withProperty(FACING, EnumFacing.NORTH);
     }
 
     @Override
@@ -42,6 +50,11 @@ public class CylinderBlock extends GenericParticleBlock implements ITileEntityPr
         return new CylinderTileEntity();
     }
 
+    @Override
+    protected void clGetSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
+        subItems.add(makeColoredBlock(this, BlockColor.BLUE, 1));
+        subItems.add(makeColoredBlock(this, BlockColor.GREEN, 1));
+    }
 
     @Override
     public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
@@ -64,6 +77,6 @@ public class CylinderBlock extends GenericParticleBlock implements ITileEntityPr
 
     @Override
     protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, FACING);
+        return new BlockStateContainer(this, FACING, COLOR);
     }
 }

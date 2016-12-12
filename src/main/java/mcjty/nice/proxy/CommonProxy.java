@@ -7,7 +7,6 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 public class CommonProxy {
 
-    // Config instance
 //    public static Configuration config;
 
     public void preInit(FMLPreInitializationEvent e) {
@@ -30,6 +29,7 @@ public class CommonProxy {
 
     public void init(FMLInitializationEvent e) {
 //        NetworkRegistry.INSTANCE.registerGuiHandler(Nice.instance, new GuiProxy());
+        ModBlocks.initCrafting();
     }
 
     public void postInit(FMLPostInitializationEvent e) {

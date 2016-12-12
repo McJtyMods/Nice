@@ -1,12 +1,6 @@
 {
-  "parent": "block/cube",
+  "parent": "block/cube_all",
   "textures": {
-    "particle": "nice:blocks/buis_green",
-    "down": "nice:blocks/buis_green",
-    "up": "nice:blocks/buis_green",
-    "east": "nice:blocks/buis_green",
-    "west": "nice:blocks/buis_green",
-    "north": "nice:blocks/buis_green",
-    "south": "nice:blocks/buis_green"
+    "all": "#txt"
   }
 }

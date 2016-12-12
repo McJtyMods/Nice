@@ -1,10 +1,19 @@
 {
   "forge_marker": 1,
   "defaults": {
-    "model": "nice:solid"
+    "model": "nice:solid",
+    "textures": {
+      "txt": "nice:blocks/buis_green"
+    }
   },
   "variants": {
     "normal": [{}],
-    "inventory": [{}]
+    "inventory": [{}],
+    "color": {
+      "blue": { "textures": { "txt": "nice:blocks/buis" } },
+      "green": { "textures": { "txt": "nice:blocks/buis_green" } },
+      "red": {},
+      "white": {}
+    }
   }
 }
