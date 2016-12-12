@@ -3,6 +3,7 @@ package mcjty.nice.blocks;
 import mcjty.nice.particle.ICalculatedParticleSystem;
 import mcjty.nice.particle.IParticleProvider;
 import mcjty.nice.particle.IParticleSystem;
+import mcjty.nice.particle.ParticleType;
 import mcjty.nice.particle.systems.BlinkSystem;
 import mcjty.nice.particle.systems.BubbleSystem;
 import mcjty.nice.particle.systems.FishSystem;
@@ -21,21 +22,22 @@ public class GenericParticleTileEntity extends GenericTileEntity implements IPar
     private static final IParticleSystem FISH = new FishSystem();
     private static final IParticleSystem BUBBLE = new BubbleSystem();
 
-    private int type = 0;
+    private ParticleType type = null;
 
     @Override
     public void readFromNBT(NBTTagCompound compound) {
-        type = compound.getInteger("type");
+        int t = compound.getInteger("type");
+        this.type = ParticleType.values()[t];
         super.readFromNBT(compound);
     }
 
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-        compound.setInteger("type", type);
+        compound.setInteger("type", type.ordinal());
         return super.writeToNBT(compound);
     }
 
-    public void setType(int type) {
+    public void setType(ParticleType type) {
         this.type = type;
         calculatedParticleSystem = null;
         markDirtyClient();
@@ -60,13 +62,7 @@ public class GenericParticleTileEntity extends GenericTileEntity implements IPar
 
     @Override
     public IParticleSystem getParticleSystem() {
-        switch(type) {
-            case 0: return SMOKE;
-            case 1: return BLINK;
-            case 2: return FISH;
-            case 3: return BUBBLE;
-        }
-        return SMOKE;
+        return type.getParticleSystem();
     }
 
     @Override

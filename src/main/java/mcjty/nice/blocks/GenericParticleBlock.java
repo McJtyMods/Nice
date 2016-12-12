@@ -1,6 +1,7 @@
 package mcjty.nice.blocks;
 
 import mcjty.lib.tools.ItemStackTools;
+import mcjty.nice.particle.ParticleType;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -58,17 +59,13 @@ public class GenericParticleBlock extends GenericBlock {
         if (te instanceof GenericParticleTileEntity) {
             GenericParticleTileEntity cylinder = (GenericParticleTileEntity) te;
             if (Items.DIAMOND.equals(heldItem.getItem())) {
-                System.out.println("CylinderBlock.onBlockActivated: set type 1");
-                cylinder.setType(1);
+                cylinder.setType(ParticleType.BLINK);
             } else if (Items.FISH.equals(heldItem.getItem())) {
-                System.out.println("CylinderBlock.onBlockActivated: set type 2");
-                cylinder.setType(2);
+                cylinder.setType(ParticleType.FISH);
             } else if (Items.STRING.equals(heldItem.getItem())) {
-                System.out.println("CylinderBlock.onBlockActivated: set type 0");
-                cylinder.setType(0);
-            } else if (Items.EMERALD.equals(heldItem.getItem())) {
-                System.out.println("CylinderBlock.onBlockActivated: set type 3");
-                cylinder.setType(3);
+                cylinder.setType(ParticleType.SMOKE);
+            } else if (Items.SLIME_BALL.equals(heldItem.getItem())) {
+                cylinder.setType(ParticleType.BUBBLE);
             }
         }
         return false;
