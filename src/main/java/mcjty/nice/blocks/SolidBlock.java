@@ -64,13 +64,13 @@ public class SolidBlock extends GenericParticleBlock implements ITileEntityProvi
         IBlockState iblockstate = blockAccess.getBlockState(pos.offset(side));
         Block block = iblockstate.getBlock();
 
-        if (blockState != iblockstate) {
-            return true;
-        }
+//        if (blockState != iblockstate) {
+//            return true;
+//        }
 
-        if (block == this) {
+        if (block instanceof SolidBlock) {
             return false;
         }
-        return super.shouldSideBeRendered(blockState, blockAccess, pos, side);
+        return true;
     }
 }

@@ -19,10 +19,10 @@ public class ModBlocks {
     }
 
     public static void initCrafting() {
-        GameRegistry.addRecipe(new ShapedOreRecipe(GenericParticleBlock.makeColoredBlock(cylinderBlock, BlockColor.BLUE, 3), "g g", "GdG", "g g", 'g', Blocks.GLASS_PANE, 'G', Blocks.GLASS, 'd', "dyeBlue"));
-        GameRegistry.addRecipe(new ShapedOreRecipe(GenericParticleBlock.makeColoredBlock(cylinderBlock, BlockColor.GREEN, 3), "g g", "GdG", "g g", 'g', Blocks.GLASS_PANE, 'G', Blocks.GLASS, 'd', "dyeGreen"));
-        GameRegistry.addRecipe(new ShapedOreRecipe(GenericParticleBlock.makeColoredBlock(solidBlock, BlockColor.BLUE, 5), "gGg", "GdG", "gGg", 'g', Blocks.GLASS_PANE, 'G', Blocks.GLASS, 'd', "dyeBlue"));
-        GameRegistry.addRecipe(new ShapedOreRecipe(GenericParticleBlock.makeColoredBlock(solidBlock, BlockColor.GREEN, 5), "gGg", "GdG", "gGg", 'g', Blocks.GLASS_PANE, 'G', Blocks.GLASS, 'd', "dyeGreen"));
+        GameRegistry.addRecipe(new ShapedOreRecipe(GenericParticleBlock.makeColoredBlock(cylinderBlock, BlockColor.BLUE, 2), "gdg", "gdg", "gdg", 'g', Blocks.GLASS_PANE, 'd', "dyeBlue"));
+        GameRegistry.addRecipe(new ShapedOreRecipe(GenericParticleBlock.makeColoredBlock(cylinderBlock, BlockColor.GREEN, 2), "gdg", "gdg", "gdg", 'g', Blocks.GLASS_PANE, 'd', "dyeGreen"));
+        GameRegistry.addRecipe(new ShapedOreRecipe(GenericParticleBlock.makeColoredBlock(solidBlock, BlockColor.BLUE, 4), "gGg", "GdG", "gGg", 'g', Blocks.GLASS_PANE, 'G', Blocks.GLASS, 'd', "dyeBlue"));
+        GameRegistry.addRecipe(new ShapedOreRecipe(GenericParticleBlock.makeColoredBlock(solidBlock, BlockColor.GREEN, 4), "gGg", "GdG", "gGg", 'g', Blocks.GLASS_PANE, 'G', Blocks.GLASS, 'd', "dyeGreen"));
     }
 
     @SideOnly(Side.CLIENT)
