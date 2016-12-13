@@ -50,8 +50,9 @@ public class SolidBlock extends GenericParticleBlock implements ITileEntityProvi
 
     @Override
     protected void clGetSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
-        subItems.add(makeColoredBlock(this, BlockColor.BLUE, 1));
-        subItems.add(makeColoredBlock(this, BlockColor.GREEN, 1));
+        for (BlockColor color : BlockColor.values()) {
+            subItems.add(makeColoredBlock(this, color, 1));
+        }
     }
 
     @Override

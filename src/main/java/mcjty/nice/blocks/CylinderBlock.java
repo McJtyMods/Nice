@@ -52,13 +52,15 @@ public class CylinderBlock extends GenericParticleBlock implements ITileEntityPr
 
     @Override
     protected void clGetSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
-        subItems.add(makeColoredBlock(this, BlockColor.BLUE, 1));
-        subItems.add(makeColoredBlock(this, BlockColor.GREEN, 1));
+        for (BlockColor color : BlockColor.values()) {
+            subItems.add(makeColoredBlock(this, color, 1));
+        }
     }
 
     @Override
     public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
         world.setBlockState(pos, state.withProperty(FACING, getFacingFromEntity(pos, placer)), 2);
+        super.onBlockPlacedBy(world, pos, state, placer, stack);
     }
 
     public static EnumFacing getFacingFromEntity(BlockPos clickedBlock, EntityLivingBase entity) {

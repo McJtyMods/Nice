@@ -15,8 +15,8 @@
     "color": {
       "blue": { "textures": { "#nice:blocks/buis_green": "nice:blocks/buis" } },
       "green": { "textures": { "#nice:blocks/buis_green": "nice:blocks/buis_green" } },
-      "red": {},
-      "white": {}
+      "red": { "textures": { "#nice:blocks/buis_green": "nice:blocks/buis_red" } },
+      "yellow": { "textures": { "#nice:blocks/buis_green": "nice:blocks/buis_yellow" } }
     },
     "facing": {
       "up": {},
