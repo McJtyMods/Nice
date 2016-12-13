@@ -49,7 +49,7 @@ public class GenericParticleBlock extends GenericBlock {
     @SideOnly(Side.CLIENT)
     @Override
     public void addInformation(ItemStack stack, EntityPlayer player, List<String> tooltip, boolean advanced) {
-        tooltip.add(TextFormatting.BLUE + "Right click with an item to change");
+        tooltip.add(TextFormatting.BLUE + "Select with item to change");
         tooltip.add(TextFormatting.BLUE + "(the item is not consumed)");
         tooltip.add("    Diamond for sparkles");
         tooltip.add("    Water bucket for bubbles");
