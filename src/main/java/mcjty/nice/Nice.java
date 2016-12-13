@@ -25,7 +25,7 @@ import java.util.Random;
 public class Nice {
     public static final String MODID = "nice";
     public static final String MODNAME = "NICE";
-    public static final String VERSION = "0.0.1";
+    public static final String VERSION = "0.0.2";
     public static final String MIN_FORGE10_VER = "12.18.1.2082";
     public static final String MIN_FORGE11_VER = "13.19.0.2176";
     public static final String COMPATLAYER_VER = "0.1.0";

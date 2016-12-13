@@ -140,6 +140,22 @@ public class GenericParticleBlock extends GenericBlock {
     }
 
     @Override
+    public boolean removedByPlayer(IBlockState state, World world, BlockPos pos, EntityPlayer player, boolean willHarvest) {
+        if (willHarvest) {
+            return true; // If it will harvest, delay deletion of the block until after getDrops
+        }
+        return super.removedByPlayer(state, world, pos, player, willHarvest);
+    }
+
+
+    @Override
+    public void harvestBlock(World world, EntityPlayer player, BlockPos pos, IBlockState state, TileEntity te, ItemStack stack) {
+        super.harvestBlock(world, player, pos, state, te, stack);
+        world.setBlockToAir(pos);
+    }
+
+
+    @Override
     public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
         TileEntity te = worldIn.getTileEntity(pos);
         BlockColor color = BlockColor.BLUE;
