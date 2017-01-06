@@ -11,6 +11,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -23,6 +24,8 @@ import javax.annotation.Nonnull;
 import java.util.List;
 
 public class SolidBlock extends GenericParticleBlock implements ITileEntityProvider {
+
+    public static final AxisAlignedBB EMPTY = new AxisAlignedBB(0, 0, 0, 0, 0, 0);
 
     public SolidBlock() {
         super("solid");
@@ -53,6 +56,15 @@ public class SolidBlock extends GenericParticleBlock implements ITileEntityProvi
         for (BlockColor color : BlockColor.values()) {
             subItems.add(makeColoredBlock(this, color, 1));
         }
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public AxisAlignedBB getSelectedBoundingBox(IBlockState state, World worldIn, BlockPos pos) {
+//        if (state.getValue(COLOR) == BlockColor.TRANSP) {
+            return EMPTY;
+//        }
+//        return super.getSelectedBoundingBox(state, worldIn, pos);
     }
 
     @Override

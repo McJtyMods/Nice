@@ -6,7 +6,8 @@ public enum BlockColor implements IStringSerializable {
     BLUE("blue"),
     GREEN("green"),
     RED("red"),
-    YELLOW("yellow");
+    YELLOW("yellow"),
+    TRANSP("transp");
 
     private final String name;
 

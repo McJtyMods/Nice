@@ -10,6 +10,7 @@
     "normal": [{}],
     "inventory": [{}],
     "color": {
+      "transp": { "model": "nice:empty_model" },
       "blue": { "textures": { "txt": "nice:blocks/buis" } },
       "green": { "textures": { "txt": "nice:blocks/buis_green" } },
       "red": { "textures": { "txt": "nice:blocks/buis_red" } },

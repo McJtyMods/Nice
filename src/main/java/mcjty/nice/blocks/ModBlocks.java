@@ -2,7 +2,6 @@ package mcjty.nice.blocks;
 
 import mcjty.nice.client.BlockColor;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -23,6 +22,7 @@ public class ModBlocks {
         GameRegistry.addRecipe(new ShapedOreRecipe(GenericParticleBlock.makeColoredBlock(cylinderBlock, BlockColor.GREEN, 2), "gdg", "gdg", "gdg", 'g', Blocks.GLASS_PANE, 'd', "dyeGreen"));
         GameRegistry.addRecipe(new ShapedOreRecipe(GenericParticleBlock.makeColoredBlock(cylinderBlock, BlockColor.RED, 2), "gdg", "gdg", "gdg", 'g', Blocks.GLASS_PANE, 'd', "dyeRed"));
         GameRegistry.addRecipe(new ShapedOreRecipe(GenericParticleBlock.makeColoredBlock(cylinderBlock, BlockColor.YELLOW, 2), "gdg", "gdg", "gdg", 'g', Blocks.GLASS_PANE, 'd', "dyeYellow"));
+        GameRegistry.addRecipe(new ShapedOreRecipe(GenericParticleBlock.makeColoredBlock(solidBlock, BlockColor.TRANSP, 4), "gGg", "GdG", "gGg", 'g', Blocks.GLASS_PANE, 'G', Blocks.GLASS, 'd', Blocks.GLASS_PANE));
         GameRegistry.addRecipe(new ShapedOreRecipe(GenericParticleBlock.makeColoredBlock(solidBlock, BlockColor.BLUE, 4), "gGg", "GdG", "gGg", 'g', Blocks.GLASS_PANE, 'G', Blocks.GLASS, 'd', "dyeBlue"));
         GameRegistry.addRecipe(new ShapedOreRecipe(GenericParticleBlock.makeColoredBlock(solidBlock, BlockColor.GREEN, 4), "gGg", "GdG", "gGg", 'g', Blocks.GLASS_PANE, 'G', Blocks.GLASS, 'd', "dyeGreen"));
         GameRegistry.addRecipe(new ShapedOreRecipe(GenericParticleBlock.makeColoredBlock(solidBlock, BlockColor.RED, 4), "gGg", "GdG", "gGg", 'g', Blocks.GLASS_PANE, 'G', Blocks.GLASS, 'd', "dyeRed"));

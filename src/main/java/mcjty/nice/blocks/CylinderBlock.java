@@ -12,6 +12,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
@@ -23,6 +24,8 @@ import javax.annotation.Nonnull;
 import java.util.List;
 
 public class CylinderBlock extends GenericParticleBlock implements ITileEntityProvider {
+
+    public static final AxisAlignedBB EMPTY = new AxisAlignedBB(0, 0, 0, 0, 0, 0);
 
     public static final PropertyDirection FACING = PropertyDirection.create("facing");
 
@@ -43,6 +46,12 @@ public class CylinderBlock extends GenericParticleBlock implements ITileEntityPr
         ClientRegistry.bindTileEntitySpecialRenderer(CylinderTileEntity.class, new CylinderRenderer());
     }
 
+    @Override
+    @SideOnly(Side.CLIENT)
+    public AxisAlignedBB getSelectedBoundingBox(IBlockState state, World worldIn, BlockPos pos) {
+        return EMPTY;
+    }
+
 
     @Override
     @Nonnull
@@ -53,7 +62,9 @@ public class CylinderBlock extends GenericParticleBlock implements ITileEntityPr
     @Override
     protected void clGetSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
         for (BlockColor color : BlockColor.values()) {
-            subItems.add(makeColoredBlock(this, color, 1));
+            if (color != BlockColor.TRANSP) {
+                subItems.add(makeColoredBlock(this, color, 1));
+            }
         }
     }
 
