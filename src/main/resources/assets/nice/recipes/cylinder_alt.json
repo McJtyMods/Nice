@@ -1,0 +1,24 @@
+{
+  "result": {
+    "item": "nice:cylinder",
+    "count": 2,
+    "nbt": {
+      "color":1
+    }
+  },
+  "pattern": [
+    "gdg",
+    "gdg",
+    "gdg"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "d": {
+      "type": "forge:ore_dict",
+      "ore": "dyeGreen"
+    },
+    "g": {
+      "item": "minecraft:glass_pane"
+    }
+  }
+}

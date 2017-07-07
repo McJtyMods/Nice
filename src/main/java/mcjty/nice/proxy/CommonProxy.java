@@ -59,7 +59,6 @@ public class CommonProxy {
 
     public void init(FMLInitializationEvent e) {
 //        NetworkRegistry.INSTANCE.registerGuiHandler(Nice.instance, new GuiProxy());
-        ModBlocks.initCrafting();
     }
 
     public void postInit(FMLPostInitializationEvent e) {

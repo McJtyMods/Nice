@@ -1,0 +1,27 @@
+{
+  "result": {
+    "item": "nice:solid",
+    "count": 4,
+    "nbt": {
+      "color":2
+    }
+  },
+  "pattern": [
+    "gGg",
+    "GdG",
+    "gGg"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "d": {
+      "type": "forge:ore_dict",
+      "ore": "dyeRed"
+    },
+    "g": {
+      "item": "minecraft:glass_pane"
+    },
+    "G": {
+      "item": "minecraft:glass"
+    }
+  }
+}
