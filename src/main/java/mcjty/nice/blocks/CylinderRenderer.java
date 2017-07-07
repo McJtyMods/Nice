@@ -10,7 +10,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class CylinderRenderer extends TileEntitySpecialRenderer<CylinderTileEntity> {
 
     @Override
-    public void renderTileEntityAt(CylinderTileEntity te, double x, double y, double z, float partialTicks, int destroyStage) {
+    public void render(CylinderTileEntity te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
         IBlockState blockState = getWorld().getBlockState(te.getPos());
         if (blockState.getBlock() != ModBlocks.cylinderBlock) {
             return;

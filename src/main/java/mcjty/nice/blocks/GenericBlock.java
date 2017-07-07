@@ -14,7 +14,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -25,16 +24,10 @@ import java.util.Map;
 public class GenericBlock extends CompatBlock {
 
     public GenericBlock(String name, Material materialIn) {
-        this(name, materialIn, ItemBlock.class);
-    }
-
-    public GenericBlock(String name, Material materialIn, Class<? extends ItemBlock> itemBlockClass) {
         super(materialIn);
         setRegistryName(name);
         setUnlocalizedName(Nice.MODID + "." + name);
         setCreativeTab(Nice.creativeTab);
-        GameRegistry.register(this);
-        GameRegistry.register(createItemBlock(itemBlockClass), getRegistryName());
     }
 
     @SideOnly(Side.CLIENT)
@@ -54,7 +47,7 @@ public class GenericBlock extends CompatBlock {
         });
     }
 
-    private ItemBlock createItemBlock(Class<? extends ItemBlock> itemBlockClass) {
+    public ItemBlock createItemBlock(Class<? extends ItemBlock> itemBlockClass) {
         try {
             Class<?>[] ctorArgClasses = new Class<?>[1];
             ctorArgClasses[0] = Block.class;

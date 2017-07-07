@@ -1,6 +1,5 @@
 package mcjty.nice.blocks;
 
-import mcjty.nice.Nice;
 import mcjty.nice.client.BlockColor;
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
@@ -16,7 +15,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -29,7 +27,6 @@ public class SolidBlock extends GenericParticleBlock implements ITileEntityProvi
 
     public SolidBlock() {
         super("solid");
-        GameRegistry.registerTileEntity(SolidTileEntity.class, Nice.MODID + "_solid");
     }
 
     @Override

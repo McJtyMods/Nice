@@ -1,6 +1,5 @@
 package mcjty.nice.blocks;
 
-import mcjty.nice.Nice;
 import mcjty.nice.client.BlockColor;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.properties.PropertyDirection;
@@ -16,7 +15,6 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -31,7 +29,6 @@ public class CylinderBlock extends GenericParticleBlock implements ITileEntityPr
 
     public CylinderBlock() {
         super("cylinder");
-        GameRegistry.registerTileEntity(CylinderTileEntity.class, Nice.MODID + "_cylinder");
     }
 
     @Override

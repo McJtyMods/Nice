@@ -1,10 +1,7 @@
 package mcjty.nice.particle.systems;
 
-import mcjty.nice.particle.*;
-import net.minecraft.util.math.Vec3d;
-
-import java.util.List;
-import java.util.Random;
+import mcjty.nice.particle.ICalculatedParticleSystem;
+import mcjty.nice.particle.IParticleSystem;
 
 public class FishSystem implements IParticleSystem {
 

@@ -1,11 +1,10 @@
 package mcjty.nice.particle;
 
 import mcjty.nice.Nice;
-import mcjty.nice.blocks.CylinderTileEntity;
 import mcjty.nice.client.RenderTools;
+import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
@@ -14,7 +13,7 @@ public class ParticleRenderer {
 
     public static ResourceLocation particles = new ResourceLocation(Nice.MODID, "textures/effects/particles.png");
 
-    public static void renderParticleSystem(IParticleProvider provider, VertexBuffer buffer) {
+    public static void renderParticleSystem(IParticleProvider provider, BufferBuilder buffer) {
         long time = System.currentTimeMillis();
 
         int brightness = 240;
@@ -24,9 +23,9 @@ public class ParticleRenderer {
         ICalculatedParticleSystem calculated = provider.getCalculatedParticleSystem();
         system.update(calculated, time);
         for (IParticle particle : calculated.getParticles()) {
-            double ox = particle.getOffset().xCoord;
-            double oy = particle.getOffset().yCoord;
-            double oz = particle.getOffset().zCoord;
+            double ox = particle.getOffset().x;
+            double oy = particle.getOffset().y;
+            double oz = particle.getOffset().z;
             double u1 = particle.getU1();
             double u2 = particle.getU2();
             double v1 = particle.getV1();
@@ -62,7 +61,7 @@ public class ParticleRenderer {
         RenderTools.rotateToPlayer();
 
         Tessellator tessellator = Tessellator.getInstance();
-        VertexBuffer buffer = tessellator.getBuffer();
+        BufferBuilder buffer = tessellator.getBuffer();
         buffer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_LMAP_COLOR);
 
         renderParticleSystem(provider, buffer);

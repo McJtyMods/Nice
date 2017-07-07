@@ -42,7 +42,7 @@ public class FishCalculatedSystem extends DefaultCalculatedParticleSystem {
             DefaultParticle particle = (DefaultParticle) particles.get(i);
             float offset = (time % 2000) / 2000.0f;
             Vec3d newo = o.add(movement[i].scale(offset));
-            if (newo.xCoord <= -.4 || newo.yCoord <= -.4 || newo.zCoord <= -.4 || newo.xCoord >= .4 || newo.yCoord >= .4 || newo.zCoord >= .4) {
+            if (newo.x <= -.4 || newo.y <= -.4 || newo.z <= -.4 || newo.x >= .4 || newo.y >= .4 || newo.z >= .4) {
                 randomMovement(i);
             } else {
                 position[i] = newo;

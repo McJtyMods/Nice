@@ -37,9 +37,9 @@ public class BubbleSystem implements IParticleSystem {
         for (int i = 0 ; i < offsets.length ; i++) {
             Vec3d o = offsets[i];
             float offset = (time % 2000) / 2000.0f;
-            double ox = o.xCoord;
-            double oy = (o.yCoord + offset +.5f) % 1f-.5f;
-            double oz = o.zCoord;
+            double ox = o.x;
+            double oy = (o.y + offset +.5f) % 1f-.5f;
+            double oz = o.z;
             DefaultParticle particle = (DefaultParticle) particles.get(i);
             particle.setOffset(new Vec3d(ox, oy, oz));
         }

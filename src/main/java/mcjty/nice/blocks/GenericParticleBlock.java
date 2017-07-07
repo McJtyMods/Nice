@@ -9,6 +9,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -48,7 +49,7 @@ public class GenericParticleBlock extends GenericBlock {
 
     @SideOnly(Side.CLIENT)
     @Override
-    public void addInformation(ItemStack stack, EntityPlayer player, List<String> tooltip, boolean advanced) {
+    public void addInformation(ItemStack stack, World player, List<String> tooltip, ITooltipFlag advanced) {
         tooltip.add(TextFormatting.BLUE + "Select with item to change");
         tooltip.add(TextFormatting.BLUE + "(the item is not consumed)");
         tooltip.add("    Diamond for sparkles");
