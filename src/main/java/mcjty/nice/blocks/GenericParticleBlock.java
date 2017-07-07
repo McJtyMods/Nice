@@ -1,6 +1,5 @@
 package mcjty.nice.blocks;
 
-import mcjty.lib.tools.ItemStackTools;
 import mcjty.nice.client.BlockColor;
 import mcjty.nice.particle.ParticleType;
 import net.minecraft.block.Block;
@@ -85,9 +84,9 @@ public class GenericParticleBlock extends GenericBlock {
     }
 
     @Override
-    protected boolean clOnBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
+    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
         ItemStack heldItem = player.getHeldItem(hand);
-        if (ItemStackTools.isEmpty(heldItem)) {
+        if (heldItem.isEmpty()) {
             return false;
         }
         TileEntity te = world.getTileEntity(pos);

@@ -1,10 +1,9 @@
 package mcjty.nice;
 
-import mcjty.lib.compat.CompatCreativeTabs;
 import mcjty.nice.blocks.ModBlocks;
 import mcjty.nice.proxy.CommonProxy;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -37,10 +36,10 @@ public class Nice {
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
         logger = LogManager.getLogger(MODNAME.replace(" ", ""));
-        creativeTab = new CompatCreativeTabs("Nice") {
+        creativeTab = new CreativeTabs("Nice") {
             @Override
-            protected Item getItem() {
-                return Item.getItemFromBlock(ModBlocks.cylinderBlock);
+            public ItemStack getTabIconItem() {
+                return new ItemStack(ModBlocks.cylinderBlock);
             }
         };
         random = new Random();

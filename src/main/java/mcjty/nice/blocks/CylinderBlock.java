@@ -7,10 +7,10 @@ import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -19,7 +19,6 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nonnull;
-import java.util.List;
 
 public class CylinderBlock extends GenericParticleBlock implements ITileEntityProvider {
 
@@ -57,10 +56,10 @@ public class CylinderBlock extends GenericParticleBlock implements ITileEntityPr
     }
 
     @Override
-    protected void clGetSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
+    public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> items) {
         for (BlockColor color : BlockColor.values()) {
             if (color != BlockColor.TRANSP) {
-                subItems.add(makeColoredBlock(this, color, 1));
+                items.add(makeColoredBlock(this, color, 1));
             }
         }
     }

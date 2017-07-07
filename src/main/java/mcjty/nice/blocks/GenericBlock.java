@@ -1,6 +1,5 @@
 package mcjty.nice.blocks;
 
-import mcjty.lib.compat.CompatBlock;
 import mcjty.nice.Nice;
 import mcjty.nice.client.BlockColor;
 import net.minecraft.block.Block;
@@ -21,7 +20,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 
-public class GenericBlock extends CompatBlock {
+public class GenericBlock extends Block {
 
     public GenericBlock(String name, Material materialIn) {
         super(materialIn);
