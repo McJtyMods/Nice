@@ -17,6 +17,7 @@ import java.util.Random;
 @Mod(modid = Nice.MODID, name = Nice.MODNAME,
         dependencies =
                         "after:forge@[" + Nice.MIN_FORGE11_VER + ",)",
+        acceptedMinecraftVersions = "[1.12,1.13)",
         version = Nice.VERSION)
 public class Nice {
     public static final String MODID = "nice";
