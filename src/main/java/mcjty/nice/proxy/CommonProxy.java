@@ -1,5 +1,6 @@
 package mcjty.nice.proxy;
 
+import mcjty.lib.McJtyLib;
 import mcjty.nice.Config;
 import mcjty.nice.Nice;
 import mcjty.nice.blocks.CylinderTileEntity;
@@ -25,6 +26,7 @@ public class CommonProxy {
 
     public void preInit(FMLPreInitializationEvent e) {
         MinecraftForge.EVENT_BUS.register(this);
+        McJtyLib.preInit(e, Nice.instance);
 
         File directory = e.getModConfigurationDirectory();
         config = new Configuration(new File(directory.getPath(), "nice.cfg"));

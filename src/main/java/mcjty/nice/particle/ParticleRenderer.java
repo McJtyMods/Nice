@@ -1,7 +1,7 @@
 package mcjty.nice.particle;
 
+import mcjty.lib.gui.RenderHelper;
 import mcjty.nice.Nice;
-import mcjty.nice.client.RenderTools;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
@@ -58,7 +58,7 @@ public class ParticleRenderer {
 
 //        this.bindTexture(blueSphereTexture);
 
-        RenderTools.rotateToPlayer();
+        RenderHelper.rotateToPlayer();
 
         Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder buffer = tessellator.getBuffer();

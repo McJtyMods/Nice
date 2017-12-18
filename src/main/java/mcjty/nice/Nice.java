@@ -1,8 +1,10 @@
 package mcjty.nice;
 
+import mcjty.lib.base.ModBase;
 import mcjty.nice.blocks.ModBlocks;
 import mcjty.nice.proxy.CommonProxy;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -16,13 +18,15 @@ import java.util.Random;
 
 @Mod(modid = Nice.MODID, name = Nice.MODNAME,
         dependencies =
-                        "after:forge@[" + Nice.MIN_FORGE11_VER + ",)",
+                "required-after:mcjtylib_ng@[" + Nice.MIN_MCJTYLIB_VER + ",);" +
+                "after:forge@[" + Nice.MIN_FORGE11_VER + ",)",
         acceptedMinecraftVersions = "[1.12,1.13)",
         version = Nice.VERSION)
-public class Nice {
+public class Nice implements ModBase {
     public static final String MODID = "nice";
     public static final String MODNAME = "NICE";
     public static final String VERSION = "0.1.0";
+    public static final String MIN_MCJTYLIB_VER = "2.5.0";
     public static final String MIN_FORGE11_VER = "13.19.0.2176";
 
     @SidedProxy(clientSide="mcjty.nice.proxy.ClientProxy", serverSide="mcjty.nice.proxy.ServerProxy")
@@ -55,5 +59,16 @@ public class Nice {
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event) {
         proxy.postInit(event);
+    }
+
+
+    @Override
+    public String getModId() {
+        return Nice.MODID;
+    }
+
+    @Override
+    public void openManual(EntityPlayer entityPlayer, int i, String s) {
+        // @todo
     }
 }
