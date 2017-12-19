@@ -26,7 +26,7 @@ public class CommonProxy {
 
     public void preInit(FMLPreInitializationEvent e) {
         MinecraftForge.EVENT_BUS.register(this);
-        McJtyLib.preInit(e, Nice.instance);
+        McJtyLib.preInit(e);
 
         File directory = e.getModConfigurationDirectory();
         config = new Configuration(new File(directory.getPath(), "nice.cfg"));
