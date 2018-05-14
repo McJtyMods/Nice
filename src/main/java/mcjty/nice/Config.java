@@ -1,6 +1,6 @@
 package mcjty.nice;
 
-import mcjty.nice.proxy.CommonProxy;
+import net.minecraftforge.common.config.Configuration;
 
 public class Config {
 
@@ -8,8 +8,8 @@ public class Config {
 
     public static double maxRenderDistSquared;
 
-    public static void readConfig() {
-        double d = CommonProxy.config.getFloat("maxRenderDist", CONFIG_RENDERING, 20, 1, 200, "Render distance at which the particles disappear");
+    public static void readConfig(Configuration config) {
+        double d = config.getFloat("maxRenderDist", CONFIG_RENDERING, 20, 1, 200, "Render distance at which the particles disappear");
         maxRenderDistSquared = d * d;
     }
 }

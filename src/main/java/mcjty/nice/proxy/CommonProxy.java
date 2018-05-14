@@ -1,6 +1,7 @@
 package mcjty.nice.proxy;
 
 import mcjty.lib.McJtyLib;
+import mcjty.lib.proxy.AbstractCommonProxy;
 import mcjty.nice.Config;
 import mcjty.nice.Nice;
 import mcjty.nice.blocks.CylinderTileEntity;
@@ -20,17 +21,16 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import java.io.File;
 
-public class CommonProxy {
+public class CommonProxy extends AbstractCommonProxy {
 
-    public static Configuration config;
-
+    @Override
     public void preInit(FMLPreInitializationEvent e) {
-        MinecraftForge.EVENT_BUS.register(this);
-        McJtyLib.preInit(e);
+        super.preInit(e);
 
-        File directory = e.getModConfigurationDirectory();
-        config = new Configuration(new File(directory.getPath(), "nice.cfg"));
-        Config.readConfig();
+        MinecraftForge.EVENT_BUS.register(this);
+
+        mainConfig = new Configuration(new File(modConfigDir.getPath(), "nice.cfg"));
+        Config.readConfig(mainConfig);
 
         ModBlocks.init();
 
@@ -59,13 +59,17 @@ public class CommonProxy {
 
 
 
+    @Override
     public void init(FMLInitializationEvent e) {
+        super.init(e);
 //        NetworkRegistry.INSTANCE.registerGuiHandler(Nice.instance, new GuiProxy());
     }
 
+    @Override
     public void postInit(FMLPostInitializationEvent e) {
-        if (config.hasChanged()) {
-            config.save();
+        super.postInit(e);
+        if (mainConfig.hasChanged()) {
+            mainConfig.save();
         }
     }
 }
