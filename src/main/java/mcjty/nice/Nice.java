@@ -25,8 +25,8 @@ import java.util.Random;
 public class Nice implements ModBase {
     public static final String MODID = "nice";
     public static final String MODNAME = "NICE";
-    public static final String VERSION = "0.3.0alpha";
-    public static final String MIN_MCJTYLIB_VER = "3.0.0";
+    public static final String VERSION = "0.3.0-alpha";
+    public static final String MIN_MCJTYLIB_VER = "3.0.0-alpha";
     public static final String MIN_FORGE11_VER = "13.19.0.2176";
 
     @SidedProxy(clientSide="mcjty.nice.proxy.ClientProxy", serverSide="mcjty.nice.proxy.ServerProxy")
