@@ -1,3 +1,7 @@
+0.3.1:
+- WARNING: Do not load any worlds with xNICEx 0.3.0 or earlier if you last saved them with xNICEx 0.3.1 or later!
+- Joseph fixed log warnings due to tile entities being registered with names like "minecraft:nice_cylinder" instead of "nice:cylinder".
+
 0.3.0:
 - Made compatible with the latest McJtyLib (3.0.0)
 
