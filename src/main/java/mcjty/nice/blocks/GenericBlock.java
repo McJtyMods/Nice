@@ -10,14 +10,11 @@ import net.minecraft.client.renderer.BlockRendererDispatcher;
 import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 
 public class GenericBlock extends Block {
@@ -44,17 +41,6 @@ public class GenericBlock extends Block {
                 return variants.get(GenericBlock.this.getDefaultState().withProperty(GenericParticleBlock.COLOR, color));
             }
         });
-    }
-
-    public ItemBlock createItemBlock(Class<? extends ItemBlock> itemBlockClass) {
-        try {
-            Class<?>[] ctorArgClasses = new Class<?>[1];
-            ctorArgClasses[0] = Block.class;
-            Constructor<? extends ItemBlock> itemCtor = itemBlockClass.getConstructor(ctorArgClasses);
-            return itemCtor.newInstance(this);
-        } catch (NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
-            throw new RuntimeException(e);
-        }
     }
 
 }
