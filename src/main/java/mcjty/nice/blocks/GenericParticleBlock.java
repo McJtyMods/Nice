@@ -69,6 +69,7 @@ public class GenericParticleBlock extends GenericBlock {
             tooltip.add("    Water bucket for bubbles");
             tooltip.add("    Wool for smoke");
             tooltip.add("    Fish for fish");
+            tooltip.add("    String for nothing");
         }
         tooltip.add("    Any dye to change color");
         if (stack.hasTagCompound()) {
@@ -120,6 +121,9 @@ public class GenericParticleBlock extends GenericBlock {
                     return true;
                 } else if (Items.WATER_BUCKET.equals(heldItem.getItem())) {
                     cylinder.setType(ParticleType.BUBBLE);
+                    return true;
+                } else if (Items.STRING.equals(heldItem.getItem())) {
+                    cylinder.setType(ParticleType.NONE);
                     return true;
                 }
             }

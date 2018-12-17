@@ -13,9 +13,9 @@ public class ModBlocks {
 
     public static void init() {
         cylinderBlock = new CylinderBlock("cylinder", .8f);
-        smallCylinderBlock = new CylinderBlock("smallcylinder", .4f);
+        smallCylinderBlock = new CylinderBlock("smallcylinder", .3f);
         solidCylinderBlock = new SolidCylinderBlock("solidcylinder", .8f);
-        solidSmallCylinderBlock = new SolidCylinderBlock("solidsmallcylinder", .4f);
+        solidSmallCylinderBlock = new SolidCylinderBlock("solidsmallcylinder", .3f);
         solidBlock = new SolidBlock();
     }
 
