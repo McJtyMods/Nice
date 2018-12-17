@@ -13,10 +13,22 @@
     "normal": [{}],
     "inventory": [{}],
     "color": {
-      "blue": { "textures": { "#nice:blocks/buis_green": "nice:blocks/buis" } },
+      "light_blue": { "textures": { "#nice:blocks/buis_green": "nice:blocks/buis_light_blue" } },
       "green": { "textures": { "#nice:blocks/buis_green": "nice:blocks/buis_green" } },
       "red": { "textures": { "#nice:blocks/buis_green": "nice:blocks/buis_red" } },
-      "yellow": { "textures": { "#nice:blocks/buis_green": "nice:blocks/buis_yellow" } }
+      "yellow": { "textures": { "#nice:blocks/buis_green": "nice:blocks/buis_yellow" } },
+      "blue": { "textures": { "#nice:blocks/buis_green": "nice:blocks/buis_blue" } },
+      "cyan": { "textures": { "#nice:blocks/buis_green": "nice:blocks/buis_cyan" } },
+      "gray": { "textures": { "#nice:blocks/buis_green": "nice:blocks/buis_gray" } },
+      "lime": { "textures": { "#nice:blocks/buis_green": "nice:blocks/buis_lime" } },
+      "magenta": { "textures": { "#nice:blocks/buis_green": "nice:blocks/buis_magenta" } },
+      "orange": { "textures": { "#nice:blocks/buis_green": "nice:blocks/buis_orange" } },
+      "pink": { "textures": { "#nice:blocks/buis_green": "nice:blocks/buis_pink" } },
+      "purple": { "textures": { "#nice:blocks/buis_green": "nice:blocks/buis_purple" } },
+      "silver": { "textures": { "#nice:blocks/buis_green": "nice:blocks/buis_silver" } },
+      "white": { "textures": { "#nice:blocks/buis_green": "nice:blocks/buis_white" } },
+      "brown": { "textures": { "#nice:blocks/buis_green": "nice:blocks/buis_brown" } },
+      "transp": { "model": "nice:empty_model" }
     },
     "facing": {
       "up": {},

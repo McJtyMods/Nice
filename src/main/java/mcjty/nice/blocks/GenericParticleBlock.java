@@ -13,6 +13,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -26,9 +27,11 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.oredict.DyeUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class GenericParticleBlock extends GenericBlock {
 
@@ -55,6 +58,7 @@ public class GenericParticleBlock extends GenericBlock {
         tooltip.add("    Water bucket for bubbles");
         tooltip.add("    Wool for smoke");
         tooltip.add("    Fish for fish");
+        tooltip.add("    Any dye to change color");
         if (stack.hasTagCompound()) {
             int color = stack.getTagCompound().getInteger("color");
             tooltip.add(TextFormatting.YELLOW + "Block color: " + BlockColor.values()[color].getName());
@@ -105,6 +109,18 @@ public class GenericParticleBlock extends GenericBlock {
                 cylinder.setType(ParticleType.BUBBLE);
                 return true;
             }
+            if (DyeUtils.isDye(heldItem)) {
+                Optional<EnumDyeColor> dyeColor = DyeUtils.colorFromStack(heldItem);
+                if (dyeColor.isPresent()) {
+                    for (BlockColor value : BlockColor.values()) {
+                        if (value.getDye() == dyeColor.get()) {
+                            cylinder.setColor(value);
+                            return true;
+                        }
+                    }
+                }
+            }
+
         }
         return false;
     }

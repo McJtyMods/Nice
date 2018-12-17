@@ -11,10 +11,21 @@
     "inventory": [{}],
     "color": {
       "transp": { "model": "nice:empty_model" },
-      "blue": { "textures": { "txt": "nice:blocks/buis" } },
+      "light_blue": { "textures": { "txt": "nice:blocks/buis_light_blue" } },
       "green": { "textures": { "txt": "nice:blocks/buis_green" } },
       "red": { "textures": { "txt": "nice:blocks/buis_red" } },
-      "yellow": { "textures": { "txt": "nice:blocks/buis_yellow" } }
+      "yellow": { "textures": { "txt": "nice:blocks/buis_yellow" } },
+      "blue": { "textures": { "txt": "nice:blocks/buis_blue" } },
+      "cyan": { "textures": { "txt": "nice:blocks/buis_cyan" } },
+      "gray": { "textures": { "txt": "nice:blocks/buis_gray" } },
+      "lime": { "textures": { "txt": "nice:blocks/buis_lime" } },
+      "magenta": { "textures": { "txt": "nice:blocks/buis_magenta" } },
+      "orange": { "textures": { "txt": "nice:blocks/buis_orange" } },
+      "pink": { "textures": { "txt": "nice:blocks/buis_pink" } },
+      "purple": { "textures": { "txt": "nice:blocks/buis_purple" } },
+      "silver": { "textures": { "txt": "nice:blocks/buis_silver" } },
+      "white": { "textures": { "txt": "nice:blocks/buis_white" } },
+      "brown": { "textures": { "txt": "nice:blocks/buis_brown" } }
     }
   }
 }
