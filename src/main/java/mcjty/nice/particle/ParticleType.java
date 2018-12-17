@@ -1,15 +1,13 @@
 package mcjty.nice.particle;
 
-import mcjty.nice.particle.systems.BlinkSystem;
-import mcjty.nice.particle.systems.BubbleSystem;
-import mcjty.nice.particle.systems.FishSystem;
-import mcjty.nice.particle.systems.SmokeSystem;
+import mcjty.nice.particle.systems.*;
 
 public enum ParticleType {
     SMOKE(new SmokeSystem()),
     BLINK(new BlinkSystem()),
     FISH(new FishSystem()),
-    BUBBLE(new BubbleSystem());
+    BUBBLE(new BubbleSystem()),
+    NONE(new NullSystem());
 
     private final IParticleSystem particleSystem;
 

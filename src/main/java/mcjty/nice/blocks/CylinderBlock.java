@@ -26,8 +26,8 @@ public class CylinderBlock extends GenericParticleBlock implements ITileEntityPr
 
     public static final PropertyDirection FACING = PropertyDirection.create("facing");
 
-    public CylinderBlock() {
-        super("cylinder");
+    public CylinderBlock(String name, float scale) {
+        super(name, scale);
     }
 
     @Override

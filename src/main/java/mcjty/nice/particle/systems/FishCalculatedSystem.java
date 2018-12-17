@@ -14,14 +14,14 @@ public class FishCalculatedSystem extends DefaultCalculatedParticleSystem {
     private Vec3d[] movement;
 
 
-    public FishCalculatedSystem() {
-        super(random.nextInt(3)+1);
+    public FishCalculatedSystem(float scale) {
+        super(random.nextInt(3)+1, scale);
 
         int amount = particles.size();
         position = new Vec3d[amount];
         movement = new Vec3d[amount];
         for (int i = 0 ; i < amount ; i++) {
-            position[i] = new Vec3d(random.nextDouble()*.8-.4, random.nextDouble()*.8-.4, random.nextDouble()*.8-.4);
+            position[i] = new Vec3d(random.nextDouble()*scale-scale/2.0, random.nextDouble()*.8-.8/2.0, random.nextDouble()*scale-scale/2.0);
             randomMovement(i);
             DefaultParticle particle = (DefaultParticle) particles.get(i);
             int type = random.nextInt(3);

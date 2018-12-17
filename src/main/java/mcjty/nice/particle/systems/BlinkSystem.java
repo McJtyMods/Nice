@@ -6,8 +6,8 @@ import mcjty.nice.particle.IParticleSystem;
 public class BlinkSystem implements IParticleSystem {
 
     @Override
-    public ICalculatedParticleSystem createCalculatedParticleSystem() {
-        return new BlinkCalculatedSystem();
+    public ICalculatedParticleSystem createCalculatedParticleSystem(float scale) {
+        return new BlinkCalculatedSystem(scale);
     }
 
     @Override

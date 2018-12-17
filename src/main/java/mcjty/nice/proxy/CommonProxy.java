@@ -45,6 +45,9 @@ public class CommonProxy extends AbstractCommonProxy {
 
         event.getRegistry().register(ModBlocks.solidBlock);
         event.getRegistry().register(ModBlocks.cylinderBlock);
+        event.getRegistry().register(ModBlocks.smallCylinderBlock);
+        event.getRegistry().register(ModBlocks.solidCylinderBlock);
+        event.getRegistry().register(ModBlocks.solidSmallCylinderBlock);
         GameRegistry.registerTileEntity(CylinderTileEntity.class, MODID + ":cylinder");
         GameRegistry.registerTileEntity(SolidTileEntity.class, MODID + ":solid");
 
@@ -62,6 +65,9 @@ public class CommonProxy extends AbstractCommonProxy {
     public void registerItems(RegistryEvent.Register<Item> event) {
         event.getRegistry().register(new ItemBlock(ModBlocks.solidBlock).setRegistryName(ModBlocks.solidBlock.getRegistryName()));
         event.getRegistry().register(new ItemBlock(ModBlocks.cylinderBlock).setRegistryName(ModBlocks.cylinderBlock.getRegistryName()));
+        event.getRegistry().register(new ItemBlock(ModBlocks.smallCylinderBlock).setRegistryName(ModBlocks.smallCylinderBlock.getRegistryName()));
+        event.getRegistry().register(new ItemBlock(ModBlocks.solidCylinderBlock).setRegistryName(ModBlocks.solidCylinderBlock.getRegistryName()));
+        event.getRegistry().register(new ItemBlock(ModBlocks.solidSmallCylinderBlock).setRegistryName(ModBlocks.solidSmallCylinderBlock.getRegistryName()));
     }
 
 

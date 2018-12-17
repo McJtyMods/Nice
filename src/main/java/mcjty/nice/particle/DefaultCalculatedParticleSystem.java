@@ -7,15 +7,23 @@ public class DefaultCalculatedParticleSystem implements ICalculatedParticleSyste
 
     protected List<IParticle> particles;
 
-    public DefaultCalculatedParticleSystem(int size) {
+    private final float scale;
+
+    public DefaultCalculatedParticleSystem(int size, float scale) {
         particles = new ArrayList<>(size);
         for (int i = 0 ; i < size ; i++) {
             particles.add(new DefaultParticle());
         }
+        this.scale = scale;
     }
 
     @Override
     public List<IParticle> getParticles() {
         return particles;
+    }
+
+    @Override
+    public float getScale() {
+        return scale;
     }
 }

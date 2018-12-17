@@ -25,7 +25,7 @@ public class SolidBlock extends GenericParticleBlock implements ITileEntityProvi
     public static final AxisAlignedBB EMPTY = new AxisAlignedBB(0, 0, 0, 0, 0, 0);
 
     public SolidBlock() {
-        super("solid");
+        super("solid", 0.8f);
     }
 
     @Override

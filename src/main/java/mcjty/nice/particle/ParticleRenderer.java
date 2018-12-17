@@ -22,6 +22,9 @@ public class ParticleRenderer {
         int b2 = brightness & 65535;
         IParticleSystem system = provider.getParticleSystem();
         ICalculatedParticleSystem calculated = provider.getCalculatedParticleSystem();
+        if (calculated == null) {
+            return;
+        }
         system.update(calculated, time);
         for (IParticle particle : calculated.getParticles()) {
             double ox = particle.getOffset().x;

@@ -36,13 +36,23 @@ import java.util.Optional;
 public class GenericParticleBlock extends GenericBlock {
 
     public static final PropertyEnum<BlockColor> COLOR = PropertyEnum.<BlockColor>create("color", BlockColor.class);
+    private final float scale;
 
-    public GenericParticleBlock(String name) {
+    public GenericParticleBlock(String name, float scale) {
         super(name, Material.ROCK);
         setHardness(3.0f);
         setResistance(5.0f);
         setSoundType(SoundType.GLASS);
         setDefaultState(getState());
+        this.scale = scale;
+    }
+
+    protected boolean supportsParticles() {
+        return true;
+    }
+
+    public float getScale() {
+        return scale;
     }
 
     protected IBlockState getState() {
@@ -54,10 +64,12 @@ public class GenericParticleBlock extends GenericBlock {
     public void addInformation(ItemStack stack, World player, List<String> tooltip, ITooltipFlag advanced) {
         tooltip.add(TextFormatting.BLUE + "Select with item to change");
         tooltip.add(TextFormatting.BLUE + "(the item is not consumed)");
-        tooltip.add("    Diamond for sparkles");
-        tooltip.add("    Water bucket for bubbles");
-        tooltip.add("    Wool for smoke");
-        tooltip.add("    Fish for fish");
+        if (supportsParticles()) {
+            tooltip.add("    Diamond for sparkles");
+            tooltip.add("    Water bucket for bubbles");
+            tooltip.add("    Wool for smoke");
+            tooltip.add("    Fish for fish");
+        }
         tooltip.add("    Any dye to change color");
         if (stack.hasTagCompound()) {
             int color = stack.getTagCompound().getInteger("color");
@@ -96,18 +108,20 @@ public class GenericParticleBlock extends GenericBlock {
         TileEntity te = world.getTileEntity(pos);
         if (te instanceof GenericParticleTileEntity) {
             GenericParticleTileEntity cylinder = (GenericParticleTileEntity) te;
-            if (Items.DIAMOND.equals(heldItem.getItem())) {
-                cylinder.setType(ParticleType.BLINK);
-                return true;
-            } else if (Items.FISH.equals(heldItem.getItem())) {
-                cylinder.setType(ParticleType.FISH);
-                return true;
-            } else if (Item.getItemFromBlock(Blocks.WOOL).equals(heldItem.getItem())) {
-                cylinder.setType(ParticleType.SMOKE);
-                return true;
-            } else if (Items.WATER_BUCKET.equals(heldItem.getItem())) {
-                cylinder.setType(ParticleType.BUBBLE);
-                return true;
+            if (supportsParticles()) {
+                if (Items.DIAMOND.equals(heldItem.getItem())) {
+                    cylinder.setType(ParticleType.BLINK);
+                    return true;
+                } else if (Items.FISH.equals(heldItem.getItem())) {
+                    cylinder.setType(ParticleType.FISH);
+                    return true;
+                } else if (Item.getItemFromBlock(Blocks.WOOL).equals(heldItem.getItem())) {
+                    cylinder.setType(ParticleType.SMOKE);
+                    return true;
+                } else if (Items.WATER_BUCKET.equals(heldItem.getItem())) {
+                    cylinder.setType(ParticleType.BUBBLE);
+                    return true;
+                }
             }
             if (DyeUtils.isDye(heldItem)) {
                 Optional<EnumDyeColor> dyeColor = DyeUtils.colorFromStack(heldItem);

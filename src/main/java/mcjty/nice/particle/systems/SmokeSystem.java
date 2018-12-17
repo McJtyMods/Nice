@@ -19,12 +19,12 @@ public class SmokeSystem implements IParticleSystem {
     }
 
     @Override
-    public ICalculatedParticleSystem createCalculatedParticleSystem() {
-        DefaultCalculatedParticleSystem calculated = new DefaultCalculatedParticleSystem(offsets.length);
+    public ICalculatedParticleSystem createCalculatedParticleSystem(float scale) {
+        DefaultCalculatedParticleSystem calculated = new DefaultCalculatedParticleSystem(offsets.length, scale);
         List<IParticle> particles = calculated.getParticles();
         for (int i = 0 ; i < offsets.length ; i++) {
             DefaultParticle particle = (DefaultParticle) particles.get(i);
-            particle.setScale(.4);
+            particle.setScale(.4 * scale / .8f);
             particle.setUV(0, 0, 1.0D / 8, 1.0D / 8);
             particle.setColor(255, 255, 255, 128);
         }
@@ -37,9 +37,9 @@ public class SmokeSystem implements IParticleSystem {
         for (int i = 0 ; i < offsets.length ; i++) {
             Vec3d o = offsets[i];
             float offset = (time % 2000) / 2000.0f;
-            double ox = o.x;
+            double ox = o.x * calculated.getScale() / 0.8f;
             double oy = (o.y + offset +.5f) % 1f-.5f;
-            double oz = o.z;
+            double oz = o.z * calculated.getScale() / 0.8f;
             DefaultParticle particle = (DefaultParticle) particles.get(i);
             particle.setOffset(new Vec3d(ox, oy, oz));
         }

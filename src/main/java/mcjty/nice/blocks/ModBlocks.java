@@ -6,16 +6,25 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class ModBlocks {
 
     public static CylinderBlock cylinderBlock;
+    public static CylinderBlock smallCylinderBlock;
+    public static SolidCylinderBlock solidCylinderBlock;
+    public static SolidCylinderBlock solidSmallCylinderBlock;
     public static SolidBlock solidBlock;
 
     public static void init() {
-        cylinderBlock = new CylinderBlock();
+        cylinderBlock = new CylinderBlock("cylinder", .8f);
+        smallCylinderBlock = new CylinderBlock("smallcylinder", .4f);
+        solidCylinderBlock = new SolidCylinderBlock("solidcylinder", .8f);
+        solidSmallCylinderBlock = new SolidCylinderBlock("solidsmallcylinder", .4f);
         solidBlock = new SolidBlock();
     }
 
     @SideOnly(Side.CLIENT)
     public static void initModels() {
         cylinderBlock.initClient();
+        smallCylinderBlock.initClient();
+        solidCylinderBlock.initClient();
+        solidSmallCylinderBlock.initClient();
         solidBlock.initClient();
     }
 

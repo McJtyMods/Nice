@@ -4,4 +4,6 @@ import java.util.List;
 
 public interface ICalculatedParticleSystem {
     List<IParticle> getParticles();
+
+    float getScale();
 }

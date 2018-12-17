@@ -19,8 +19,8 @@ public class BubbleSystem implements IParticleSystem {
     }
 
     @Override
-    public ICalculatedParticleSystem createCalculatedParticleSystem() {
-        DefaultCalculatedParticleSystem calculated = new DefaultCalculatedParticleSystem(offsets.length);
+    public ICalculatedParticleSystem createCalculatedParticleSystem(float scale) {
+        DefaultCalculatedParticleSystem calculated = new DefaultCalculatedParticleSystem(offsets.length, scale);
         List<IParticle> particles = calculated.getParticles();
         for (int i = 0 ; i < offsets.length ; i++) {
             DefaultParticle particle = (DefaultParticle) particles.get(i);
@@ -37,9 +37,9 @@ public class BubbleSystem implements IParticleSystem {
         for (int i = 0 ; i < offsets.length ; i++) {
             Vec3d o = offsets[i];
             float offset = (time % 2000) / 2000.0f;
-            double ox = o.x;
+            double ox = o.x * calculated.getScale() / 0.8f;
             double oy = (o.y + offset +.5f) % 1f-.5f;
-            double oz = o.z;
+            double oz = o.z * calculated.getScale() / 0.8f;
             DefaultParticle particle = (DefaultParticle) particles.get(i);
             particle.setOffset(new Vec3d(ox, oy, oz));
         }

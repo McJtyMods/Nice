@@ -12,7 +12,10 @@ public class CylinderRenderer extends TileEntitySpecialRenderer<CylinderTileEnti
     @Override
     public void render(CylinderTileEntity te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
         IBlockState blockState = getWorld().getBlockState(te.getPos());
-        if (blockState.getBlock() != ModBlocks.cylinderBlock) {
+        if (blockState.getBlock() instanceof SolidCylinderBlock) {
+            return;
+        }
+        if (!(blockState.getBlock() instanceof CylinderBlock)) {
             return;
         }
         this.bindTexture(ParticleRenderer.particles);

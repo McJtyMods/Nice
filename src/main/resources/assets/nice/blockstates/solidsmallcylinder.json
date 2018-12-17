@@ -1,0 +1,42 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "custom": { "flip-v": true },
+    "model": "nice:smallcylinder.obj",
+    "textures": {
+      "particle": "nice:blocks/buis_green",
+      "#nice:blocks/buis_green": "nice:blocks/buis_green"
+    },
+    "transform": "forge:default-block"
+  },
+  "variants": {
+    "normal": [{}],
+    "inventory": [{}],
+    "color": {
+      "light_blue": { "textures": { "#nice:blocks/buis_green": "nice:blocks/solid_light_blue" } },
+      "green": { "textures": { "#nice:blocks/buis_green": "nice:blocks/solid_green" } },
+      "red": { "textures": { "#nice:blocks/buis_green": "nice:blocks/solid_red" } },
+      "yellow": { "textures": { "#nice:blocks/buis_green": "nice:blocks/solid_yellow" } },
+      "blue": { "textures": { "#nice:blocks/buis_green": "nice:blocks/solid_blue" } },
+      "cyan": { "textures": { "#nice:blocks/buis_green": "nice:blocks/solid_cyan" } },
+      "gray": { "textures": { "#nice:blocks/buis_green": "nice:blocks/solid_gray" } },
+      "lime": { "textures": { "#nice:blocks/buis_green": "nice:blocks/solid_lime" } },
+      "magenta": { "textures": { "#nice:blocks/buis_green": "nice:blocks/solid_magenta" } },
+      "orange": { "textures": { "#nice:blocks/buis_green": "nice:blocks/solid_orange" } },
+      "pink": { "textures": { "#nice:blocks/buis_green": "nice:blocks/solid_pink" } },
+      "purple": { "textures": { "#nice:blocks/buis_green": "nice:blocks/solid_purple" } },
+      "silver": { "textures": { "#nice:blocks/buis_green": "nice:blocks/solid_silver" } },
+      "white": { "textures": { "#nice:blocks/buis_green": "nice:blocks/solid_white" } },
+      "brown": { "textures": { "#nice:blocks/buis_green": "nice:blocks/solid_brown" } },
+      "transp": { "model": "nice:empty_model" }
+    },
+    "facing": {
+      "up": {},
+      "down": {},
+      "west": {"x": 90, "y": 90},
+      "east": {"x": 90, "y": 90},
+      "north": {"x": 90},
+      "south": {"x": 90}
+    }
+  }
+}

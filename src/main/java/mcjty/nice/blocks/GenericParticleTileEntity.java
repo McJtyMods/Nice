@@ -6,12 +6,14 @@ import mcjty.nice.particle.ICalculatedParticleSystem;
 import mcjty.nice.particle.IParticleProvider;
 import mcjty.nice.particle.IParticleSystem;
 import mcjty.nice.particle.ParticleType;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 public class GenericParticleTileEntity extends GenericTileEntity implements IParticleProvider {
 
@@ -70,10 +72,15 @@ public class GenericParticleTileEntity extends GenericTileEntity implements IPar
         return type.getParticleSystem();
     }
 
+    @Nullable
     @Override
     public ICalculatedParticleSystem getCalculatedParticleSystem() {
         if (calculatedParticleSystem == null) {
-            calculatedParticleSystem = getParticleSystem().createCalculatedParticleSystem();
+            IBlockState state = world.getBlockState(pos);
+            if (!(state.getBlock() instanceof GenericParticleBlock)) {
+                return null;
+            }
+            calculatedParticleSystem = getParticleSystem().createCalculatedParticleSystem(((GenericParticleBlock) state.getBlock()).getScale());
         }
         return calculatedParticleSystem;
     }

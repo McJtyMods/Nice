@@ -1,0 +1,24 @@
+  {
+  "result": {
+    "item": "nice:solidcylinder",
+    "count": 2,
+    "nbt": {
+      "color":0
+    }
+  },
+  "pattern": [
+    "gdg",
+    "gdg",
+    "gdg"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "d": {
+      "type": "forge:ore_dict",
+      "ore": "dyeBlue"
+    },
+    "g": {
+      "item": "minecraft:iron_nugget"
+    }
+  }
+}
