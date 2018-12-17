@@ -1,13 +1,12 @@
 package mcjty.nice.particle;
 
 import mcjty.lib.client.RenderHelper;
-import mcjty.nice.Config;
+import mcjty.nice.NiceConfig;
 import mcjty.nice.Nice;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.inventory.Container;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 
@@ -32,9 +31,9 @@ public class ParticleRenderer {
             double u2 = particle.getU2();
             double v1 = particle.getV1();
             double v2 = particle.getV2();
-            int r = (int) (particle.getR() * Config.particleBrightnessR);
-            int g = (int) (particle.getG() * Config.particleBrightnessG);
-            int b = (int) (particle.getB() * Config.particleBrightnessB);
+            int r = (int) (particle.getR() * NiceConfig.particleBrightnessR);
+            int g = (int) (particle.getG() * NiceConfig.particleBrightnessG);
+            int b = (int) (particle.getB() * NiceConfig.particleBrightnessB);
             int a = particle.getA();
             double scale = particle.getScale();
 

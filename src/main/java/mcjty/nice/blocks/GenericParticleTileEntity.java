@@ -1,6 +1,6 @@
 package mcjty.nice.blocks;
 
-import mcjty.nice.Config;
+import mcjty.nice.NiceConfig;
 import mcjty.nice.client.BlockColor;
 import mcjty.nice.particle.ICalculatedParticleSystem;
 import mcjty.nice.particle.IParticleProvider;
@@ -81,6 +81,6 @@ public class GenericParticleTileEntity extends GenericTileEntity implements IPar
     @SideOnly(Side.CLIENT)
     @Override
     public double getMaxRenderDistanceSquared() {
-        return Config.maxRenderDistSquared;
+        return NiceConfig.maxRenderDist * NiceConfig.maxRenderDist;
     }
 }
