@@ -14,7 +14,6 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -36,10 +35,9 @@ public class CylinderBlock extends GenericParticleBlock implements ITileEntityPr
     }
 
     @Override
-    @SideOnly(Side.CLIENT)
     public void initClient() {
         super.initClient();
-        ClientRegistry.bindTileEntitySpecialRenderer(CylinderTileEntity.class, new CylinderRenderer());
+        CylinderRenderer.register();
     }
 
     @Override

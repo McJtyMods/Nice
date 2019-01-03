@@ -14,7 +14,6 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -35,10 +34,9 @@ public class SolidBlock extends GenericParticleBlock implements ITileEntityProvi
     }
 
     @Override
-    @SideOnly(Side.CLIENT)
     public void initClient() {
         super.initClient();
-        ClientRegistry.bindTileEntitySpecialRenderer(SolidTileEntity.class, new SolidRenderer());
+        SolidRenderer.register();
     }
 
     @SideOnly(Side.CLIENT)
