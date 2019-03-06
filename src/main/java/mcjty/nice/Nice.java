@@ -1,18 +1,14 @@
 package mcjty.nice;
 
 import mcjty.lib.base.ModBase;
-import mcjty.nice.blocks.ModBlocks;
-import mcjty.nice.proxy.CommonProxy;
-import net.minecraft.creativetab.CreativeTabs;
+import mcjty.lib.proxy.IProxy;
+import mcjty.nice.proxy.CommonSetup;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.util.Random;
 
@@ -30,34 +26,29 @@ public class Nice implements ModBase {
     public static final String MIN_FORGE11_VER = "13.19.0.2176";
 
     @SidedProxy(clientSide="mcjty.nice.proxy.ClientProxy", serverSide="mcjty.nice.proxy.ServerProxy")
-    public static CommonProxy proxy;
+    public static IProxy proxy;
+    public static CommonSetup setup = new CommonSetup();
 
     @Mod.Instance(MODID)
     public static Nice instance;
-    public static Logger logger;
-    public static CreativeTabs creativeTab;
-    public static Random random;
+
+    public static Random random = new Random();
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
-        logger = LogManager.getLogger(MODNAME.replace(" ", ""));
-        creativeTab = new CreativeTabs("Nice") {
-            @Override
-            public ItemStack getTabIconItem() {
-                return new ItemStack(ModBlocks.cylinderBlock);
-            }
-        };
-        random = new Random();
+        setup.preInit(event);
         proxy.preInit(event);
     }
 
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
+        setup.init(event);
         proxy.init(event);
     }
 
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event) {
+        setup.postInit(event);
         proxy.postInit(event);
     }
 

@@ -1,14 +1,14 @@
 package mcjty.nice.proxy;
 
 import mcjty.lib.datafix.fixes.TileEntityNamespace;
-import mcjty.lib.proxy.AbstractCommonProxy;
-import mcjty.nice.Nice;
+import mcjty.lib.setup.DefaultCommonSetup;
 import mcjty.nice.blocks.CylinderTileEntity;
 import mcjty.nice.blocks.ModBlocks;
 import mcjty.nice.blocks.SolidTileEntity;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.datafix.FixTypes;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Config;
@@ -27,7 +27,7 @@ import java.util.Map;
 
 import static mcjty.nice.Nice.MODID;
 
-public class CommonProxy extends AbstractCommonProxy {
+public class CommonSetup extends DefaultCommonSetup {
 
     @Override
     public void preInit(FMLPreInitializationEvent e) {
@@ -59,6 +59,11 @@ public class CommonProxy extends AbstractCommonProxy {
         oldToNewIdMap.put(MODID + "_solid", MODID + ":solid");
         oldToNewIdMap.put("minecraft:" + MODID + "_solid", MODID + ":solid");
         modFixs.registerFix(FixTypes.BLOCK_ENTITY, new TileEntityNamespace(oldToNewIdMap, 1));
+    }
+
+    @Override
+    public void createTabs() {
+        createTab("Nice", new ItemStack(ModBlocks.cylinderBlock));
     }
 
     @SubscribeEvent

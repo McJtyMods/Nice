@@ -23,7 +23,7 @@ public class GenericBlock extends Block {
         super(materialIn);
         setRegistryName(name);
         setUnlocalizedName(Nice.MODID + "." + name);
-        setCreativeTab(Nice.creativeTab);
+        setCreativeTab(Nice.setup.getTab());
     }
 
     @SideOnly(Side.CLIENT)
