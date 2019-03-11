@@ -2,7 +2,7 @@ package mcjty.nice;
 
 import mcjty.lib.base.ModBase;
 import mcjty.lib.proxy.IProxy;
-import mcjty.nice.proxy.CommonSetup;
+import mcjty.nice.setup.CommonSetup;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;

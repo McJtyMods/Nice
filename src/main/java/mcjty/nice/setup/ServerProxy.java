@@ -1,4 +1,4 @@
-package mcjty.nice.proxy;
+package mcjty.nice.setup;
 
 import mcjty.lib.setup.DefaultServerProxy;
 
