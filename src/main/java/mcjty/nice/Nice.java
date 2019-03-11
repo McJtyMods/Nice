@@ -2,7 +2,7 @@ package mcjty.nice;
 
 import mcjty.lib.base.ModBase;
 import mcjty.lib.proxy.IProxy;
-import mcjty.nice.setup.CommonSetup;
+import mcjty.nice.setup.ModSetup;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -27,7 +27,7 @@ public class Nice implements ModBase {
 
     @SidedProxy(clientSide="mcjty.nice.setup.ClientProxy", serverSide="mcjty.nice.setup.ServerProxy")
     public static IProxy proxy;
-    public static CommonSetup setup = new CommonSetup();
+    public static ModSetup setup = new ModSetup();
 
     @Mod.Instance(MODID)
     public static Nice instance;
