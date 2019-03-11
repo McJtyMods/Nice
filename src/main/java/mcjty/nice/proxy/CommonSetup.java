@@ -37,6 +37,11 @@ public class CommonSetup extends DefaultCommonSetup {
         ModBlocks.init();
     }
 
+    @Override
+    protected void setupModCompat() {
+
+    }
+
     @SubscribeEvent
     public void registerBlocks(RegistryEvent.Register<Block> event) {
         ModFixs modFixs = FMLCommonHandler.instance().getDataFixer().init(MODID, 1);
