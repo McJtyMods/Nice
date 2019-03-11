@@ -25,7 +25,7 @@ public class Nice implements ModBase {
     public static final String MIN_MCJTYLIB_VER = "3.1.0";
     public static final String MIN_FORGE11_VER = "13.19.0.2176";
 
-    @SidedProxy(clientSide="mcjty.nice.proxy.ClientProxy", serverSide="mcjty.nice.proxy.ServerProxy")
+    @SidedProxy(clientSide="mcjty.nice.setup.ClientProxy", serverSide="mcjty.nice.setup.ServerProxy")
     public static IProxy proxy;
     public static CommonSetup setup = new CommonSetup();
 
