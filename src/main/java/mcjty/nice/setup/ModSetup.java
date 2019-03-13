@@ -28,6 +28,11 @@ public class ModSetup extends DefaultModSetup {
     }
 
     @Override
+    protected void setupConfig() {
+
+    }
+
+    @Override
     public void createTabs() {
         createTab("Nice", new ItemStack(ModBlocks.cylinderBlock));
     }
