@@ -12,6 +12,8 @@ public class BlinkSystem implements IParticleSystem {
 
     @Override
     public void update(ICalculatedParticleSystem calculated, long time) {
-        ((BlinkCalculatedSystem) calculated).update(time);
+        if (calculated instanceof BlinkCalculatedSystem) {
+            ((BlinkCalculatedSystem) calculated).update(time);
+        }
     }
 }
