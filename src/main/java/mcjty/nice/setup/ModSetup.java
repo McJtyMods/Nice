@@ -34,7 +34,7 @@ public class ModSetup extends DefaultModSetup {
 
     @Override
     public void createTabs() {
-        createTab("Nice", new ItemStack(ModBlocks.cylinderBlock));
+        createTab("Nice", () -> new ItemStack(ModBlocks.cylinderBlock));
     }
 
     @SubscribeEvent
