@@ -2,7 +2,7 @@ package mcjty.nice.particle.systems;
 
 import mcjty.nice.particle.DefaultCalculatedParticleSystem;
 import mcjty.nice.particle.DefaultParticle;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.vector.Vector3d;
 
 import java.util.Random;
 
@@ -18,7 +18,7 @@ public class BlinkCalculatedSystem extends DefaultCalculatedParticleSystem {
         int amount = particles.size();
         for (int i = 0 ; i < amount ; i++) {
             DefaultParticle particle = (DefaultParticle) particles.get(i);
-            Vec3d o = new Vec3d(random.nextDouble()*scale-scale/2.0f, random.nextDouble()*.8-.8/2.0f, random.nextDouble()*scale-scale/2.0f);
+            Vector3d o = new Vector3d(random.nextDouble()*scale-scale/2.0f, random.nextDouble()*.8-.8/2.0f, random.nextDouble()*scale-scale/2.0f);
             particle.setOffset(o);
             particle.setUV(4D/8, 0, 5D/8, 1D/8);
             particle.setColor(255, 255, 255, 128);
@@ -35,7 +35,7 @@ public class BlinkCalculatedSystem extends DefaultCalculatedParticleSystem {
             }
             particle.setScale(offset * .3f);
             if (offset < .001) {
-                Vec3d o = new Vec3d(random.nextDouble()*.8-.4, random.nextDouble()*.8-.4, random.nextDouble()*.8-.4);
+                Vector3d o = new Vector3d(random.nextDouble()*.8-.4, random.nextDouble()*.8-.4, random.nextDouble()*.8-.4);
                 particle.setOffset(o);
             }
         }

@@ -1,38 +1,35 @@
 package mcjty.nice.blocks;
 
-import mcjty.nice.NiceConfig;
-import mcjty.nice.client.BlockColor;
+import mcjty.lib.tileentity.GenericTileEntity;
 import mcjty.nice.particle.ICalculatedParticleSystem;
 import mcjty.nice.particle.IParticleProvider;
 import mcjty.nice.particle.IParticleSystem;
 import mcjty.nice.particle.ParticleType;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraft.block.BlockState;
+import net.minecraft.item.DyeColor;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraftforge.common.util.Constants;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class GenericParticleTileEntity extends GenericTileEntity implements IParticleProvider {
 
-    private BlockColor color = BlockColor.BLUE;
-
     private ParticleType type = ParticleType.SMOKE;
 
-    @Override
-    public void readFromNBT(NBTTagCompound compound) {
-        this.type = ParticleType.values()[compound.getInteger("type")];
-        this.color = BlockColor.values()[compound.getInteger("color")];
-        super.readFromNBT(compound);
+    public GenericParticleTileEntity() {
+        super(ModBlocks.TYPE_PARTICLE.get());
     }
 
     @Override
-    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-        compound.setInteger("type", type.ordinal());
-        compound.setInteger("color", color.ordinal());
-        return super.writeToNBT(compound);
+    public void load(BlockState state, CompoundNBT tag) {
+        this.type = ParticleType.valueOf(tag.getString("type"));
+        super.load(state, tag);
+    }
+
+    @Override
+    public CompoundNBT save(CompoundNBT tag) {
+        tag.putString("type", type.name());
+        return super.save(tag);
     }
 
     public void setType(ParticleType type) {
@@ -41,31 +38,25 @@ public class GenericParticleTileEntity extends GenericTileEntity implements IPar
         markDirtyClient();
     }
 
-    public BlockColor getColor() {
-        return color;
-    }
-
-    public void setColor(BlockColor color) {
-        this.color = color;
-        markDirtyClient();
+    public void setColor(DyeColor color) {
+        level.setBlock(worldPosition, getBlockState().setValue(GenericParticleBlock.COLOR, color), Constants.BlockFlags.DEFAULT_AND_RERENDER);
     }
 
     private ICalculatedParticleSystem calculatedParticleSystem;
 
-    @Override
-    public boolean shouldRenderInPass(int pass) {
-        return pass == 1;
-    }
+//    @SideOnly(Side.CLIENT)
+//    public AxisAlignedBB getRenderBoundingBox() {
+//        int xCoord = getPos().getX();
+//        int yCoord = getPos().getY();
+//        int zCoord = getPos().getZ();
+//        return new AxisAlignedBB(xCoord - 1, yCoord, zCoord - 1, xCoord + 2, yCoord + 3, zCoord + 2);
+//    }
 
-    @Override
-    @Nonnull
-    @SideOnly(Side.CLIENT)
-    public AxisAlignedBB getRenderBoundingBox() {
-        int xCoord = getPos().getX();
-        int yCoord = getPos().getY();
-        int zCoord = getPos().getZ();
-        return new AxisAlignedBB(xCoord - 1, yCoord, zCoord - 1, xCoord + 2, yCoord + 3, zCoord + 2);
-    }
+    //    @SideOnly(Side.CLIENT)
+//    @Override
+//    public double getMaxRenderDistanceSquared() {
+//        return NiceConfig.maxRenderDist * NiceConfig.maxRenderDist;
+//    }
 
     @Override
     public IParticleSystem getParticleSystem() {
@@ -76,18 +67,12 @@ public class GenericParticleTileEntity extends GenericTileEntity implements IPar
     @Override
     public ICalculatedParticleSystem getCalculatedParticleSystem() {
         if (calculatedParticleSystem == null) {
-            IBlockState state = world.getBlockState(pos);
+            BlockState state = getBlockState();
             if (!(state.getBlock() instanceof GenericParticleBlock)) {
                 return null;
             }
             calculatedParticleSystem = getParticleSystem().createCalculatedParticleSystem(((GenericParticleBlock) state.getBlock()).getScale());
         }
         return calculatedParticleSystem;
-    }
-
-    @SideOnly(Side.CLIENT)
-    @Override
-    public double getMaxRenderDistanceSquared() {
-        return NiceConfig.maxRenderDist * NiceConfig.maxRenderDist;
     }
 }

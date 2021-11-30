@@ -1,29 +1,37 @@
 package mcjty.nice.blocks;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import mcjty.nice.particle.ParticleRenderer;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.block.BlockState;
+import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
+import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
+import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
-@SideOnly(Side.CLIENT)
-public class CylinderRenderer extends TileEntitySpecialRenderer<CylinderTileEntity> {
+public class CylinderRenderer<T extends GenericParticleTileEntity> extends TileEntityRenderer<T> {
+
+    public CylinderRenderer(TileEntityRendererDispatcher dispatcher) {
+        super(dispatcher);
+    }
 
     @Override
-    public void render(CylinderTileEntity te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
-        IBlockState blockState = getWorld().getBlockState(te.getPos());
+    public void render(T blockEntity, float partialTicks, MatrixStack matrixStack, IRenderTypeBuffer buffer, int combinedLight, int combinedOverlay) {
+        BlockPos pos = blockEntity.getBlockPos();
+        BlockState blockState = blockEntity.getLevel().getBlockState(pos);
         if (blockState.getBlock() instanceof SolidCylinderBlock) {
             return;
         }
         if (!(blockState.getBlock() instanceof CylinderBlock)) {
             return;
         }
-        this.bindTexture(ParticleRenderer.particles);
-        ParticleRenderer.renderSystem(te, (float) x, (float) y, (float) z);
+//        this.bindTexture(ParticleRenderer.particles);
+
+        ParticleRenderer.renderSystem(blockEntity, pos.getX(), pos.getY(), pos.getZ());
     }
 
+
     public static void register() {
-        ClientRegistry.bindTileEntitySpecialRenderer(CylinderTileEntity.class, new CylinderRenderer());
+        ClientRegistry.bindTileEntityRenderer(ModBlocks.TYPE_PARTICLE.get(), CylinderRenderer::new);
     }
 }

@@ -1,10 +1,10 @@
 package mcjty.nice.particle;
 
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.vector.Vector3d;
 
 public class DefaultParticle implements IParticle {
 
-    private Vec3d offset;
+    private Vector3d offset;
     private double scale;
     private double u1;
     private double u2;
@@ -18,7 +18,7 @@ public class DefaultParticle implements IParticle {
     public DefaultParticle() {
     }
 
-    public DefaultParticle(Vec3d offset, double scale, double u1, double u2, double v1, double v2) {
+    public DefaultParticle(Vector3d offset, double scale, double u1, double u2, double v1, double v2) {
         this.offset = offset;
         this.scale = scale;
         this.u1 = u1;
@@ -27,7 +27,7 @@ public class DefaultParticle implements IParticle {
         this.v2 = v2;
     }
 
-    public void setOffset(Vec3d offset) {
+    public void setOffset(Vector3d offset) {
         this.offset = offset;
     }
 
@@ -50,7 +50,7 @@ public class DefaultParticle implements IParticle {
     }
 
     @Override
-    public Vec3d getOffset() {
+    public Vector3d getOffset() {
         return offset;
     }
 

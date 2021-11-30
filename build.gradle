@@ -1,115 +1,113 @@
 buildscript {
     repositories {
+        maven { url = 'https://maven.minecraftforge.net/' }
+        maven { url = 'https://maven.parchmentmc.org' }
+        maven { url 'https://plugins.gradle.org/m2/' }
         jcenter()
-        maven {
-            name = "forge"
-            url = "http://files.minecraftforge.net/maven"
-        }
-        maven {
-            name = "sonatype"
-            url = "https://oss.sonatype.org/content/repositories/snapshots/"
-        }
+        mavenCentral()
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
+        classpath 'org.parchmentmc:librarian:1.+'
+        classpath 'gradle.plugin.com.matthewprenger:CurseGradle:1.4.0'
     }
 }
 
-plugins {
-    id 'com.matthewprenger.cursegradle' version '1.1.0'
-}
-
-apply plugin: 'net.minecraftforge.gradle.forge'
-apply plugin: 'maven'
+apply plugin: 'net.minecraftforge.gradle'
+apply plugin: 'org.parchmentmc.librarian.forgegradle'
+apply plugin: 'eclipse'
+apply plugin: 'com.matthewprenger.cursegradle'
+apply plugin: 'maven-publish'
 
 repositories {
-    maven { // The repo from which to get waila
-        name "Mobius Repo"
-        url "http://tehnut.info/maven"
+    maven { url 'https://www.dogforce-games.com/maven/' }
+    maven { // JEI
+        url "https://dvs1.progwml6.com/files/maven"
+    }
+    maven { // Patchouli
+        url "https://maven.blamejared.com"
     }
     maven { // TOP
         name 'tterrag maven'
-        url "http://maven.tterrag.com/"
-    }
-    maven { // JEI
-        url "http://dvs1.progwml6.com/files/maven"
+        url "https://maven.tterrag.com/"
     }
     maven { // McJtyLib
-        url "http://maven.k-4u.nl"
-    }
-    maven { // OC Repo
-        url "http://maven.cil.li/"
-    }
-    maven {
-        name = "sonatype"
-        url = "https://oss.sonatype.org/content/repositories/snapshots/"
-    }
-    maven {
-        name = "CoFH Maven"
-        url = "http://maven.covers1624.net"
+        url "https://maven.k-4u.nl"
     }
 }
 
-def ENV = System.getenv()
-if (ENV.DRONE_BUILD_NUMBER) {
-    version += ".n" + ENV.DRONE_BUILD_NUMBER
-}
-group= "mcjty.nice" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+group= "com.github.mcjty" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "nice"
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 minecraft {
-    version = "${minecraft_version}-${forge_version}"
-    runDir = "run"
-    mappings = mcp_mappings
-    useDepAts = true
+    mappings channel: 'parchment', version: "2021.10.03-1.16.5"
+    accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
+    runs {
+        client = {
+            properties 'forge.logging.markers': 'SCAN,REGISTRIES,REGISTRYDUMP'
+            properties 'forge.logging.console.level': 'debug'
+            workingDirectory project.file('run').canonicalPath
+            source sourceSets.main
+        }
+        server = {
+            properties 'forge.logging.markers': 'SCAN,REGISTRIES,REGISTRYDUMP'
+            properties 'forge.logging.console.level': 'debug'
+            workingDirectory project.file('run').canonicalPath
+            source sourceSets.main
+        }
+        data = {
+            workingDirectory project.file('run').canonicalPath
+            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
+            property 'forge.logging.console.level', 'debug'
+            args '--mod', 'nice', '--all', '--output', file('src/generated/resources/'), '--existing', sourceSets.main.resources.srcDirs[0]
+            source sourceSets.main
+        }
+    }
 }
 
-task deobfJar(type: Jar) {
-    from sourceSets.main.output
-    classifier = 'dev'
+jar {
+    manifest {
+        attributes 'FMLAT': 'accesstransformer.cfg',
+        "Specification-Title": "rftoolsbuilder",
+        "Specification-Vendor": "McJty",
+        "Specification-Version": "1",
+        "Implementation-Title": project.name,
+        "Implementation-Version": "${version}",
+        "Implementation-Vendor" :"McJty",
+        "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+    }
 }
 
-artifacts {
-    archives sourceJar
-    archives deobfJar
+jar {
+  duplicatesStrategy = DuplicatesStrategy.INCLUDE
 }
 
+sourceSets.main.resources {
+    srcDir 'src/generated/resources'
+}
 
 dependencies {
-    deobfCompile "mezz.jei:jei_${jei_version}"
-    deobfCompile "mcp.mobius.waila:Hwyla:${waila_version}"
-    deobfCompile "mcjty.theoneprobe:TheOneProbe-${top_version}"
-    deobfCompile "cofh:RedstoneFlux:${redstoneflux_version}"
-    deobfCompile "com.github.mcjty:intwheel:${intwheel_version}"
-    if (!project.hasProperty("singleproject")) {
-        deobfCompile "com.github.mcjty:mcjtylib:${mcjtylib_version}"
+    minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
+
+    compileOnly fg.deobf("mezz.jei:jei-${jei_version}:api")
+    runtimeOnly fg.deobf("mezz.jei:jei-${jei_version}")
+
+    if (findProject(':TheOneProbe') != null) {
+        implementation project(':TheOneProbe')
     } else {
-	compile project(':McJtyLib')
+        implementation fg.deobf(project.dependencies.create("mcjty.theoneprobe:TheOneProbe-${top_version}") {
+            transitive = false
+        })
     }
-    compile "li.cil.oc:OpenComputers:${oc_version}"
-}
-
-processResources
-{
-    // this will ensure that this task is redone when the versions change.
-    inputs.property "version", project.version
-    inputs.property "mcversion", project.minecraft.version
-
-    // replace stuff in mcmod.info, nothing else
-    from(sourceSets.main.resources.srcDirs) {
-        include 'mcmod.info'
-                
-        // replace version and mcversion
-        expand 'version':project.version, 'mcversion':project.minecraft.version
-    }
-        
-    // copy everything else, thats not the mcmod.info
-    from(sourceSets.main.resources.srcDirs) {
-        exclude 'mcmod.info'
-        exclude 'eleccore_at.cfg'
+    if (findProject(':McJtyLib') != null) {
+        implementation project(':McJtyLib')
+    } else {
+        implementation fg.deobf (project.dependencies.create("com.github.mcjty:mcjtylib:${mcjtylib_version}") {
+            transitive = false
+        })
     }
 }
 
@@ -156,13 +154,15 @@ curseforge {
         changelog = System.getenv('CHANGELOG') == null || System.getenv('CHANGELOG').equals('none') ? getChangelogText() : System.getenv('CHANGELOG')
         changelogType = 'html'
         releaseType = project.curse_type
-        addGameVersion '1.12.2'
+        addGameVersion project.minecraft_version
         mainArtifact(jar) {
             displayName = "${modname} - ${version}"
         }
         relations {
-            requiredLibrary 'mcjtylib'
+            optionalLibrary 'redstone-flux'
             optionalLibrary 'the-one-probe'
+            requiredDependency 'mcjtylib'
         }
     }
 }
+

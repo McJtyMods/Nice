@@ -1,20 +1,17 @@
 package mcjty.nice.particle;
 
-import mcjty.lib.client.RenderHelper;
-import mcjty.nice.NiceConfig;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import mcjty.nice.Nice;
+import mcjty.nice.NiceConfig;
 import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ResourceLocation;
-import org.lwjgl.opengl.GL11;
+import net.minecraft.util.math.vector.Matrix4f;
 
 public class ParticleRenderer {
 
     public static ResourceLocation particles = new ResourceLocation(Nice.MODID, "textures/effects/particles.png");
 
-    public static void renderParticleSystem(IParticleProvider provider, BufferBuilder buffer) {
+    public static void renderParticleSystem(IParticleProvider provider, BufferBuilder buffer, MatrixStack matrixStack) {
         long time = System.currentTimeMillis();
 
         int brightness = 240;
@@ -40,40 +37,39 @@ public class ParticleRenderer {
             int a = particle.getA();
             double scale = particle.getScale();
 
-            buffer.pos(ox - scale, oy-scale, oz).tex(u1, v1).lightmap(b1, b2).color(r, g, b, a).endVertex();
-            buffer.pos(ox - scale, oy+scale, oz).tex(u1, v2).lightmap(b1, b2).color(r, g, b, a).endVertex();
-            buffer.pos(ox + scale, oy+scale, oz).tex(u2, v2).lightmap(b1, b2).color(r, g, b, a).endVertex();
-            buffer.pos(ox + scale, oy-scale, oz).tex(u2, v1).lightmap(b1, b2).color(r, g, b, a).endVertex();
+            Matrix4f pose = matrixStack.last().pose();
+            buffer.vertex(pose, (float)(ox - scale), (float)(oy-scale), (float)oz).uv((float)u1, (float)v1).uv2(b1, b2).color(r, g, b, a).endVertex();
+            buffer.vertex(pose, (float)(ox - scale), (float)(oy+scale), (float)oz).uv((float)u1, (float)v2).uv2(b1, b2).color(r, g, b, a).endVertex();
+            buffer.vertex(pose, (float)(ox + scale), (float)(oy+scale), (float)oz).uv((float)u2, (float)v2).uv2(b1, b2).color(r, g, b, a).endVertex();
+            buffer.vertex(pose, (float)(ox + scale), (float)(oy-scale), (float)oz).uv((float)u2, (float)v1).uv2(b1, b2).color(r, g, b, a).endVertex();
         }
     }
 
     public static void renderSystem(IParticleProvider provider, float x, float y, float z) {
-        GlStateManager.depthMask(false);
-        GlStateManager.enableBlend();
-//        GlStateManager.blendFunc(GL11.GL_ONE, GL11.GL_ONE);
-        GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE);
-
-//        GlStateManager.enableAlpha();
-        GlStateManager.disableAlpha();
-
-        GlStateManager.pushMatrix();
-        GlStateManager.translate(x + 0.5F, y + 0.5F, z + 0.5F);
-//        GlStateManager.scale(.1f, .1f, .1f);
-
-//        this.bindTexture(blueSphereTexture);
-
-        RenderHelper.rotateToPlayer();
-
-        Tessellator tessellator = Tessellator.getInstance();
-        BufferBuilder buffer = tessellator.getBuffer();
-        buffer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_LMAP_COLOR);
-
-        renderParticleSystem(provider, buffer);
-
-        tessellator.draw();
-        GlStateManager.popMatrix();
-
+        // @todo
+//        GlStateManager.depthMask(false);
 //        GlStateManager.enableBlend();
-        GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+//        GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE);
+//
+//        GlStateManager.disableAlpha();
+//
+//        GlStateManager.pushMatrix();
+//        GlStateManager.translate(x + 0.5F, y + 0.5F, z + 0.5F);
+//
+////        this.bindTexture(blueSphereTexture);
+//
+//        RenderHelper.rotateToPlayer();
+//
+//        Tessellator tessellator = Tessellator.getInstance();
+//        BufferBuilder buffer = tessellator.getBuffer();
+//        buffer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_LMAP_COLOR);
+//
+//        renderParticleSystem(provider, buffer);
+//
+//        tessellator.draw();
+//        GlStateManager.popMatrix();
+//
+////        GlStateManager.enableBlend();
+//        GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
     }
 }
