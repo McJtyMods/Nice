@@ -5,6 +5,7 @@ import mcjty.nice.particle.ICalculatedParticleSystem;
 import mcjty.nice.particle.IParticleProvider;
 import mcjty.nice.particle.IParticleSystem;
 import mcjty.nice.particle.ParticleType;
+import mcjty.nice.setup.Registration;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.DyeColor;
 import net.minecraft.nbt.CompoundNBT;
@@ -17,7 +18,7 @@ public class GenericParticleTileEntity extends GenericTileEntity implements IPar
     private ParticleType type = ParticleType.SMOKE;
 
     public GenericParticleTileEntity() {
-        super(ModBlocks.TYPE_PARTICLE.get());
+        super(Registration.TYPE_PARTICLE.get());
     }
 
     @Override

@@ -1,0 +1,52 @@
+{
+  "variants": {
+    "color=white": {
+      "model": "nice:block/solid_white"
+    },
+    "color=orange": {
+      "model": "nice:block/solid_orange"
+    },
+    "color=magenta": {
+      "model": "nice:block/solid_magenta"
+    },
+    "color=light_blue": {
+      "model": "nice:block/solid_light_blue"
+    },
+    "color=yellow": {
+      "model": "nice:block/solid_yellow"
+    },
+    "color=lime": {
+      "model": "nice:block/solid_lime"
+    },
+    "color=pink": {
+      "model": "nice:block/solid_pink"
+    },
+    "color=gray": {
+      "model": "nice:block/solid_gray"
+    },
+    "color=light_gray": {
+      "model": "nice:block/solid_light_gray"
+    },
+    "color=cyan": {
+      "model": "nice:block/solid_cyan"
+    },
+    "color=purple": {
+      "model": "nice:block/solid_purple"
+    },
+    "color=blue": {
+      "model": "nice:block/solid_blue"
+    },
+    "color=brown": {
+      "model": "nice:block/solid_brown"
+    },
+    "color=green": {
+      "model": "nice:block/solid_green"
+    },
+    "color=red": {
+      "model": "nice:block/solid_red"
+    },
+    "color=black": {
+      "model": "nice:block/solid_black"
+    }
+  }
+}

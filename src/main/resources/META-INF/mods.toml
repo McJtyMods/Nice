@@ -1,0 +1,29 @@
+modLoader="javafml"
+loaderVersion="[36,)"
+license="MIT License https://github.com/McJtyMods/XNet/blob/1.16/LICENCE"
+issueTrackerURL="http://github.com/McJtyMods/XNet/issues"
+displayURL="http://github.com/McJtyMods/XNet/"
+#logoFile="examplemod.png" #optional
+#credits="Thanks for this example mod goes to Java" #optional
+authors="McJty"
+
+[[mods]]
+modId="nice"
+version="${file.jarVersion}"
+displayName="XNet"
+#updateJSONURL="http://myurl.me/" #optional
+description='''
+Powerful item/fluid/energy transfer
+'''
+[[dependencies.nice]]
+    modId="forge"
+    mandatory=true
+    versionRange="[36.0.42,)"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.nice]]
+    modId="mcjtylib"
+    mandatory=true
+    versionRange="[1.16-5.1.0,)"
+    ordering="AFTER"
+    side="BOTH"

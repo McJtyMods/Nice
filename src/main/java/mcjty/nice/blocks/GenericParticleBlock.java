@@ -1,6 +1,7 @@
 package mcjty.nice.blocks;
 
 import mcjty.lib.blocks.BaseBlock;
+import mcjty.lib.blocks.RotationType;
 import mcjty.lib.builder.BlockBuilder;
 import mcjty.nice.particle.ParticleType;
 import net.minecraft.block.Block;

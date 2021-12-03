@@ -2,6 +2,7 @@ package mcjty.nice.blocks;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import mcjty.nice.particle.ParticleRenderer;
+import mcjty.nice.setup.Registration;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
@@ -32,6 +33,6 @@ public class CylinderRenderer<T extends GenericParticleTileEntity> extends TileE
 
 
     public static void register() {
-        ClientRegistry.bindTileEntityRenderer(ModBlocks.TYPE_PARTICLE.get(), CylinderRenderer::new);
+        ClientRegistry.bindTileEntityRenderer(Registration.TYPE_PARTICLE.get(), CylinderRenderer::new);
     }
 }

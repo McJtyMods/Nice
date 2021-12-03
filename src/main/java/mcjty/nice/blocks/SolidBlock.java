@@ -1,5 +1,6 @@
 package mcjty.nice.blocks;
 
+import mcjty.lib.blocks.RotationType;
 import net.minecraft.util.math.AxisAlignedBB;
 
 public class SolidBlock extends GenericParticleBlock {
@@ -10,7 +11,12 @@ public class SolidBlock extends GenericParticleBlock {
         super(0.8f);
     }
 
-//    public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> items) {
+    @Override
+    public RotationType getRotationType() {
+        return RotationType.NONE;
+    }
+
+    //    public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> items) {
 //        for (BlockColor color : BlockColor.values()) {
 //            items.add(makeColoredBlock(this, color, 1));
 //        }

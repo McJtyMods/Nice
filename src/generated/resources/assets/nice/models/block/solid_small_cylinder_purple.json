@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "buis": "nice:block/solid_purple"
+  },
+  "loader": "forge:obj",
+  "model": "nice:models/block/cylinder.obj",
+  "flip-v": true
+}
