@@ -18,8 +18,11 @@ public class ItemTags extends ItemTagsProvider {
 
     @Override
     protected void addTags() {
-        Builder<Item> tag = tag(Registration.SOLID_ITEM_TAG);
-        Registration.SOLID_BLOCK_ITEMS.values().forEach(s -> tag.add(s.get()));
+        Registration.SOLID_BLOCK_ITEMS.values().forEach(s -> tag(Registration.SOLID_ITEM_TAG).add(s.get()));
+        Registration.CYLINDER_ITEMS.values().forEach(s -> tag(Registration.CYLINDER_ITEM_TAG).add(s.get()));
+        Registration.SMALL_CYLINDER_ITEMS.values().forEach(s -> tag(Registration.SMALL_CYLINDER_ITEM_TAG).add(s.get()));
+        Registration.SOLID_CYLINDER_ITEMS.values().forEach(s -> tag(Registration.SOLID_CYLINDER_ITEM_TAG).add(s.get()));
+        Registration.SOLID_SMALL_CYLINDER_ITEMS.values().forEach(s -> tag(Registration.SOLID_SMALL_CYLINDER_ITEM_TAG).add(s.get()));
     }
 
     @Nonnull

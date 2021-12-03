@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "nice:solid_small_cylinder_yellow"
+    ]
+  },
+  "criteria": {
+    "base": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "minecraft:yellow_concrete"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "nice:solid_small_cylinder_yellow"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "base",
+      "has_the_recipe"
+    ]
+  ]
+}

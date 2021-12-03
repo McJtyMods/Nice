@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "nice:solid_cylinder_brown"
+    ]
+  },
+  "criteria": {
+    "base": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "minecraft:brown_concrete"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "nice:solid_cylinder_brown"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "base",
+      "has_the_recipe"
+    ]
+  ]
+}

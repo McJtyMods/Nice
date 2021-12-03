@@ -1,0 +1,21 @@
+{
+  "replace": false,
+  "values": [
+    "nice:solid_cylinder_yellow",
+    "nice:solid_cylinder_lime",
+    "nice:solid_cylinder_magenta",
+    "nice:solid_cylinder_pink",
+    "nice:solid_cylinder_light_gray",
+    "nice:solid_cylinder_red",
+    "nice:solid_cylinder_gray",
+    "nice:solid_cylinder_white",
+    "nice:solid_cylinder_blue",
+    "nice:solid_cylinder_cyan",
+    "nice:solid_cylinder_black",
+    "nice:solid_cylinder_purple",
+    "nice:solid_cylinder_light_blue",
+    "nice:solid_cylinder_brown",
+    "nice:solid_cylinder_orange",
+    "nice:solid_cylinder_green"
+  ]
+}

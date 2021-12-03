@@ -52,7 +52,11 @@ public class Registration {
     public static final RegistryObject<TileEntityType<GenericParticleTileEntity>> TYPE_PARTICLE = TILES.register("generic_particle", () -> TileEntityType.Builder.of(GenericParticleTileEntity::new,
             CYLINDER.get(), SMALL_CYLINDER.get(), SOLID_CYLINDER.get(), SOLID_SMALL_CYLINDER.get(), SOLID_BLOCK.get()).build(null));
 
-    public static final Tags.IOptionalNamedTag<Item> SOLID_ITEM_TAG = ItemTags.createOptional(new ResourceLocation(Nice.MODID, "solid_block"));
+    public static final Tags.IOptionalNamedTag<Item> SOLID_ITEM_TAG = ItemTags.createOptional(new ResourceLocation(Nice.MODID, "solid"));
+    public static final Tags.IOptionalNamedTag<Item> CYLINDER_ITEM_TAG = ItemTags.createOptional(new ResourceLocation(Nice.MODID, "cylinder"));
+    public static final Tags.IOptionalNamedTag<Item> SMALL_CYLINDER_ITEM_TAG = ItemTags.createOptional(new ResourceLocation(Nice.MODID, "small_cylinder"));
+    public static final Tags.IOptionalNamedTag<Item> SOLID_CYLINDER_ITEM_TAG = ItemTags.createOptional(new ResourceLocation(Nice.MODID, "solid_cylinder"));
+    public static final Tags.IOptionalNamedTag<Item> SOLID_SMALL_CYLINDER_ITEM_TAG = ItemTags.createOptional(new ResourceLocation(Nice.MODID, "solid_small_cylinder"));
 
     public static void register() {
         BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());

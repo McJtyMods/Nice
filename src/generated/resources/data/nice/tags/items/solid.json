@@ -1,0 +1,21 @@
+{
+  "replace": false,
+  "values": [
+    "nice:solid_yellow",
+    "nice:solid_lime",
+    "nice:solid_magenta",
+    "nice:solid_pink",
+    "nice:solid_light_gray",
+    "nice:solid_red",
+    "nice:solid_gray",
+    "nice:solid_white",
+    "nice:solid_blue",
+    "nice:solid_cyan",
+    "nice:solid_black",
+    "nice:solid_purple",
+    "nice:solid_light_blue",
+    "nice:solid_brown",
+    "nice:solid_orange",
+    "nice:solid_green"
+  ]
+}

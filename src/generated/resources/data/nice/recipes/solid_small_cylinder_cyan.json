@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "g g",
+    "gwg"
+  ],
+  "key": {
+    "g": {
+      "item": "minecraft:cyan_concrete"
+    },
+    "w": {
+      "tag": "minecraft:wool"
+    }
+  },
+  "result": {
+    "item": "nice:solid_small_cylinder_cyan",
+    "count": 8
+  }
+}
