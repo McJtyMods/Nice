@@ -28,7 +28,7 @@ public class CylinderRenderer<T extends GenericParticleTileEntity> extends TileE
         }
 //        this.bindTexture(ParticleRenderer.particles);
 
-        ParticleRenderer.renderSystem(blockEntity, pos.getX(), pos.getY(), pos.getZ());
+        ParticleRenderer.renderSystem(matrixStack, buffer, blockEntity, pos.getX(), pos.getY(), pos.getZ());
     }
 
 

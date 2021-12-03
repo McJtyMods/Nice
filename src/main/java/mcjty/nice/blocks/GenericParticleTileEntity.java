@@ -23,7 +23,9 @@ public class GenericParticleTileEntity extends GenericTileEntity implements IPar
 
     @Override
     public void load(BlockState state, CompoundNBT tag) {
-        this.type = ParticleType.getByName(tag.getString("type"));
+        if (tag.contains("type")) {
+            this.type = ParticleType.getByName(tag.getString("type"));
+        }
         super.load(state, tag);
     }
 
