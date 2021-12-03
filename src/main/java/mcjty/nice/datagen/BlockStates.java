@@ -14,23 +14,21 @@ import java.util.Arrays;
 
 public class BlockStates extends BaseBlockStateProvider {
 
-    private static final ResourceLocation DEFAULT_TOP = new ResourceLocation(Nice.MODID, "block/machine_top");
-    private static final ResourceLocation DEFAULT_SIDE = new ResourceLocation(Nice.MODID, "block/machine_side");
-    private static final ResourceLocation DEFAULT_BOTTOM = new ResourceLocation(Nice.MODID, "block/machine_bottom");
-
     public BlockStates(DataGenerator gen, ExistingFileHelper exFileHelper) {
         super(gen, Nice.MODID, exFileHelper);
     }
 
     @Override
     protected void registerStatesAndModels() {
-        variantBlock(Registration.SOLID_BLOCK.get(), state -> {
-            String colorname = state.getValue(GenericParticleBlock.COLOR).getName();
-            ResourceLocation rl = new ResourceLocation(Nice.MODID, "block/solid_" + colorname);
-            return models().cube("solid_" + colorname, rl, rl, rl, rl, rl, rl);
+        Registration.SOLID_BLOCKS.values().forEach(b -> {
+            variantBlock(b.get(), state -> {
+                String colorname = state.getValue(GenericParticleBlock.COLOR).getName();
+                ResourceLocation rl = new ResourceLocation(Nice.MODID, "block/solid_" + colorname);
+                return models().cube("solid_" + colorname, rl, rl, rl, rl, rl, rl);
+            });
         });
 
-        Block[] blocks = {Registration.CYLINDER.get(), Registration.SMALL_CYLINDER.get(), Registration.SOLID_CYLINDER.get(), Registration.SOLID_SMALL_CYLINDER.get()};
+        Block[] blocks = Registration.collect(Registration.CYLINDERS, Registration.SMALL_CYLINDERS, Registration.SOLID_CYLINDERS, Registration.SOLID_SMALL_CYLINDERS);
         Arrays.stream(blocks).forEach(block -> {
             orientedBlock(block, ((state, builder) -> {
                 String colorname = state.getValue(GenericParticleBlock.COLOR).getName();
