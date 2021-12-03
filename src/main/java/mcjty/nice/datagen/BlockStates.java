@@ -35,8 +35,14 @@ public class BlockStates extends BaseBlockStateProvider {
             orientedBlock(block, ((state, builder) -> {
                 String colorname = state.getValue(GenericParticleBlock.COLOR).getName();
                 ResourceLocation rl = new ResourceLocation(Nice.MODID, "block/solid_" + colorname);
+                String objName;
+                if (block.getRegistryName().getPath().contains("small")) {
+                    objName = "smallcylinder";
+                } else {
+                    objName = "cylinder";
+                }
                 builder.modelFile(models().withExistingParent(block.getRegistryName().getPath() + "_" + colorname, "cube").customLoader(OBJLoaderBuilder::begin)
-                        .modelLocation(new ResourceLocation(Nice.MODID, "models/block/cylinder.obj"))
+                        .modelLocation(new ResourceLocation(Nice.MODID, "models/block/" + objName + ".obj"))
                         .flipV(true)
                         .end()
                         .texture("buis", rl));

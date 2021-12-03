@@ -4,6 +4,6 @@
     "buis": "nice:block/solid_brown"
   },
   "loader": "forge:obj",
-  "model": "nice:models/block/cylinder.obj",
+  "model": "nice:models/block/smallcylinder.obj",
   "flip-v": true
 }

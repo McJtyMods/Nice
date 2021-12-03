@@ -4,6 +4,7 @@ import mcjty.lib.blocks.BaseBlock;
 import mcjty.lib.blocks.RotationType;
 import mcjty.lib.builder.BlockBuilder;
 import mcjty.nice.particle.ParticleType;
+import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SoundType;
@@ -33,11 +34,13 @@ import static mcjty.lib.builder.TooltipBuilder.header;
 public class GenericParticleBlock extends BaseBlock {
 
     public static final EnumProperty<DyeColor> COLOR = EnumProperty.<DyeColor>create("color", DyeColor.class);
+    public static final Properties OCCLUSION_PROPERTIES = Properties.of(Material.STONE).sound(SoundType.GLASS);
+    public static final Properties NOOCCLUSION_PROPERTIES = Properties.of(Material.STONE).sound(SoundType.GLASS).noOcclusion();
     private final float scale;
 
-    public GenericParticleBlock(float scale) {
+    public GenericParticleBlock(float scale, boolean noOcclusion) {
         super(new BlockBuilder()
-                .properties(Properties.of(Material.STONE).sound(SoundType.GLASS))
+                .properties(noOcclusion ? NOOCCLUSION_PROPERTIES : OCCLUSION_PROPERTIES)
                 .tileEntitySupplier(GenericParticleTileEntity::new)
                 .harvestLevel(ToolType.PICKAXE, 1)
                 .info(header(),

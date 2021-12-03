@@ -10,7 +10,7 @@ authors="McJty"
 [[mods]]
 modId="nice"
 version="${file.jarVersion}"
-displayName="XNet"
+displayName="NICE"
 #updateJSONURL="http://myurl.me/" #optional
 description='''
 Powerful item/fluid/energy transfer
