@@ -1,0 +1,11 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "nice:block/solid_yellow",
+    "up": "nice:block/solid_yellow",
+    "north": "nice:block/solid_yellow",
+    "south": "nice:block/solid_yellow",
+    "east": "nice:block/solid_yellow",
+    "west": "nice:block/solid_yellow"
+  }
+}

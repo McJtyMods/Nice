@@ -1,11 +1,8 @@
 package mcjty.nice.blocks;
 
 import mcjty.lib.blocks.BaseBlock;
-import mcjty.lib.blocks.RotationType;
 import mcjty.lib.builder.BlockBuilder;
 import mcjty.nice.particle.ParticleType;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -13,8 +10,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.state.EnumProperty;
-import net.minecraft.state.StateContainer;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
@@ -33,7 +28,6 @@ import static mcjty.lib.builder.TooltipBuilder.header;
 
 public class GenericParticleBlock extends BaseBlock {
 
-    public static final EnumProperty<DyeColor> COLOR = EnumProperty.<DyeColor>create("color", DyeColor.class);
     public static final Properties OCCLUSION_PROPERTIES = Properties.of(Material.STONE).sound(SoundType.GLASS);
     public static final Properties NOOCCLUSION_PROPERTIES = Properties.of(Material.STONE).sound(SoundType.GLASS).noOcclusion();
     private final float scale;
@@ -94,11 +88,5 @@ public class GenericParticleBlock extends BaseBlock {
             }
         }
         return super.use(state, world, pos, player, hand, result);
-    }
-
-    @Override
-    protected void createBlockStateDefinition(@Nonnull StateContainer.Builder<Block, BlockState> builder) {
-        super.createBlockStateDefinition(builder);
-        builder.add(COLOR);
     }
 }

@@ -1,0 +1,8 @@
+{
+  "textures": {
+    "buis": "nice:block/solid_light_blue"
+  },
+  "loader": "forge:obj",
+  "model": "nice:models/block/cylinder.obj",
+  "flip-v": true
+}

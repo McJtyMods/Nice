@@ -40,7 +40,8 @@ public class GenericParticleTileEntity extends GenericTileEntity implements IPar
     }
 
     public void setColor(DyeColor color) {
-        level.setBlock(worldPosition, getBlockState().setValue(GenericParticleBlock.COLOR, color), Constants.BlockFlags.DEFAULT_AND_RERENDER);
+//        level.setBlock(worldPosition, getBlockState().setValue(GenericParticleBlock.COLOR, color), Constants.BlockFlags.DEFAULT_AND_RERENDER);
+        // @todo todo todo
     }
 
     private ICalculatedParticleSystem calculatedParticleSystem;
