@@ -2,28 +2,28 @@ package mcjty.nice.blocks;
 
 import mcjty.lib.blocks.BaseBlock;
 import mcjty.lib.builder.BlockBuilder;
+import mcjty.lib.varia.TagTools;
 import mcjty.nice.particle.ParticleType;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.DyeColor;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
+import net.minecraft.ChatFormatting;
+import net.minecraft.Util;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.TextComponent;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
-import net.minecraft.util.Util;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.world.World;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Material;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.common.Tags;
-import net.minecraftforge.common.ToolType;
 
 import javax.annotation.Nonnull;
 import java.util.function.Function;
@@ -42,15 +42,15 @@ public class GenericParticleBlock extends BaseBlock {
         super(new BlockBuilder()
                 .properties(noOcclusion ? NOOCCLUSION_PROPERTIES : OCCLUSION_PROPERTIES)
                 .tileEntitySupplier(GenericParticleTileEntity::new)
-                .harvestLevel(ToolType.PICKAXE, 1)
+//                .harvestLevel(ToolType.PICKAXE, 1)    // @todo tags
                 .info(key("message.nice.shiftmessage"))
                 .infoShift(header(),
-                        general("diamond", GenericParticleBlock::hasParticles, TextFormatting.AQUA),
-                        general("water", GenericParticleBlock::hasParticles, TextFormatting.AQUA),
-                        general("wool", GenericParticleBlock::hasParticles, TextFormatting.AQUA),
-                        general("fish", GenericParticleBlock::hasParticles, TextFormatting.AQUA),
-                        general("string", GenericParticleBlock::hasParticles, TextFormatting.AQUA),
-                        general("dye", TextFormatting.AQUA)));
+                        general("diamond", GenericParticleBlock::hasParticles, ChatFormatting.AQUA),
+                        general("water", GenericParticleBlock::hasParticles, ChatFormatting.AQUA),
+                        general("wool", GenericParticleBlock::hasParticles, ChatFormatting.AQUA),
+                        general("fish", GenericParticleBlock::hasParticles, ChatFormatting.AQUA),
+                        general("string", GenericParticleBlock::hasParticles, ChatFormatting.AQUA),
+                        general("dye", ChatFormatting.AQUA)));
         this.scale = scale;
         this.siblingGetter = siblingGetter;
     }
@@ -80,45 +80,45 @@ public class GenericParticleBlock extends BaseBlock {
 
     @Nonnull
     @Override
-    public ActionResultType use(@Nonnull BlockState state, World world, @Nonnull BlockPos pos, @Nonnull PlayerEntity player, @Nonnull Hand hand, @Nonnull BlockRayTraceResult result) {
+    public InteractionResult use(@Nonnull BlockState state, Level world, @Nonnull BlockPos pos, @Nonnull Player player, @Nonnull InteractionHand hand, @Nonnull BlockHitResult result) {
         ItemStack heldItem = player.getItemInHand(hand);
         if (!heldItem.isEmpty()) {
-            TileEntity blockEntity = world.getBlockEntity(pos);
+            BlockEntity blockEntity = world.getBlockEntity(pos);
             if (blockEntity instanceof GenericParticleTileEntity) {
                 GenericParticleTileEntity pt = (GenericParticleTileEntity) blockEntity;
                 if (!supportsParticles()) {
-                    if (heldItem.getItem().is(Tags.Items.DYES)) {
+                    if (TagTools.hasTag(heldItem.getItem(), Tags.Items.DYES)) {
                         DyeColor color = DyeColor.getColor(heldItem);
                         if (color != null) {
                             pt.setColor(color);
-                            return ActionResultType.SUCCESS;
+                            return InteractionResult.SUCCESS;
                         }
                     } else {
                         if (world.isClientSide) {
-                            player.sendMessage(new StringTextComponent("No particles supported!"), Util.NIL_UUID);
+                            player.sendMessage(new TextComponent("No particles supported!"), Util.NIL_UUID);
                         }
                     }
                 } else {
                     if (Items.DIAMOND.equals(heldItem.getItem())) {
                         pt.setType(ParticleType.BLINK);
-                        return ActionResultType.SUCCESS;
-                    } else if (heldItem.getItem().is(ItemTags.FISHES)) {
+                        return InteractionResult.SUCCESS;
+                    } else if (TagTools.hasTag(heldItem.getItem(), ItemTags.FISHES)) {
                         pt.setType(ParticleType.FISH);
-                        return ActionResultType.SUCCESS;
-                    } else if (heldItem.getItem().is(ItemTags.WOOL)) {
+                        return InteractionResult.SUCCESS;
+                    } else if (TagTools.hasTag(heldItem.getItem(), ItemTags.WOOL)) {
                         pt.setType(ParticleType.SMOKE);
-                        return ActionResultType.SUCCESS;
+                        return InteractionResult.SUCCESS;
                     } else if (Items.WATER_BUCKET.equals(heldItem.getItem())) {
                         pt.setType(ParticleType.BUBBLE);
-                        return ActionResultType.SUCCESS;
+                        return InteractionResult.SUCCESS;
                     } else if (Items.STRING.equals(heldItem.getItem())) {
                         pt.setType(ParticleType.NONE);
-                        return ActionResultType.SUCCESS;
-                    } else if (heldItem.getItem().is(Tags.Items.DYES)) {
+                        return InteractionResult.SUCCESS;
+                    } else if (TagTools.hasTag(heldItem.getItem(), Tags.Items.DYES)) {
                         DyeColor color = DyeColor.getColor(heldItem);
                         if (color != null) {
                             pt.setColor(color);
-                            return ActionResultType.SUCCESS;
+                            return InteractionResult.SUCCESS;
                         }
                     }
                 }

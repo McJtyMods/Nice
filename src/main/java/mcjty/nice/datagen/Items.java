@@ -4,10 +4,10 @@ import mcjty.lib.datagen.BaseItemModelProvider;
 import mcjty.nice.Nice;
 import mcjty.nice.setup.Registration;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.item.DyeColor;
-import net.minecraft.item.Item;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.Item;
 import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.registries.RegistryObject;
 
 import java.util.Map;
 

@@ -3,19 +3,19 @@ package mcjty.nice.datagen;
 import mcjty.lib.datagen.BaseRecipeProvider;
 import mcjty.nice.Nice;
 import mcjty.nice.setup.Registration;
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.IFinishedRecipe;
-import net.minecraft.data.ShapedRecipeBuilder;
-import net.minecraft.data.ShapelessRecipeBuilder;
-import net.minecraft.item.DyeColor;
-import net.minecraft.item.DyeItem;
-import net.minecraft.item.Item;
+import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.recipes.ShapedRecipeBuilder;
+import net.minecraft.data.recipes.ShapelessRecipeBuilder;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.common.Tags;
-import net.minecraftforge.fml.RegistryObject;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.DyeItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraftforge.registries.RegistryObject;
 
 import javax.annotation.Nonnull;
 import java.util.HashMap;
@@ -29,7 +29,7 @@ public class Recipes extends BaseRecipeProvider {
     }
 
     @Override
-    protected void buildShapelessRecipes(@Nonnull Consumer<IFinishedRecipe> consumer) {
+    protected void buildCraftingRecipes(@Nonnull Consumer<FinishedRecipe> consumer) {
         Map<DyeColor, Block> concretes = new HashMap<>();
         concretes.put(DyeColor.WHITE, Blocks.WHITE_CONCRETE);
         concretes.put(DyeColor.ORANGE, Blocks.ORANGE_CONCRETE);
@@ -76,7 +76,7 @@ public class Recipes extends BaseRecipeProvider {
         }
     }
 
-    private void generateRecipes(Consumer<IFinishedRecipe> consumer, DyeColor color, Map<DyeColor, RegistryObject<Item>> items, Map<DyeColor, Block> base, Tags.IOptionalNamedTag<Item> tag, String prefix, String... pattern) {
+    private void generateRecipes(Consumer<FinishedRecipe> consumer, DyeColor color, Map<DyeColor, RegistryObject<Item>> items, Map<DyeColor, Block> base, TagKey<Item> tag, String prefix, String... pattern) {
         build(consumer, ShapedRecipeBuilder.shaped(items.get(color).get(), 8)
                         .define('g', base.get(color))
                         .define('w', ItemTags.WOOL)

@@ -4,8 +4,8 @@ import mcjty.lib.blocks.BaseBlock;
 import mcjty.nice.Nice;
 import mcjty.nice.setup.Registration;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.item.DyeColor;
-import net.minecraftforge.fml.RegistryObject;
+import net.minecraft.world.item.DyeColor;
+import net.minecraftforge.registries.RegistryObject;
 
 import java.util.Map;
 

@@ -4,18 +4,20 @@ package mcjty.nice.setup;
 import mcjty.lib.blocks.BaseBlock;
 import mcjty.nice.Nice;
 import mcjty.nice.blocks.*;
-import net.minecraft.block.Block;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.DyeColor;
-import net.minecraft.item.Item;
+import net.minecraft.core.Registry;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.Item;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.Tags;
-import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,7 +31,7 @@ public class Registration {
 
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, MODID);
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MODID);
-    public static final DeferredRegister<TileEntityType<?>> TILES = DeferredRegister.create(ForgeRegistries.TILE_ENTITIES, MODID);
+    public static final DeferredRegister<BlockEntityType<?>> TILES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITIES, MODID);
 
     public static final Map<DyeColor, RegistryObject<BaseBlock>> SOLID_BLOCKS = Arrays.stream(DyeColor.values())
             .collect(Collectors.toMap(c -> c, c -> BLOCKS.register("solid_block_" + c.getName(), SolidBlock::new)));
@@ -57,15 +59,15 @@ public class Registration {
     public static final Map<DyeColor, RegistryObject<Item>> SOLID_SMALL_CYLINDER_ITEMS = Arrays.stream(DyeColor.values())
             .collect(Collectors.toMap(c -> c, c -> ITEMS.register("solid_small_cylinder_" + c.getName(), () -> new BlockItem(SOLID_SMALL_CYLINDERS.get(c).get(), Registration.createStandardProperties()))));
 
-    public static final RegistryObject<TileEntityType<GenericParticleTileEntity>> TYPE_PARTICLE = TILES.register("generic_particle", () -> TileEntityType.Builder.of(GenericParticleTileEntity::new,
+    public static final RegistryObject<BlockEntityType<GenericParticleTileEntity>> TYPE_PARTICLE = TILES.register("generic_particle", () -> BlockEntityType.Builder.of(GenericParticleTileEntity::new,
             collect(CYLINDERS, SMALL_CYLINDERS, SOLID_CYLINDERS, SOLID_SMALL_CYLINDERS, SOLID_BLOCKS, PARTICLE_BLOCKS)).build(null));
 
-    public static final Tags.IOptionalNamedTag<Item> SOLID_ITEM_TAG = ItemTags.createOptional(new ResourceLocation(Nice.MODID, "solid"));
-    public static final Tags.IOptionalNamedTag<Item> PARTICLE_ITEM_TAG = ItemTags.createOptional(new ResourceLocation(Nice.MODID, "particle"));
-    public static final Tags.IOptionalNamedTag<Item> CYLINDER_ITEM_TAG = ItemTags.createOptional(new ResourceLocation(Nice.MODID, "cylinder"));
-    public static final Tags.IOptionalNamedTag<Item> SMALL_CYLINDER_ITEM_TAG = ItemTags.createOptional(new ResourceLocation(Nice.MODID, "small_cylinder"));
-    public static final Tags.IOptionalNamedTag<Item> SOLID_CYLINDER_ITEM_TAG = ItemTags.createOptional(new ResourceLocation(Nice.MODID, "solid_cylinder"));
-    public static final Tags.IOptionalNamedTag<Item> SOLID_SMALL_CYLINDER_ITEM_TAG = ItemTags.createOptional(new ResourceLocation(Nice.MODID, "solid_small_cylinder"));
+    public static final TagKey<Item> SOLID_ITEM_TAG = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(Nice.MODID, "solid"));
+    public static final TagKey<Item> PARTICLE_ITEM_TAG = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(Nice.MODID, "particle"));
+    public static final TagKey<Item> CYLINDER_ITEM_TAG = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(Nice.MODID, "cylinder"));
+    public static final TagKey<Item> SMALL_CYLINDER_ITEM_TAG = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(Nice.MODID, "small_cylinder"));
+    public static final TagKey<Item> SOLID_CYLINDER_ITEM_TAG = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(Nice.MODID, "solid_cylinder"));
+    public static final TagKey<Item> SOLID_SMALL_CYLINDER_ITEM_TAG = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(Nice.MODID, "solid_small_cylinder"));
 
     public static void register() {
         BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());

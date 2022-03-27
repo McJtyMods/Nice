@@ -1,10 +1,10 @@
 package mcjty.nice.particle;
 
-import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.world.phys.Vec3;
 
 public interface IParticle {
 
-    Vector3d getOffset();
+    Vec3 getOffset();
 
     double getScale();
 

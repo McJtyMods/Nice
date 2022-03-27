@@ -1,25 +1,23 @@
 package mcjty.nice.particle;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.vertex.IVertexBuilder;
-import mcjty.lib.client.CustomRenderTypes;
-import mcjty.lib.client.DelayedRenderer;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.math.Matrix4f;
 import mcjty.lib.client.RenderHelper;
 import mcjty.nice.Nice;
 import mcjty.nice.NiceConfig;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.texture.AtlasTexture;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.vector.Matrix4f;
+import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
 
 public class ParticleRenderer {
 
     public static ResourceLocation PARTICLES = new ResourceLocation(Nice.MODID, "effects/particles");
 
-    public static void renderParticleSystem(IParticleProvider provider, IVertexBuilder buffer, MatrixStack matrixStack, TextureAtlasSprite sprite) {
+    public static void renderParticleSystem(IParticleProvider provider, VertexConsumer buffer, PoseStack matrixStack, TextureAtlasSprite sprite) {
         long time = System.currentTimeMillis();
 
         int brightness = 240;
@@ -62,12 +60,11 @@ public class ParticleRenderer {
     }
 
     public static void renderSystem(IParticleProvider provider, BlockPos pos) {
-        DelayedRenderer.addRender(pos, (stack, buf) -> {
+        DelayedParticleRenderer.addRender(RenderType.translucent(), pos, (stack, buf) -> {
             stack.translate(0.5F, 0.5F, 0.5F);
             RenderHelper.rotateToPlayer(stack);
-            IVertexBuilder vertexBuilder = buf.getBuffer(CustomRenderTypes.translucent());
-            TextureAtlasSprite sprite = Minecraft.getInstance().getTextureAtlas(AtlasTexture.LOCATION_BLOCKS).apply(PARTICLES);
-            renderParticleSystem(provider, vertexBuilder, stack, sprite);
+            TextureAtlasSprite sprite = Minecraft.getInstance().getTextureAtlas(TextureAtlas.LOCATION_BLOCKS).apply(PARTICLES);
+            renderParticleSystem(provider, buf, stack, sprite);
         });
     }
 }

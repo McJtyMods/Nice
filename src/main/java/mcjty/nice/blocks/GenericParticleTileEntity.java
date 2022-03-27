@@ -6,11 +6,11 @@ import mcjty.nice.particle.IParticleProvider;
 import mcjty.nice.particle.IParticleSystem;
 import mcjty.nice.particle.ParticleType;
 import mcjty.nice.setup.Registration;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.item.DyeColor;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraftforge.common.util.Constants;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.nbt.CompoundTag;
 
 import javax.annotation.Nullable;
 
@@ -18,22 +18,22 @@ public class GenericParticleTileEntity extends GenericTileEntity implements IPar
 
     private ParticleType type = ParticleType.SMOKE;
 
-    public GenericParticleTileEntity() {
-        super(Registration.TYPE_PARTICLE.get());
+    public GenericParticleTileEntity(BlockPos pos, BlockState state) {
+        super(Registration.TYPE_PARTICLE.get(), pos, state);
     }
 
     @Override
-    public void load(BlockState state, CompoundNBT tag) {
+    public void load(CompoundTag tag) {
         if (tag.contains("type")) {
             this.type = ParticleType.getByName(tag.getString("type"));
         }
-        super.load(state, tag);
+        super.load(tag);
     }
 
     @Override
-    public CompoundNBT save(CompoundNBT tag) {
+    public void saveAdditional(CompoundTag tag) {
         tag.putString("type", type.getName());
-        return super.save(tag);
+        super.saveAdditional(tag);
     }
 
     public void setType(ParticleType type) {
@@ -46,7 +46,7 @@ public class GenericParticleTileEntity extends GenericTileEntity implements IPar
         if (getBlockState().getBlock() instanceof GenericParticleBlock) {
             GenericParticleBlock block = (GenericParticleBlock) getBlockState().getBlock();
             Block newblock = block.recolor(color);
-            level.setBlock(worldPosition, newblock.defaultBlockState(), Constants.BlockFlags.DEFAULT_AND_RERENDER);
+            level.setBlock(worldPosition, newblock.defaultBlockState(), Block.UPDATE_ALL);
         }
     }
 

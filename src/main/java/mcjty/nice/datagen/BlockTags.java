@@ -1,7 +1,7 @@
 package mcjty.nice.datagen;
 
 import mcjty.nice.Nice;
-import net.minecraft.data.BlockTagsProvider;
+import net.minecraft.data.tags.BlockTagsProvider;
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.common.data.ExistingFileHelper;
 

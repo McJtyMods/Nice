@@ -1,8 +1,8 @@
 package mcjty.nice.blocks;
 
 import mcjty.nice.setup.Registration;
-import net.minecraft.block.Block;
-import net.minecraft.item.DyeColor;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.item.DyeColor;
 
 import java.util.function.Function;
 
