@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "gwg",
+    "ggg",
+    "ggg"
+  ],
+  "key": {
+    "g": {
+      "item": "minecraft:black_concrete"
+    },
+    "w": {
+      "tag": "minecraft:wool"
+    }
+  },
+  "result": {
+    "item": "nice:particle_black",
+    "count": 8
+  }
+}

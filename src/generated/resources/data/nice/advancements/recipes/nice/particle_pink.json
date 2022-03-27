@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "nice:particle_pink"
+    ]
+  },
+  "criteria": {
+    "base": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "minecraft:pink_concrete"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "nice:particle_pink"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "base",
+      "has_the_recipe"
+    ]
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "gwg",
+    "ggg",
+    "ggg"
+  ],
+  "key": {
+    "g": {
+      "item": "minecraft:orange_concrete"
+    },
+    "w": {
+      "tag": "minecraft:wool"
+    }
+  },
+  "result": {
+    "item": "nice:particle_orange",
+    "count": 8
+  }
+}

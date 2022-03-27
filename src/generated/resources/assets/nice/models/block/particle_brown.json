@@ -1,0 +1,11 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "nice:block/buis_brown",
+    "up": "nice:block/buis_brown",
+    "north": "nice:block/buis_brown",
+    "south": "nice:block/buis_brown",
+    "east": "nice:block/buis_brown",
+    "west": "nice:block/buis_brown"
+  }
+}
