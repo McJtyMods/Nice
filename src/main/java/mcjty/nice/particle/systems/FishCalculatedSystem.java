@@ -25,7 +25,7 @@ public class FishCalculatedSystem extends DefaultCalculatedParticleSystem {
             randomMovement(i);
             DefaultParticle particle = (DefaultParticle) particles.get(i);
             int type = random.nextInt(3);
-            particle.setUV(((double)type+1D)/8, 0, ((double)type+2D)/8, 1D/8);
+            particle.setUV(((double)type+1D)/8, 0, ((double)type+2D)/8, 1D);
             particle.setColor(255, 255, 255, 255);
             particle.setScale(.2);
             particle.setOffset(position[i]);

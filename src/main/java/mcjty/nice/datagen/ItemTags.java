@@ -19,6 +19,7 @@ public class ItemTags extends ItemTagsProvider {
     @Override
     protected void addTags() {
         Registration.SOLID_BLOCK_ITEMS.values().forEach(s -> tag(Registration.SOLID_ITEM_TAG).add(s.get()));
+        Registration.PARTICLE_BLOCK_ITEMS.values().forEach(s -> tag(Registration.PARTICLE_ITEM_TAG).add(s.get()));
         Registration.CYLINDER_ITEMS.values().forEach(s -> tag(Registration.CYLINDER_ITEM_TAG).add(s.get()));
         Registration.SMALL_CYLINDER_ITEMS.values().forEach(s -> tag(Registration.SMALL_CYLINDER_ITEM_TAG).add(s.get()));
         Registration.SOLID_CYLINDER_ITEMS.values().forEach(s -> tag(Registration.SOLID_CYLINDER_ITEM_TAG).add(s.get()));

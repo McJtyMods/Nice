@@ -25,7 +25,7 @@ public class SmokeSystem implements IParticleSystem {
         for (int i = 0 ; i < offsets.length ; i++) {
             DefaultParticle particle = (DefaultParticle) particles.get(i);
             particle.setScale(.4 * scale / .8f);
-            particle.setUV(0, 0, 1.0D / 8, 1.0D / 8);
+            particle.setUV(0, 0, 1.0D / 8, 1.0D);
             particle.setColor(255, 255, 255, 128);
         }
         return calculated;

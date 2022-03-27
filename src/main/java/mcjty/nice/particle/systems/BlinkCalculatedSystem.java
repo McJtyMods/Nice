@@ -20,7 +20,7 @@ public class BlinkCalculatedSystem extends DefaultCalculatedParticleSystem {
             DefaultParticle particle = (DefaultParticle) particles.get(i);
             Vector3d o = new Vector3d(random.nextDouble()*scale-scale/2.0f, random.nextDouble()*.8-.8/2.0f, random.nextDouble()*scale-scale/2.0f);
             particle.setOffset(o);
-            particle.setUV(4D/8, 0, 5D/8, 1D/8);
+            particle.setUV(4D/8, 0, 5D/8, 1D);
             particle.setColor(255, 255, 255, 128);
             particle.setScale(.2);
         }

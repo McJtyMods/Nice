@@ -6,6 +6,7 @@ import mcjty.nice.particle.IParticleProvider;
 import mcjty.nice.particle.IParticleSystem;
 import mcjty.nice.particle.ParticleType;
 import mcjty.nice.setup.Registration;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.DyeColor;
 import net.minecraft.nbt.CompoundNBT;
@@ -42,8 +43,11 @@ public class GenericParticleTileEntity extends GenericTileEntity implements IPar
     }
 
     public void setColor(DyeColor color) {
-//        level.setBlock(worldPosition, getBlockState().setValue(GenericParticleBlock.COLOR, color), Constants.BlockFlags.DEFAULT_AND_RERENDER);
-        // @todo todo todo
+        if (getBlockState().getBlock() instanceof GenericParticleBlock) {
+            GenericParticleBlock block = (GenericParticleBlock) getBlockState().getBlock();
+            Block newblock = block.recolor(color);
+            level.setBlock(worldPosition, newblock.defaultBlockState(), Constants.BlockFlags.DEFAULT_AND_RERENDER);
+        }
     }
 
     private ICalculatedParticleSystem calculatedParticleSystem;

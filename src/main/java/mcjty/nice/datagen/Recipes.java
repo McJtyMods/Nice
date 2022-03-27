@@ -68,6 +68,7 @@ public class Recipes extends BaseRecipeProvider {
 
         for (DyeColor color : DyeColor.values()) {
             generateRecipes(consumer, color, Registration.SOLID_BLOCK_ITEMS, concretes, Registration.SOLID_ITEM_TAG, "solid_recolor_", "ggg", "gwg", "ggg");
+            generateRecipes(consumer, color, Registration.PARTICLE_BLOCK_ITEMS, concretes, Registration.PARTICLE_ITEM_TAG, "particle_recolor_", "gwg", "ggg", "ggg");
             generateRecipes(consumer, color, Registration.SOLID_CYLINDER_ITEMS, concretes, Registration.SOLID_CYLINDER_ITEM_TAG, "solid_cylinder_recolor_", "g g", "gwg", "g g");
             generateRecipes(consumer, color, Registration.SOLID_SMALL_CYLINDER_ITEMS, concretes, Registration.SOLID_SMALL_CYLINDER_ITEM_TAG, "solid_small_cylinder_recolor_", "g g", "gwg");
             generateRecipes(consumer, color, Registration.CYLINDER_ITEMS, glasses, Registration.CYLINDER_ITEM_TAG, "cylinder_recolor_", "g g", "gwg", "g g");

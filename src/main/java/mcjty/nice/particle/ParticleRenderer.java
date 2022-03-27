@@ -2,19 +2,24 @@ package mcjty.nice.particle;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
+import mcjty.lib.client.CustomRenderTypes;
+import mcjty.lib.client.DelayedRenderer;
 import mcjty.lib.client.RenderHelper;
 import mcjty.nice.Nice;
 import mcjty.nice.NiceConfig;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.texture.AtlasTexture;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Matrix4f;
 
 public class ParticleRenderer {
 
-    public static ResourceLocation particles = new ResourceLocation(Nice.MODID, "textures/effects/particles.png");
+    public static ResourceLocation PARTICLES = new ResourceLocation(Nice.MODID, "effects/particles");
 
-    public static void renderParticleSystem(IParticleProvider provider, IVertexBuilder buffer, MatrixStack matrixStack) {
+    public static void renderParticleSystem(IParticleProvider provider, IVertexBuilder buffer, MatrixStack matrixStack, TextureAtlasSprite sprite) {
         long time = System.currentTimeMillis();
 
         int brightness = 240;
@@ -26,14 +31,22 @@ public class ParticleRenderer {
             return;
         }
         system.update(calculated, time);
+
+        float u0 = sprite.getU0();
+        float v0 = sprite.getV0();
+        float uM = sprite.getU1();
+        float vM = sprite.getV1();
+        float du = uM - u0;
+        float dv = vM - v0;
+
         for (IParticle particle : calculated.getParticles()) {
             double ox = particle.getOffset().x;
             double oy = particle.getOffset().y;
             double oz = particle.getOffset().z;
-            double u1 = particle.getU1();
-            double u2 = particle.getU2();
-            double v1 = particle.getV1();
-            double v2 = particle.getV2();
+            double u1 = u0 + particle.getU1() * du;
+            double u2 = u0 + particle.getU2() * du;
+            double v1 = v0 + particle.getV1() * dv;
+            double v2 = v0 + particle.getV2() * dv;
             int r = (int) (particle.getR() * NiceConfig.particleBrightnessR);
             int g = (int) (particle.getG() * NiceConfig.particleBrightnessG);
             int b = (int) (particle.getB() * NiceConfig.particleBrightnessB);
@@ -48,26 +61,13 @@ public class ParticleRenderer {
         }
     }
 
-    public static void renderSystem(MatrixStack matrixStack, IRenderTypeBuffer buffer, IParticleProvider provider, float x, float y, float z) {
-//        GlStateManager.depthMask(false);
-//        GlStateManager.enableBlend();
-//        GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE);
-//
-//        GlStateManager.disableAlpha();
-//
-//        this.bindTexture(blueSphereTexture);
-
-        matrixStack.pushPose();
-//        matrixStack.translate(x + 0.5F, y + 0.5F, z + 0.5F);
-        RenderHelper.rotateToPlayer(matrixStack);
-
-        IVertexBuilder vertexBuilder = buffer.getBuffer(RenderType.translucent());
-
-        renderParticleSystem(provider, vertexBuilder, matrixStack);
-
-        matrixStack.popPose();
-
-//        GlStateManager.enableBlend();
-//        GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+    public static void renderSystem(IParticleProvider provider, BlockPos pos) {
+        DelayedRenderer.addRender(pos, (stack, buf) -> {
+            stack.translate(0.5F, 0.5F, 0.5F);
+            RenderHelper.rotateToPlayer(stack);
+            IVertexBuilder vertexBuilder = buf.getBuffer(CustomRenderTypes.translucent());
+            TextureAtlasSprite sprite = Minecraft.getInstance().getTextureAtlas(AtlasTexture.LOCATION_BLOCKS).apply(PARTICLES);
+            renderParticleSystem(provider, vertexBuilder, stack, sprite);
+        });
     }
 }

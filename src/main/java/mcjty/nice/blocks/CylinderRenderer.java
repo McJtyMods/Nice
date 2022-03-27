@@ -23,12 +23,11 @@ public class CylinderRenderer<T extends GenericParticleTileEntity> extends TileE
         if (blockState.getBlock() instanceof SolidCylinderBlock) {
             return;
         }
-        if (!(blockState.getBlock() instanceof CylinderBlock)) {
+        if (blockState.getBlock() instanceof SolidBlock) {
             return;
         }
-//        this.bindTexture(ParticleRenderer.particles);
 
-        ParticleRenderer.renderSystem(matrixStack, buffer, blockEntity, pos.getX(), pos.getY(), pos.getZ());
+        ParticleRenderer.renderSystem(blockEntity, pos);
     }
 
 

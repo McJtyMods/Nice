@@ -26,6 +26,11 @@ public class BlockStates extends BaseBlockStateProvider {
             ResourceLocation rl = new ResourceLocation(Nice.MODID, "block/solid_" + colorname);
             simpleBlock(entry.getValue().get(), models().cube("solid_" + colorname, rl, rl, rl, rl, rl, rl));
         });
+        Registration.PARTICLE_BLOCKS.entrySet().forEach(entry -> {
+            String colorname = entry.getKey().getName();
+            ResourceLocation rl = new ResourceLocation(Nice.MODID, "block/buis_" + colorname);
+            simpleBlock(entry.getValue().get(), models().cube("particle_" + colorname, rl, rl, rl, rl, rl, rl));
+        });
 
         Registration.CYLINDERS.entrySet().forEach(entry -> {
             String colorname = entry.getKey().getName();

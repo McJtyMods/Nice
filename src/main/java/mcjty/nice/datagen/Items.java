@@ -22,6 +22,9 @@ class Items extends BaseItemModelProvider {
         for (Map.Entry<DyeColor, RegistryObject<Item>> entry : Registration.SOLID_BLOCK_ITEMS.entrySet()) {
             parentedItem(entry.getValue().get(), "block/solid_" + entry.getKey().getName());
         }
+        for (Map.Entry<DyeColor, RegistryObject<Item>> entry : Registration.PARTICLE_BLOCK_ITEMS.entrySet()) {
+            parentedItem(entry.getValue().get(), "block/particle_" + entry.getKey().getName());
+        }
         for (Map.Entry<DyeColor, RegistryObject<Item>> entry : Registration.CYLINDER_ITEMS.entrySet()) {
             parentedItem(entry.getValue().get(), "block/cylinder_" + entry.getKey().getName());
         }

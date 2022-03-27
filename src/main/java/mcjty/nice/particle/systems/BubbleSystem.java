@@ -25,7 +25,7 @@ public class BubbleSystem implements IParticleSystem {
         for (int i = 0 ; i < offsets.length ; i++) {
             DefaultParticle particle = (DefaultParticle) particles.get(i);
             particle.setScale(.13);
-            particle.setUV(5.0D/8, 0, 6.0D / 8, 1.0D / 8);
+            particle.setUV(5.0D/8, 0, 6.0D / 8, 1.0D);
             particle.setColor(255, 255, 255, 128);
         }
         return calculated;

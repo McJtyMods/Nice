@@ -1,3 +1,6 @@
+1.0.0:
+- Ported to 1.16.5
+
 0.4.0:
 - Depends on McJtyLib 3.5.0!
 - Fixed a possible crash when multiple people are changing a particle system in a block at about the same time
