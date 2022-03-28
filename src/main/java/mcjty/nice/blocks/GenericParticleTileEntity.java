@@ -7,38 +7,60 @@ import mcjty.nice.particle.IParticleSystem;
 import mcjty.nice.particle.ParticleType;
 import mcjty.nice.setup.Registration;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.item.DyeColor;
-import net.minecraft.nbt.CompoundTag;
 
 import javax.annotation.Nullable;
 
 public class GenericParticleTileEntity extends GenericTileEntity implements IParticleProvider {
 
     private ParticleType type = ParticleType.SMOKE;
+    private boolean visible = true;
 
     public GenericParticleTileEntity(BlockPos pos, BlockState state) {
         super(Registration.TYPE_PARTICLE.get(), pos, state);
     }
 
     @Override
-    public void load(CompoundTag tag) {
+    public void loadClientDataFromNBT(CompoundTag tag) {
         if (tag.contains("type")) {
             this.type = ParticleType.getByName(tag.getString("type"));
         }
+        this.visible = tag.getBoolean("visible");
+    }
+
+    @Override
+    public void saveClientDataToNBT(CompoundTag tag) {
+        tag.putString("type", type.getName());
+        tag.putBoolean("visible", visible);
+    }
+
+    @Override
+    public void load(CompoundTag tag) {
+        loadClientDataFromNBT(tag);
         super.load(tag);
     }
 
     @Override
     public void saveAdditional(CompoundTag tag) {
-        tag.putString("type", type.getName());
+        saveClientDataToNBT(tag);
         super.saveAdditional(tag);
     }
 
     public void setType(ParticleType type) {
         this.type = type;
         calculatedParticleSystem = null;
+        markDirtyClient();
+    }
+
+    public boolean isVisible() {
+        return visible;
+    }
+
+    public void toggleVisibility() {
+        visible = !visible;
         markDirtyClient();
     }
 

@@ -26,7 +26,10 @@ public class CylinderRenderer<T extends GenericParticleTileEntity> implements Bl
             return;
         }
 
-        ParticleRenderer.renderSystem(blockEntity, pos);
+        if (blockEntity.isVisible()) {
+            ParticleRenderer.renderBlock(matrixStack, buffer, blockState, combinedLight, combinedOverlay);
+        }
+        ParticleRenderer.renderSystem(matrixStack, buffer, blockEntity);
     }
 
 

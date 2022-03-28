@@ -7,11 +7,14 @@ import mcjty.lib.client.RenderHelper;
 import mcjty.nice.Nice;
 import mcjty.nice.NiceConfig;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.block.BlockRenderDispatcher;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.core.BlockPos;
+import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.client.model.data.EmptyModelData;
 
 public class ParticleRenderer {
 
@@ -59,12 +62,23 @@ public class ParticleRenderer {
         }
     }
 
-    public static void renderSystem(IParticleProvider provider, BlockPos pos) {
-        DelayedParticleRenderer.addRender(RenderType.translucent(), pos, (stack, buf) -> {
-            stack.translate(0.5F, 0.5F, 0.5F);
-            RenderHelper.rotateToPlayer(stack);
-            TextureAtlasSprite sprite = Minecraft.getInstance().getTextureAtlas(TextureAtlas.LOCATION_BLOCKS).apply(PARTICLES);
-            renderParticleSystem(provider, buf, stack, sprite);
-        });
+    public static void renderSystem(PoseStack stack, MultiBufferSource buf, IParticleProvider provider) {
+        VertexConsumer buffer = buf.getBuffer(ParticleRenderTypes.TRANSLUCENT_PARTICLES);
+        stack.translate(0.5F, 0.5F, 0.5F);
+        RenderHelper.rotateToPlayer(stack);
+        TextureAtlasSprite sprite = Minecraft.getInstance().getTextureAtlas(TextureAtlas.LOCATION_BLOCKS).apply(PARTICLES);
+        renderParticleSystem(provider, buffer, stack, sprite);
     }
+
+    public static void renderBlock(PoseStack stack, MultiBufferSource buf, BlockState state, int combinedLight, int combinedOverlay) {
+        BlockRenderDispatcher renderer = Minecraft.getInstance().getBlockRenderer();
+        BakedModel model = renderer.getBlockModel(state);
+        int color = Minecraft.getInstance().getBlockColors().getColor(state, null, null, 0);
+        float r = (float) (color >> 16 & 255) / 255.0F;
+        float g = (float) (color >> 8 & 255) / 255.0F;
+        float b = (float) (color & 255) / 255.0F;
+        VertexConsumer buffer = buf.getBuffer(ParticleRenderTypes.TRANSLUCENT_PARTICLES);
+        renderer.getModelRenderer().renderModel(stack.last(), buffer, state, model, r, g, b, combinedLight, combinedOverlay, EmptyModelData.INSTANCE);
+    }
+
 }
