@@ -1,7 +1,7 @@
 package mcjty.nice.blocks;
 
-import mcjty.nice.setup.Registration;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.DyeColor;
@@ -13,8 +13,6 @@ import java.util.function.Function;
 
 public class CylinderBlock extends GenericParticleBlock {
 
-    public static final AxisAlignedBB EMPTY = new AxisAlignedBB(0, 0, 0, 0, 0, 0);
-
     public CylinderBlock(float scale, Function<DyeColor, Block> siblingGetter) {
         super(scale, true, siblingGetter);
     }
@@ -23,5 +21,10 @@ public class CylinderBlock extends GenericParticleBlock {
     @Override
     public BlockState getStateForPlacement(BlockItemUseContext context) {
         return this.defaultBlockState().setValue(BlockStateProperties.FACING, context.getClickedFace());
+    }
+
+    @Override
+    public BlockRenderType getRenderShape(BlockState pState) {
+        return BlockRenderType.ENTITYBLOCK_ANIMATED;
     }
 }

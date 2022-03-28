@@ -2,18 +2,20 @@ package mcjty.nice.particle;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
-import mcjty.lib.client.CustomRenderTypes;
-import mcjty.lib.client.DelayedRenderer;
 import mcjty.lib.client.RenderHelper;
 import mcjty.nice.Nice;
 import mcjty.nice.NiceConfig;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.BlockRendererDispatcher;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Matrix4f;
+import net.minecraftforge.client.model.data.EmptyModelData;
 
 public class ParticleRenderer {
 
@@ -61,13 +63,23 @@ public class ParticleRenderer {
         }
     }
 
-    public static void renderSystem(IParticleProvider provider, BlockPos pos) {
-        DelayedRenderer.addRender(pos, (stack, buf) -> {
-            stack.translate(0.5F, 0.5F, 0.5F);
-            RenderHelper.rotateToPlayer(stack);
-            IVertexBuilder vertexBuilder = buf.getBuffer(CustomRenderTypes.translucent());
-            TextureAtlasSprite sprite = Minecraft.getInstance().getTextureAtlas(AtlasTexture.LOCATION_BLOCKS).apply(PARTICLES);
-            renderParticleSystem(provider, vertexBuilder, stack, sprite);
-        });
+    public static void renderSystem(MatrixStack stack, IRenderTypeBuffer buf, IParticleProvider provider) {
+        IVertexBuilder buffer = buf.getBuffer(ParticleRenderTypes.TRANSLUCENT_PARTICLES);
+        stack.translate(0.5F, 0.5F, 0.5F);
+        RenderHelper.rotateToPlayer(stack);
+        TextureAtlasSprite sprite = Minecraft.getInstance().getTextureAtlas(AtlasTexture.LOCATION_BLOCKS).apply(PARTICLES);
+        renderParticleSystem(provider, buffer, stack, sprite);
     }
+
+    public static void renderBlock(MatrixStack stack, IRenderTypeBuffer buf, BlockState state, int combinedLight, int combinedOverlay) {
+        BlockRendererDispatcher renderer = Minecraft.getInstance().getBlockRenderer();
+        IBakedModel model = renderer.getBlockModel(state);
+        int color = Minecraft.getInstance().getBlockColors().getColor(state, null, null, 0);
+        float r = (float) (color >> 16 & 255) / 255.0F;
+        float g = (float) (color >> 8 & 255) / 255.0F;
+        float b = (float) (color & 255) / 255.0F;
+        IVertexBuilder buffer = buf.getBuffer(ParticleRenderTypes.TRANSLUCENT_PARTICLES);
+        renderer.getModelRenderer().renderModel(stack.last(), buffer, state, model, r, g, b, combinedLight, combinedOverlay, EmptyModelData.INSTANCE);
+    }
+
 }

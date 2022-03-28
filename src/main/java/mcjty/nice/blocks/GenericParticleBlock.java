@@ -50,6 +50,7 @@ public class GenericParticleBlock extends BaseBlock {
                         general("wool", GenericParticleBlock::hasParticles, TextFormatting.AQUA),
                         general("fish", GenericParticleBlock::hasParticles, TextFormatting.AQUA),
                         general("string", GenericParticleBlock::hasParticles, TextFormatting.AQUA),
+                        general("glass", GenericParticleBlock::hasParticles, TextFormatting.AQUA),
                         general("dye", TextFormatting.AQUA)));
         this.scale = scale;
         this.siblingGetter = siblingGetter;
@@ -113,6 +114,9 @@ public class GenericParticleBlock extends BaseBlock {
                         return ActionResultType.SUCCESS;
                     } else if (Items.STRING.equals(heldItem.getItem())) {
                         pt.setType(ParticleType.NONE);
+                        return ActionResultType.SUCCESS;
+                    } else if (heldItem.getItem().is(Tags.Items.GLASS)) {
+                        pt.toggleVisibility();
                         return ActionResultType.SUCCESS;
                     } else if (heldItem.getItem().is(Tags.Items.DYES)) {
                         DyeColor color = DyeColor.getColor(heldItem);

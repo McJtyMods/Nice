@@ -27,7 +27,10 @@ public class CylinderRenderer<T extends GenericParticleTileEntity> extends TileE
             return;
         }
 
-        ParticleRenderer.renderSystem(blockEntity, pos);
+        if (blockEntity.isVisible()) {
+            ParticleRenderer.renderBlock(matrixStack, buffer, blockState, combinedLight, combinedOverlay);
+        }
+        ParticleRenderer.renderSystem(matrixStack, buffer, blockEntity);
     }
 
 

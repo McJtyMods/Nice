@@ -45,6 +45,7 @@ public class LanguageProvider extends net.minecraftforge.common.data.LanguagePro
             add("message.nice." + path + ".wool", "    Wool for smoke");
             add("message.nice." + path + ".fish", "    Fish for fish");
             add("message.nice." + path + ".string", "    String for nothing");
+            add("message.nice." + path + ".glass", "    Glass to toggle visibility");
         }
         add("message.nice." + path + ".dye", "    A dye to change the color");
     }
