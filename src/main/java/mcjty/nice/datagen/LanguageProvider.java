@@ -5,6 +5,7 @@ import mcjty.nice.Nice;
 import mcjty.nice.setup.Registration;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.world.item.DyeColor;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 import java.util.Map;
@@ -37,7 +38,7 @@ public class LanguageProvider extends net.minecraftforge.common.data.LanguagePro
     }
 
     private void addBlockMessages(BaseBlock block, boolean withParticles) {
-        String path = block.getRegistryName().getPath();
+        String path = ForgeRegistries.BLOCKS.getKey(block).getPath();
         add("message.nice." + path + ".header", "Use item to change (not consumed)");
         if (withParticles) {
             add("message.nice." + path + ".diamond", "    Diamond for sparkles");

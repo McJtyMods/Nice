@@ -2,16 +2,14 @@ package mcjty.nice.datagen;
 
 import mcjty.lib.datagen.BaseBlockStateProvider;
 import mcjty.nice.Nice;
-import mcjty.nice.blocks.GenericParticleBlock;
 import mcjty.nice.setup.Registration;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.Block;
 import net.minecraftforge.client.model.generators.BlockModelBuilder;
-import net.minecraftforge.client.model.generators.loaders.OBJLoaderBuilder;
+import net.minecraftforge.client.model.generators.loaders.ObjModelBuilder;
 import net.minecraftforge.common.data.ExistingFileHelper;
-
-import java.util.Arrays;
+import net.minecraftforge.registries.ForgeRegistries;
 
 public class BlockStates extends BaseBlockStateProvider {
 
@@ -55,8 +53,8 @@ public class BlockStates extends BaseBlockStateProvider {
     }
 
     private BlockModelBuilder cylinderModel(Block block, String objName, ResourceLocation rl) {
-        return models().getBuilder(block.getRegistryName().getPath())
-                .customLoader(OBJLoaderBuilder::begin)
+        return models().getBuilder(ForgeRegistries.BLOCKS.getKey(block).getPath())
+                .customLoader(ObjModelBuilder::begin)
                 .modelLocation(new ResourceLocation(Nice.MODID, "models/block/" + objName + ".obj"))
                 .flipV(true)
                 .end()

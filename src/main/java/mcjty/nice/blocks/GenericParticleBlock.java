@@ -7,7 +7,7 @@ import mcjty.nice.particle.ParticleType;
 import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -26,6 +26,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.common.Tags;
 
 import javax.annotation.Nonnull;
+import java.awt.*;
 import java.util.function.Function;
 
 import static mcjty.lib.builder.TooltipBuilder.*;
@@ -96,7 +97,7 @@ public class GenericParticleBlock extends BaseBlock {
                         }
                     } else {
                         if (world.isClientSide) {
-                            player.sendMessage(new TextComponent("No particles supported!"), Util.NIL_UUID);
+                            player.sendSystemMessage(Component.literal("No particles supported!"));
                         }
                     }
                 } else {

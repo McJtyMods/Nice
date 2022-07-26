@@ -8,13 +8,14 @@ import mcjty.nice.Nice;
 import mcjty.nice.NiceConfig;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.block.BlockRenderDispatcher;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.client.model.data.EmptyModelData;
+import net.minecraftforge.client.model.data.ModelData;
 
 public class ParticleRenderer {
 
@@ -70,7 +71,7 @@ public class ParticleRenderer {
         renderParticleSystem(provider, buffer, stack, sprite);
     }
 
-    public static void renderBlock(PoseStack stack, MultiBufferSource buf, BlockState state, int combinedLight, int combinedOverlay) {
+    public static void renderBlock(PoseStack stack, MultiBufferSource buf, BlockState state, int combinedLight, int combinedOverlay, RenderType renderType) {
         BlockRenderDispatcher renderer = Minecraft.getInstance().getBlockRenderer();
         BakedModel model = renderer.getBlockModel(state);
         int color = Minecraft.getInstance().getBlockColors().getColor(state, null, null, 0);
@@ -78,7 +79,7 @@ public class ParticleRenderer {
         float g = (float) (color >> 8 & 255) / 255.0F;
         float b = (float) (color & 255) / 255.0F;
         VertexConsumer buffer = buf.getBuffer(ParticleRenderTypes.TRANSLUCENT_PARTICLES);
-        renderer.getModelRenderer().renderModel(stack.last(), buffer, state, model, r, g, b, combinedLight, combinedOverlay, EmptyModelData.INSTANCE);
+        renderer.getModelRenderer().renderModel(stack.last(), buffer, state, model, r, g, b, combinedLight, combinedOverlay, ModelData.EMPTY, renderType);
     }
 
 }

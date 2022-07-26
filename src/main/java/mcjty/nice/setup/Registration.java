@@ -31,7 +31,7 @@ public class Registration {
 
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, MODID);
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MODID);
-    public static final DeferredRegister<BlockEntityType<?>> TILES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITIES, MODID);
+    public static final DeferredRegister<BlockEntityType<?>> TILES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, MODID);
 
     public static final Map<DyeColor, RegistryObject<BaseBlock>> SOLID_BLOCKS = Arrays.stream(DyeColor.values())
             .collect(Collectors.toMap(c -> c, c -> BLOCKS.register("solid_block_" + c.getName(), SolidBlock::new)));
