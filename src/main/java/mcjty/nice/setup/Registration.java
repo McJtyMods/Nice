@@ -5,15 +5,14 @@ import mcjty.lib.blocks.BaseBlock;
 import mcjty.nice.Nice;
 import mcjty.nice.blocks.*;
 import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
-import net.minecraft.tags.ItemTags;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.common.Tags;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -26,6 +25,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import static mcjty.nice.Nice.MODID;
+import static mcjty.nice.Nice.tab;
 
 public class Registration {
 
@@ -47,17 +47,17 @@ public class Registration {
             .collect(Collectors.toMap(c -> c, c -> BLOCKS.register("solid_small_cylinder_" + c.getName(), () -> new SolidCylinderBlock(.3f, color -> Registration.SOLID_SMALL_CYLINDERS.get(color).get()))));
 
     public static final Map<DyeColor, RegistryObject<Item>> SOLID_BLOCK_ITEMS = Arrays.stream(DyeColor.values())
-            .collect(Collectors.toMap(c -> c, c -> ITEMS.register("solid_" + c.getName(), () -> new BlockItem(SOLID_BLOCKS.get(c).get(), Registration.createStandardProperties()))));
+            .collect(Collectors.toMap(c -> c, c -> ITEMS.register("solid_" + c.getName(), tab(() -> new BlockItem(SOLID_BLOCKS.get(c).get(), Registration.createStandardProperties())))));
     public static final Map<DyeColor, RegistryObject<Item>> PARTICLE_BLOCK_ITEMS = Arrays.stream(DyeColor.values())
-            .collect(Collectors.toMap(c -> c, c -> ITEMS.register("particle_" + c.getName(), () -> new BlockItem(PARTICLE_BLOCKS.get(c).get(), Registration.createStandardProperties()))));
+            .collect(Collectors.toMap(c -> c, c -> ITEMS.register("particle_" + c.getName(), tab(() -> new BlockItem(PARTICLE_BLOCKS.get(c).get(), Registration.createStandardProperties())))));
     public static final Map<DyeColor, RegistryObject<Item>> CYLINDER_ITEMS = Arrays.stream(DyeColor.values())
-            .collect(Collectors.toMap(c -> c, c -> ITEMS.register("cylinder_" + c.getName(), () -> new BlockItem(CYLINDERS.get(c).get(), Registration.createStandardProperties()))));
+            .collect(Collectors.toMap(c -> c, c -> ITEMS.register("cylinder_" + c.getName(), tab(() -> new BlockItem(CYLINDERS.get(c).get(), Registration.createStandardProperties())))));
     public static final Map<DyeColor, RegistryObject<Item>> SMALL_CYLINDER_ITEMS = Arrays.stream(DyeColor.values())
-            .collect(Collectors.toMap(c -> c, c -> ITEMS.register("small_cylinder_" + c.getName(), () -> new BlockItem(SMALL_CYLINDERS.get(c).get(), Registration.createStandardProperties()))));
+            .collect(Collectors.toMap(c -> c, c -> ITEMS.register("small_cylinder_" + c.getName(), tab(() -> new BlockItem(SMALL_CYLINDERS.get(c).get(), Registration.createStandardProperties())))));
     public static final Map<DyeColor, RegistryObject<Item>> SOLID_CYLINDER_ITEMS = Arrays.stream(DyeColor.values())
-            .collect(Collectors.toMap(c -> c, c -> ITEMS.register("solid_cylinder_" + c.getName(), () -> new BlockItem(SOLID_CYLINDERS.get(c).get(), Registration.createStandardProperties()))));
+            .collect(Collectors.toMap(c -> c, c -> ITEMS.register("solid_cylinder_" + c.getName(), tab(() -> new BlockItem(SOLID_CYLINDERS.get(c).get(), Registration.createStandardProperties())))));
     public static final Map<DyeColor, RegistryObject<Item>> SOLID_SMALL_CYLINDER_ITEMS = Arrays.stream(DyeColor.values())
-            .collect(Collectors.toMap(c -> c, c -> ITEMS.register("solid_small_cylinder_" + c.getName(), () -> new BlockItem(SOLID_SMALL_CYLINDERS.get(c).get(), Registration.createStandardProperties()))));
+            .collect(Collectors.toMap(c -> c, c -> ITEMS.register("solid_small_cylinder_" + c.getName(), tab(() -> new BlockItem(SOLID_SMALL_CYLINDERS.get(c).get(), Registration.createStandardProperties())))));
 
     public static final RegistryObject<BlockEntityType<GenericParticleTileEntity>> TYPE_PARTICLE = TILES.register("generic_particle", () -> BlockEntityType.Builder.of(GenericParticleTileEntity::new,
             collect(CYLINDERS, SMALL_CYLINDERS, SOLID_CYLINDERS, SOLID_SMALL_CYLINDERS, SOLID_BLOCKS, PARTICLE_BLOCKS)).build(null));
@@ -70,13 +70,14 @@ public class Registration {
     public static final TagKey<Item> SOLID_SMALL_CYLINDER_ITEM_TAG = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(Nice.MODID, "solid_small_cylinder"));
 
     public static void register() {
-        BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
-        ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
-        TILES.register(FMLJavaModLoadingContext.get().getModEventBus());
+        IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
+        BLOCKS.register(bus);
+        ITEMS.register(bus);
+        TILES.register(bus);
     }
 
     public static Item.Properties createStandardProperties() {
-        return new Item.Properties().tab(Nice.setup.getTab());
+        return Nice.setup.defaultProperties();
     }
 
     public static BaseBlock[] collect(Map<DyeColor, RegistryObject<BaseBlock>>... maps) {

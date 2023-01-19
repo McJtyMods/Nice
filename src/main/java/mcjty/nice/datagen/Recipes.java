@@ -1,13 +1,8 @@
 package mcjty.nice.datagen;
 
-import mcjty.lib.datagen.BaseRecipeProvider;
-import mcjty.nice.Nice;
+import mcjty.lib.datagen.DataGen;
+import mcjty.lib.datagen.Dob;
 import mcjty.nice.setup.Registration;
-import net.minecraft.data.DataGenerator;
-import net.minecraft.data.recipes.FinishedRecipe;
-import net.minecraft.data.recipes.ShapedRecipeBuilder;
-import net.minecraft.data.recipes.ShapelessRecipeBuilder;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.DyeColor;
@@ -20,16 +15,12 @@ import net.minecraftforge.registries.RegistryObject;
 import javax.annotation.Nonnull;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.Consumer;
 
-public class Recipes extends BaseRecipeProvider {
+import static mcjty.lib.datagen.DataGen.has;
 
-    public Recipes(DataGenerator generatorIn) {
-        super(generatorIn);
-    }
+public class Recipes {
 
-    @Override
-    protected void buildCraftingRecipes(@Nonnull Consumer<FinishedRecipe> consumer) {
+    public static void buildCraftingRecipes(@Nonnull DataGen dataGen) {
         Map<DyeColor, Block> concretes = new HashMap<>();
         concretes.put(DyeColor.WHITE, Blocks.WHITE_CONCRETE);
         concretes.put(DyeColor.ORANGE, Blocks.ORANGE_CONCRETE);
@@ -67,26 +58,26 @@ public class Recipes extends BaseRecipeProvider {
         glasses.put(DyeColor.BLACK, Blocks.BLACK_STAINED_GLASS);
 
         for (DyeColor color : DyeColor.values()) {
-            generateRecipes(consumer, color, Registration.SOLID_BLOCK_ITEMS, concretes, Registration.SOLID_ITEM_TAG, "solid_recolor_", "ggg", "gwg", "ggg");
-            generateRecipes(consumer, color, Registration.PARTICLE_BLOCK_ITEMS, concretes, Registration.PARTICLE_ITEM_TAG, "particle_recolor_", "gwg", "ggg", "ggg");
-            generateRecipes(consumer, color, Registration.SOLID_CYLINDER_ITEMS, concretes, Registration.SOLID_CYLINDER_ITEM_TAG, "solid_cylinder_recolor_", "g g", "gwg", "g g");
-            generateRecipes(consumer, color, Registration.SOLID_SMALL_CYLINDER_ITEMS, concretes, Registration.SOLID_SMALL_CYLINDER_ITEM_TAG, "solid_small_cylinder_recolor_", "g g", "gwg");
-            generateRecipes(consumer, color, Registration.CYLINDER_ITEMS, glasses, Registration.CYLINDER_ITEM_TAG, "cylinder_recolor_", "g g", "gwg", "g g");
-            generateRecipes(consumer, color, Registration.SMALL_CYLINDER_ITEMS, glasses, Registration.SMALL_CYLINDER_ITEM_TAG, "small_cylinder_recolor_", "g g", "gwg");
+            generateRecipes(dataGen, color, Registration.SOLID_BLOCK_ITEMS, concretes, Registration.SOLID_ITEM_TAG, "solid_recolor_", "ggg", "gwg", "ggg");
+            generateRecipes(dataGen, color, Registration.PARTICLE_BLOCK_ITEMS, concretes, Registration.PARTICLE_ITEM_TAG, "particle_recolor_", "gwg", "ggg", "ggg");
+            generateRecipes(dataGen, color, Registration.SOLID_CYLINDER_ITEMS, concretes, Registration.SOLID_CYLINDER_ITEM_TAG, "solid_cylinder_recolor_", "g g", "gwg", "g g");
+            generateRecipes(dataGen, color, Registration.SOLID_SMALL_CYLINDER_ITEMS, concretes, Registration.SOLID_SMALL_CYLINDER_ITEM_TAG, "solid_small_cylinder_recolor_", "g g", "gwg");
+            generateRecipes(dataGen, color, Registration.CYLINDER_ITEMS, glasses, Registration.CYLINDER_ITEM_TAG, "cylinder_recolor_", "g g", "gwg", "g g");
+            generateRecipes(dataGen, color, Registration.SMALL_CYLINDER_ITEMS, glasses, Registration.SMALL_CYLINDER_ITEM_TAG, "small_cylinder_recolor_", "g g", "gwg");
         }
     }
 
-    private void generateRecipes(Consumer<FinishedRecipe> consumer, DyeColor color, Map<DyeColor, RegistryObject<Item>> items, Map<DyeColor, Block> base, TagKey<Item> tag, String prefix, String... pattern) {
-        build(consumer, ShapedRecipeBuilder.shaped(items.get(color).get(), 8)
-                        .define('g', base.get(color))
-                        .define('w', ItemTags.WOOL)
-                        .unlockedBy("base", has(base.get(color))),
-                pattern
-        );
-        build(consumer, new ResourceLocation(Nice.MODID, prefix + color.getName()), ShapelessRecipeBuilder.shapeless(items.get(color).get())
-                .requires(tag)
-                .requires(DyeItem.byColor(color))
-                .unlockedBy("base", has(base.get(color)))
+    private static void generateRecipes(DataGen dataGen, DyeColor color, Map<DyeColor, RegistryObject<Item>> items, Map<DyeColor, Block> base, TagKey<Item> tag, String prefix, String... pattern) {
+        dataGen.add(
+                Dob.itemBuilder(items.get(color))
+                        .shaped(builder -> builder.shaped(items.get(color).get(), 8)
+                                .define('g', base.get(color))
+                                .define('w', ItemTags.WOOL)
+                                .unlockedBy("base", has(base.get(color))), pattern)
+                        .shapeless(prefix + color.getName(), builder -> builder
+                                .requires(tag)
+                                .requires(DyeItem.byColor(color))
+                                .unlockedBy("base", has(base.get(color))))
         );
     }
 }

@@ -1,53 +1,48 @@
 package mcjty.nice.datagen;
 
 import mcjty.lib.blocks.BaseBlock;
-import mcjty.nice.Nice;
+import mcjty.lib.datagen.DataGen;
+import mcjty.lib.datagen.Dob;
 import mcjty.nice.setup.Registration;
-import net.minecraft.data.DataGenerator;
 import net.minecraft.world.item.DyeColor;
-import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 import java.util.Map;
 
-public class LanguageProvider extends net.minecraftforge.common.data.LanguageProvider {
+public class LanguageProvider {
 
-    public LanguageProvider(DataGenerator gen, String locale) {
-        super(gen, Nice.MODID, locale);
+    public static void addTranslations(DataGen dataGen) {
+        dataGen.add(Dob.builder()
+                .message("itemGroup.nice", "NICE")
+                .message("message.nice.shiftmessage", "<Press Shift>")
+        );
+        addBlocks(dataGen, "Solid Block", Registration.SOLID_BLOCKS, false);
+        addBlocks(dataGen, "Particle Block", Registration.PARTICLE_BLOCKS, true);
+        addBlocks(dataGen, "Particle Cylinder", Registration.CYLINDERS, true);
+        addBlocks(dataGen, "Small Particle Cylinder", Registration.SMALL_CYLINDERS, true);
+        addBlocks(dataGen, "Solid Cylinder", Registration.SOLID_CYLINDERS, false);
+        addBlocks(dataGen, "Solid Small Cylinder", Registration.SOLID_SMALL_CYLINDERS, false);
     }
 
-    @Override
-    protected void addTranslations() {
-        add("itemGroup.nice", "NICE");
-        add("message.nice.shiftmessage", "<Press Shift>");
-        addBlocks("Solid Block", Registration.SOLID_BLOCKS, false);
-        addBlocks("Particle Block", Registration.PARTICLE_BLOCKS, true);
-        addBlocks("Particle Cylinder", Registration.CYLINDERS, true);
-        addBlocks("Small Particle Cylinder", Registration.SMALL_CYLINDERS, true);
-        addBlocks("Solid Cylinder", Registration.SOLID_CYLINDERS, false);
-        addBlocks("Solid Small Cylinder", Registration.SOLID_SMALL_CYLINDERS, false);
-    }
-
-    private void addBlocks(String name, Map<DyeColor, RegistryObject<BaseBlock>> blocks, boolean withParticles) {
+    private static void addBlocks(DataGen dataGen, String name, Map<DyeColor, RegistryObject<BaseBlock>> blocks, boolean withParticles) {
         for (Map.Entry<DyeColor, RegistryObject<BaseBlock>> entry : blocks.entrySet()) {
-            BaseBlock block = entry.getValue().get();
             String colorName = entry.getKey().getName();
-            add(block, name + " (" + colorName + ")");
-            addBlockMessages(block, withParticles);
+            Dob.Builder builder = Dob.blockBuilder(entry.getValue()).name(name + " (" + colorName + ")");
+            addBlockMessages(builder, withParticles);
+            dataGen.add(builder);
         }
     }
 
-    private void addBlockMessages(BaseBlock block, boolean withParticles) {
-        String path = ForgeRegistries.BLOCKS.getKey(block).getPath();
-        add("message.nice." + path + ".header", "Use item to change (not consumed)");
+    private static void addBlockMessages(Dob.Builder builder, boolean withParticles) {
+        builder.keyedMessage(".header", "Use item to change (not consumed)");
         if (withParticles) {
-            add("message.nice." + path + ".diamond", "    Diamond for sparkles");
-            add("message.nice." + path + ".water", "    Water bucket for bubbles");
-            add("message.nice." + path + ".wool", "    Wool for smoke");
-            add("message.nice." + path + ".fish", "    Fish for fish");
-            add("message.nice." + path + ".string", "    String for nothing");
-            add("message.nice." + path + ".glass", "    Glass to toggle visibility");
+            builder.keyedMessage(".diamond", "    Diamond for sparkles");
+            builder.keyedMessage(".water", "    Water bucket for bubbles");
+            builder.keyedMessage(".wool", "    Wool for smoke");
+            builder.keyedMessage(".fish", "    Fish for fish");
+            builder.keyedMessage(".string", "    String for nothing");
+            builder.keyedMessage(".glass", "    Glass to toggle visibility");
         }
-        add("message.nice." + path + ".dye", "    A dye to change the color");
+        builder.keyedMessage(".dye", "    A dye to change the color");
     }
 }
