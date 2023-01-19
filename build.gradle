@@ -2,8 +2,7 @@ buildscript {
     repositories {
         maven { url = 'https://maven.minecraftforge.net/' }
         maven { url = 'https://maven.parchmentmc.org' }
-        maven { url 'https://plugins.gradle.org/m2/' }
-        jcenter()
+        maven { url = 'https://plugins.gradle.org/m2/' }
         mavenCentral()
     }
     dependencies {
@@ -29,10 +28,6 @@ repositories {
     maven { // Patchouli
         url "https://maven.blamejared.com"
     }
-    maven { // TOP
-        name 'tterrag maven'
-        url "https://maven.tterrag.com/"
-    }
     maven { // McJtyLib
         url "https://maven.k-4u.nl"
     }
@@ -44,9 +39,8 @@ archivesBaseName = "nice"
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
 minecraft {
-    //mappings channel: 'parchment', version: "2022.03.13-1.18.2"
     accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
-    mappings channel: 'official', version: "1.19"
+    mappings channel: 'parchment', version: "2022.11.27-1.19.2"
     runs {
         client = {
             properties 'forge.logging.markers': 'SCAN,REGISTRIES,REGISTRYDUMP'
