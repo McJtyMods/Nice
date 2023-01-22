@@ -2,12 +2,14 @@ package mcjty.nice.setup;
 
 import mcjty.nice.blocks.CylinderRenderer;
 import mcjty.nice.particle.ParticleRenderer;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
-import net.minecraft.client.renderer.texture.TextureAtlas;
-import net.minecraftforge.client.event.TextureStitchEvent;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+
+import java.util.Collections;
+import java.util.List;
 
 public class ClientSetup {
 
@@ -23,10 +25,7 @@ public class ClientSetup {
     }
 
 
-    public static void onTextureStitch(TextureStitchEvent.Pre event) {
-        if (!event.getAtlas().location().equals(TextureAtlas.LOCATION_BLOCKS)) {
-            return;
-        }
-        event.addSprite(ParticleRenderer.PARTICLES);
+    public static List<ResourceLocation> onTextureStitch() {
+        return Collections.singletonList(ParticleRenderer.PARTICLES);
     }
 }

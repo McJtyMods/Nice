@@ -70,10 +70,10 @@ public class Recipes {
     private static void generateRecipes(DataGen dataGen, DyeColor color, Map<DyeColor, RegistryObject<Item>> items, Map<DyeColor, Block> base, TagKey<Item> tag, String prefix, String... pattern) {
         dataGen.add(
                 Dob.itemBuilder(items.get(color))
-                        .shaped(builder -> builder.shaped(items.get(color).get(), 8)
+                        .shaped(builder -> builder
                                 .define('g', base.get(color))
                                 .define('w', ItemTags.WOOL)
-                                .unlockedBy("base", has(base.get(color))), pattern)
+                                .unlockedBy("base", has(base.get(color))), 8, pattern)
                         .shapeless(prefix + color.getName(), builder -> builder
                                 .requires(tag)
                                 .requires(DyeItem.byColor(color))

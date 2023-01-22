@@ -2,7 +2,6 @@ package mcjty.nice.particle;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Matrix4f;
 import mcjty.lib.client.RenderHelper;
 import mcjty.nice.Nice;
 import mcjty.nice.NiceConfig;
@@ -55,12 +54,10 @@ public class ParticleRenderer {
             int a = particle.getA();
             double scale = particle.getScale();
 
-            Matrix4f pose = matrixStack.last().pose();
-            // @todo 1.19.3
-            RenderHelper.vt(buffer, pose, (float)(ox - scale), (float)(oy-scale), (float)oz, (float)u1, (float)v1, b1, b2,r, g, b, a);
-            RenderHelper.vt(buffer, pose, (float)(ox - scale), (float)(oy+scale), (float)oz, (float)u1, (float)v2, b1, b2,r, g, b, a);
-            RenderHelper.vt(buffer, pose, (float)(ox + scale), (float)(oy+scale), (float)oz, (float)u2, (float)v2, b1, b2,r, g, b, a);
-            RenderHelper.vt(buffer, pose, (float)(ox + scale), (float)(oy-scale), (float)oz, (float)u2, (float)v1, b1, b2,r, g, b, a);
+            RenderHelper.vt(buffer, matrixStack, (float)(ox - scale), (float)(oy-scale), (float)oz, (float)u1, (float)v1, b1, b2,r, g, b, a);
+            RenderHelper.vt(buffer, matrixStack, (float)(ox - scale), (float)(oy+scale), (float)oz, (float)u1, (float)v2, b1, b2,r, g, b, a);
+            RenderHelper.vt(buffer, matrixStack, (float)(ox + scale), (float)(oy+scale), (float)oz, (float)u2, (float)v2, b1, b2,r, g, b, a);
+            RenderHelper.vt(buffer, matrixStack, (float)(ox + scale), (float)(oy-scale), (float)oz, (float)u2, (float)v1, b1, b2,r, g, b, a);
         }
     }
 

@@ -2,9 +2,9 @@ package mcjty.nice.setup;
 
 
 import mcjty.lib.blocks.BaseBlock;
+import mcjty.lib.varia.TagTools;
 import mcjty.nice.Nice;
 import mcjty.nice.blocks.*;
-import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.BlockItem;
@@ -62,12 +62,12 @@ public class Registration {
     public static final RegistryObject<BlockEntityType<GenericParticleTileEntity>> TYPE_PARTICLE = TILES.register("generic_particle", () -> BlockEntityType.Builder.of(GenericParticleTileEntity::new,
             collect(CYLINDERS, SMALL_CYLINDERS, SOLID_CYLINDERS, SOLID_SMALL_CYLINDERS, SOLID_BLOCKS, PARTICLE_BLOCKS)).build(null));
 
-    public static final TagKey<Item> SOLID_ITEM_TAG = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(Nice.MODID, "solid"));
-    public static final TagKey<Item> PARTICLE_ITEM_TAG = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(Nice.MODID, "particle"));
-    public static final TagKey<Item> CYLINDER_ITEM_TAG = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(Nice.MODID, "cylinder"));
-    public static final TagKey<Item> SMALL_CYLINDER_ITEM_TAG = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(Nice.MODID, "small_cylinder"));
-    public static final TagKey<Item> SOLID_CYLINDER_ITEM_TAG = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(Nice.MODID, "solid_cylinder"));
-    public static final TagKey<Item> SOLID_SMALL_CYLINDER_ITEM_TAG = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(Nice.MODID, "solid_small_cylinder"));
+    public static final TagKey<Item> SOLID_ITEM_TAG = TagTools.createItemTagKey(new ResourceLocation(Nice.MODID, "solid"));
+    public static final TagKey<Item> PARTICLE_ITEM_TAG = TagTools.createItemTagKey(new ResourceLocation(Nice.MODID, "particle"));
+    public static final TagKey<Item> CYLINDER_ITEM_TAG = TagTools.createItemTagKey(new ResourceLocation(Nice.MODID, "cylinder"));
+    public static final TagKey<Item> SMALL_CYLINDER_ITEM_TAG = TagTools.createItemTagKey(new ResourceLocation(Nice.MODID, "small_cylinder"));
+    public static final TagKey<Item> SOLID_CYLINDER_ITEM_TAG = TagTools.createItemTagKey(new ResourceLocation(Nice.MODID, "solid_cylinder"));
+    public static final TagKey<Item> SOLID_SMALL_CYLINDER_ITEM_TAG = TagTools.createItemTagKey(new ResourceLocation(Nice.MODID, "solid_small_cylinder"));
 
     public static void register() {
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
