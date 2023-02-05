@@ -77,7 +77,7 @@ public class ParticleRenderer {
         float g = (float) (color >> 8 & 255) / 255.0F;
         float b = (float) (color & 255) / 255.0F;
         VertexConsumer buffer = buf.getBuffer(ParticleRenderTypes.TRANSLUCENT_PARTICLES);
-        renderer.getModelRenderer().renderModel(stack.last(), buffer, state, model, r, g, b, combinedLight, combinedOverlay, ModelData.EMPTY, renderType);
+        RenderHelper.renderModel(renderer, stack, buffer, state, model, r, g, b, combinedLight, combinedOverlay, ModelData.EMPTY, renderType);
     }
 
 }
