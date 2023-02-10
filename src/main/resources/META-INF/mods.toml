@@ -24,6 +24,6 @@ Powerful item/fluid/energy transfer
 [[dependencies.nice]]
     modId="mcjtylib"
     mandatory=true
-    versionRange="[1.19-7.1.4,)"
+    versionRange="[1.19-7.1.5,)"
     ordering="AFTER"
     side="BOTH"
