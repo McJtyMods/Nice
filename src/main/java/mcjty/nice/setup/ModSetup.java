@@ -1,16 +1,9 @@
 package mcjty.nice.setup;
 
 import mcjty.lib.setup.DefaultModSetup;
-import mcjty.nice.Nice;
-import net.minecraft.world.item.DyeColor;
-import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 
 public class ModSetup extends DefaultModSetup {
-
-    public ModSetup() {
-        createTab(Nice.MODID, "nice", () -> new ItemStack(Registration.CYLINDER_ITEMS.get(DyeColor.RED).get()));
-    }
 
     @Override
     protected void setupModCompat() {

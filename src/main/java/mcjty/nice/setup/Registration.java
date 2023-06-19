@@ -5,11 +5,11 @@ import mcjty.lib.blocks.BaseBlock;
 import mcjty.lib.varia.TagTools;
 import mcjty.nice.Nice;
 import mcjty.nice.blocks.*;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.DyeColor;
-import net.minecraft.world.item.Item;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -32,6 +32,7 @@ public class Registration {
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, MODID);
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MODID);
     public static final DeferredRegister<BlockEntityType<?>> TILES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, MODID);
+    public static final DeferredRegister<CreativeModeTab> TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
 
     public static final Map<DyeColor, RegistryObject<BaseBlock>> SOLID_BLOCKS = Arrays.stream(DyeColor.values())
             .collect(Collectors.toMap(c -> c, c -> BLOCKS.register("solid_block_" + c.getName(), SolidBlock::new)));
@@ -74,6 +75,7 @@ public class Registration {
         BLOCKS.register(bus);
         ITEMS.register(bus);
         TILES.register(bus);
+        TABS.register(FMLJavaModLoadingContext.get().getModEventBus());
     }
 
     public static Item.Properties createStandardProperties() {
@@ -119,4 +121,13 @@ public class Registration {
 //        event.getRegistry().register(new ItemBlock(ModBlocks.solidCylinderBlock).setRegistryName(ModBlocks.solidCylinderBlock.getRegistryName()));
 //        event.getRegistry().register(new ItemBlock(ModBlocks.solidSmallCylinderBlock).setRegistryName(ModBlocks.solidSmallCylinderBlock.getRegistryName()));
 //    }
+
+    public static RegistryObject<CreativeModeTab> TAB = TABS.register("nice", () -> CreativeModeTab.builder()
+            .title(Component.translatable("itemGroup." + MODID))
+            .icon(() -> new ItemStack(CYLINDER_ITEMS.get(DyeColor.RED).get()))
+            .withTabsBefore(CreativeModeTabs.SPAWN_EGGS)
+            .displayItems((featureFlags, output) -> {
+                Nice.setup.populateTab(output);
+            })
+            .build());
 }
