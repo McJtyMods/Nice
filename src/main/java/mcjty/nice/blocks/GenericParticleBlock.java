@@ -5,7 +5,6 @@ import mcjty.lib.builder.BlockBuilder;
 import mcjty.lib.varia.TagTools;
 import mcjty.nice.particle.ParticleType;
 import net.minecraft.ChatFormatting;
-import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.tags.ItemTags;
@@ -21,20 +20,18 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.common.Tags;
 
 import javax.annotation.Nonnull;
-import java.awt.*;
 import java.util.function.Function;
 
 import static mcjty.lib.builder.TooltipBuilder.*;
 
 public class GenericParticleBlock extends BaseBlock {
 
-    public static final Properties OCCLUSION_PROPERTIES = Properties.of(Material.STONE).sound(SoundType.GLASS);
-    public static final Properties NOOCCLUSION_PROPERTIES = Properties.of(Material.STONE).sound(SoundType.GLASS).noOcclusion();
+    public static final Properties OCCLUSION_PROPERTIES = Properties.of().sound(SoundType.GLASS);
+    public static final Properties NOOCCLUSION_PROPERTIES = Properties.of().sound(SoundType.GLASS).noOcclusion();
     private final float scale;
 
     private final Function<DyeColor, Block> siblingGetter;
