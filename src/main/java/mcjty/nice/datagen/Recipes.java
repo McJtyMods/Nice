@@ -2,6 +2,7 @@ package mcjty.nice.datagen;
 
 import mcjty.lib.datagen.DataGen;
 import mcjty.lib.datagen.Dob;
+import mcjty.lib.setup.DeferredItem;
 import mcjty.nice.setup.Registration;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
@@ -67,7 +68,7 @@ public class Recipes {
         }
     }
 
-    private static void generateRecipes(DataGen dataGen, DyeColor color, Map<DyeColor, RegistryObject<Item>> items, Map<DyeColor, Block> base, TagKey<Item> tag, String prefix, String... pattern) {
+    private static void generateRecipes(DataGen dataGen, DyeColor color, Map<DyeColor, DeferredItem<Item>> items, Map<DyeColor, Block> base, TagKey<Item> tag, String prefix, String... pattern) {
         dataGen.add(
                 Dob.itemBuilder(items.get(color))
                         .shaped(builder -> builder

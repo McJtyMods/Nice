@@ -3,6 +3,7 @@ package mcjty.nice.datagen;
 import mcjty.lib.datagen.BaseBlockStateProvider;
 import mcjty.lib.datagen.DataGen;
 import mcjty.lib.datagen.Dob;
+import mcjty.lib.setup.DeferredItem;
 import mcjty.nice.Nice;
 import mcjty.nice.setup.Registration;
 import net.minecraft.resources.ResourceLocation;
@@ -69,32 +70,32 @@ public final class DataGenerators {
                     .blockState(p -> p.simpleBlock(entry.getValue().get(), cylinderModel(p, entry.getValue().get(), "smallcylinder", rl))));
         });
 
-        for (Map.Entry<DyeColor, RegistryObject<Item>> entry : Registration.SOLID_BLOCK_ITEMS.entrySet()) {
+        for (Map.Entry<DyeColor, DeferredItem<Item>> entry : Registration.SOLID_BLOCK_ITEMS.entrySet()) {
             datagen.add(Dob.itemBuilder(entry.getValue())
                     .itemTags(List.of(Registration.SOLID_ITEM_TAG))
                     .parentedItem("block/solid_" + entry.getKey().getName()));
         }
-        for (Map.Entry<DyeColor, RegistryObject<Item>> entry : Registration.PARTICLE_BLOCK_ITEMS.entrySet()) {
+        for (Map.Entry<DyeColor, DeferredItem<Item>> entry : Registration.PARTICLE_BLOCK_ITEMS.entrySet()) {
             datagen.add(Dob.itemBuilder(entry.getValue())
                     .itemTags(List.of(Registration.PARTICLE_ITEM_TAG))
                     .parentedItem("block/particle_" + entry.getKey().getName()));
         }
-        for (Map.Entry<DyeColor, RegistryObject<Item>> entry : Registration.CYLINDER_ITEMS.entrySet()) {
+        for (Map.Entry<DyeColor, DeferredItem<Item>> entry : Registration.CYLINDER_ITEMS.entrySet()) {
             datagen.add(Dob.itemBuilder(entry.getValue())
                     .itemTags(List.of(Registration.CYLINDER_ITEM_TAG))
                     .parentedItem("block/cylinder_" + entry.getKey().getName()));
         }
-        for (Map.Entry<DyeColor, RegistryObject<Item>> entry : Registration.SMALL_CYLINDER_ITEMS.entrySet()) {
+        for (Map.Entry<DyeColor, DeferredItem<Item>> entry : Registration.SMALL_CYLINDER_ITEMS.entrySet()) {
             datagen.add(Dob.itemBuilder(entry.getValue())
                     .itemTags(List.of(Registration.SMALL_CYLINDER_ITEM_TAG))
                     .parentedItem("block/small_cylinder_" + entry.getKey().getName()));
         }
-        for (Map.Entry<DyeColor, RegistryObject<Item>> entry : Registration.SOLID_CYLINDER_ITEMS.entrySet()) {
+        for (Map.Entry<DyeColor, DeferredItem<Item>> entry : Registration.SOLID_CYLINDER_ITEMS.entrySet()) {
             datagen.add(Dob.itemBuilder(entry.getValue())
                     .itemTags(List.of(Registration.SOLID_CYLINDER_ITEM_TAG))
                     .parentedItem("block/solid_cylinder_" + entry.getKey().getName()));
         }
-        for (Map.Entry<DyeColor, RegistryObject<Item>> entry : Registration.SOLID_SMALL_CYLINDER_ITEMS.entrySet()) {
+        for (Map.Entry<DyeColor, DeferredItem<Item>> entry : Registration.SOLID_SMALL_CYLINDER_ITEMS.entrySet()) {
             datagen.add(Dob.itemBuilder(entry.getValue())
                     .itemTags(List.of(Registration.SOLID_SMALL_CYLINDER_ITEM_TAG))
                     .parentedItem("block/solid_small_cylinder_" + entry.getKey().getName()));

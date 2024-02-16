@@ -14,6 +14,7 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fml.loading.FMLEnvironment;
 
 import java.util.Random;
 import java.util.function.Supplier;
@@ -29,20 +30,22 @@ public class Nice {
     public static Random random = new Random();
 
     public Nice() {
+        IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
+        Dist dist = FMLEnvironment.dist;
+
         instance = this;
         setupModules();
 
         NiceConfig.register(modules);
         Registration.register();
 
-        IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
         bus.addListener(this::onDataGen);
 
-        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
+        if (dist.isClient()) {
             bus.addListener(modules::initClient);
             bus.addListener(ClientSetup::initClient);
             ClientTools.onTextureStitch(bus, ClientSetup::onTextureStitch);
-        });
+        }
     }
 
     public static <T extends Item> Supplier<T> tab(Supplier<T> supplier) {

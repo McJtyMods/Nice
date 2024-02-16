@@ -3,6 +3,7 @@ package mcjty.nice.datagen;
 import mcjty.lib.blocks.BaseBlock;
 import mcjty.lib.datagen.DataGen;
 import mcjty.lib.datagen.Dob;
+import mcjty.lib.setup.DeferredBlock;
 import mcjty.nice.setup.Registration;
 import net.minecraft.world.item.DyeColor;
 import net.minecraftforge.registries.RegistryObject;
@@ -24,8 +25,8 @@ public class LanguageProvider {
         addBlocks(dataGen, "Solid Small Cylinder", Registration.SOLID_SMALL_CYLINDERS, false);
     }
 
-    private static void addBlocks(DataGen dataGen, String name, Map<DyeColor, RegistryObject<BaseBlock>> blocks, boolean withParticles) {
-        for (Map.Entry<DyeColor, RegistryObject<BaseBlock>> entry : blocks.entrySet()) {
+    private static void addBlocks(DataGen dataGen, String name, Map<DyeColor, DeferredBlock<BaseBlock>> blocks, boolean withParticles) {
+        for (Map.Entry<DyeColor, DeferredBlock<BaseBlock>> entry : blocks.entrySet()) {
             String colorName = entry.getKey().getName();
             Dob.Builder builder = Dob.blockBuilder(entry.getValue()).name(name + " (" + colorName + ")");
             addBlockMessages(builder, withParticles);

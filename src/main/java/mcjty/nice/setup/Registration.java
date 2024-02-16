@@ -2,6 +2,10 @@ package mcjty.nice.setup;
 
 
 import mcjty.lib.blocks.BaseBlock;
+import mcjty.lib.setup.DeferredBlock;
+import mcjty.lib.setup.DeferredBlocks;
+import mcjty.lib.setup.DeferredItem;
+import mcjty.lib.setup.DeferredItems;
 import mcjty.lib.varia.TagTools;
 import mcjty.nice.Nice;
 import mcjty.nice.blocks.*;
@@ -22,6 +26,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 import static mcjty.nice.Nice.MODID;
@@ -29,38 +34,38 @@ import static mcjty.nice.Nice.tab;
 
 public class Registration {
 
-    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, MODID);
-    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MODID);
+    public static final DeferredBlocks BLOCKS = DeferredBlocks.create(MODID);
+    public static final DeferredItems ITEMS = DeferredItems.create(MODID);
     public static final DeferredRegister<BlockEntityType<?>> TILES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, MODID);
     public static final DeferredRegister<CreativeModeTab> TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
 
-    public static final Map<DyeColor, RegistryObject<BaseBlock>> SOLID_BLOCKS = Arrays.stream(DyeColor.values())
+    public static final Map<DyeColor, DeferredBlock<BaseBlock>> SOLID_BLOCKS = Arrays.stream(DyeColor.values())
             .collect(Collectors.toMap(c -> c, c -> BLOCKS.register("solid_block_" + c.getName(), SolidBlock::new)));
-    public static final Map<DyeColor, RegistryObject<BaseBlock>> PARTICLE_BLOCKS = Arrays.stream(DyeColor.values())
+    public static final Map<DyeColor, DeferredBlock<BaseBlock>> PARTICLE_BLOCKS = Arrays.stream(DyeColor.values())
             .collect(Collectors.toMap(c -> c, c -> BLOCKS.register("particle_block_" + c.getName(), ParticleBlock::new)));
-    public static final Map<DyeColor, RegistryObject<BaseBlock>> CYLINDERS = Arrays.stream(DyeColor.values())
+    public static final Map<DyeColor, DeferredBlock<BaseBlock>> CYLINDERS = Arrays.stream(DyeColor.values())
             .collect(Collectors.toMap(c -> c, c -> BLOCKS.register("cylinder_" + c.getName(), () -> new CylinderBlock(.8f, color -> Registration.CYLINDERS.get(color).get()))));
-    public static final Map<DyeColor, RegistryObject<BaseBlock>> SMALL_CYLINDERS = Arrays.stream(DyeColor.values())
+    public static final Map<DyeColor, DeferredBlock<BaseBlock>> SMALL_CYLINDERS = Arrays.stream(DyeColor.values())
             .collect(Collectors.toMap(c -> c, c -> BLOCKS.register("small_cylinder_" + c.getName(), () -> new CylinderBlock(.3f, color -> Registration.SMALL_CYLINDERS.get(color).get()))));
-    public static final Map<DyeColor, RegistryObject<BaseBlock>> SOLID_CYLINDERS = Arrays.stream(DyeColor.values())
+    public static final Map<DyeColor, DeferredBlock<BaseBlock>> SOLID_CYLINDERS = Arrays.stream(DyeColor.values())
             .collect(Collectors.toMap(c -> c, c -> BLOCKS.register("solid_cylinder_" + c.getName(), () -> new SolidCylinderBlock(.8f, color -> Registration.SOLID_CYLINDERS.get(color).get()))));
-    public static final Map<DyeColor, RegistryObject<BaseBlock>> SOLID_SMALL_CYLINDERS = Arrays.stream(DyeColor.values())
+    public static final Map<DyeColor, DeferredBlock<BaseBlock>> SOLID_SMALL_CYLINDERS = Arrays.stream(DyeColor.values())
             .collect(Collectors.toMap(c -> c, c -> BLOCKS.register("solid_small_cylinder_" + c.getName(), () -> new SolidCylinderBlock(.3f, color -> Registration.SOLID_SMALL_CYLINDERS.get(color).get()))));
 
-    public static final Map<DyeColor, RegistryObject<Item>> SOLID_BLOCK_ITEMS = Arrays.stream(DyeColor.values())
+    public static final Map<DyeColor, DeferredItem<Item>> SOLID_BLOCK_ITEMS = Arrays.stream(DyeColor.values())
             .collect(Collectors.toMap(c -> c, c -> ITEMS.register("solid_" + c.getName(), tab(() -> new BlockItem(SOLID_BLOCKS.get(c).get(), Registration.createStandardProperties())))));
-    public static final Map<DyeColor, RegistryObject<Item>> PARTICLE_BLOCK_ITEMS = Arrays.stream(DyeColor.values())
+    public static final Map<DyeColor, DeferredItem<Item>> PARTICLE_BLOCK_ITEMS = Arrays.stream(DyeColor.values())
             .collect(Collectors.toMap(c -> c, c -> ITEMS.register("particle_" + c.getName(), tab(() -> new BlockItem(PARTICLE_BLOCKS.get(c).get(), Registration.createStandardProperties())))));
-    public static final Map<DyeColor, RegistryObject<Item>> CYLINDER_ITEMS = Arrays.stream(DyeColor.values())
+    public static final Map<DyeColor, DeferredItem<Item>> CYLINDER_ITEMS = Arrays.stream(DyeColor.values())
             .collect(Collectors.toMap(c -> c, c -> ITEMS.register("cylinder_" + c.getName(), tab(() -> new BlockItem(CYLINDERS.get(c).get(), Registration.createStandardProperties())))));
-    public static final Map<DyeColor, RegistryObject<Item>> SMALL_CYLINDER_ITEMS = Arrays.stream(DyeColor.values())
+    public static final Map<DyeColor, DeferredItem<Item>> SMALL_CYLINDER_ITEMS = Arrays.stream(DyeColor.values())
             .collect(Collectors.toMap(c -> c, c -> ITEMS.register("small_cylinder_" + c.getName(), tab(() -> new BlockItem(SMALL_CYLINDERS.get(c).get(), Registration.createStandardProperties())))));
-    public static final Map<DyeColor, RegistryObject<Item>> SOLID_CYLINDER_ITEMS = Arrays.stream(DyeColor.values())
+    public static final Map<DyeColor, DeferredItem<Item>> SOLID_CYLINDER_ITEMS = Arrays.stream(DyeColor.values())
             .collect(Collectors.toMap(c -> c, c -> ITEMS.register("solid_cylinder_" + c.getName(), tab(() -> new BlockItem(SOLID_CYLINDERS.get(c).get(), Registration.createStandardProperties())))));
-    public static final Map<DyeColor, RegistryObject<Item>> SOLID_SMALL_CYLINDER_ITEMS = Arrays.stream(DyeColor.values())
+    public static final Map<DyeColor, DeferredItem<Item>> SOLID_SMALL_CYLINDER_ITEMS = Arrays.stream(DyeColor.values())
             .collect(Collectors.toMap(c -> c, c -> ITEMS.register("solid_small_cylinder_" + c.getName(), tab(() -> new BlockItem(SOLID_SMALL_CYLINDERS.get(c).get(), Registration.createStandardProperties())))));
 
-    public static final RegistryObject<BlockEntityType<GenericParticleTileEntity>> TYPE_PARTICLE = TILES.register("generic_particle", () -> BlockEntityType.Builder.of(GenericParticleTileEntity::new,
+    public static final Supplier<BlockEntityType<GenericParticleTileEntity>> TYPE_PARTICLE = TILES.register("generic_particle", () -> BlockEntityType.Builder.of(GenericParticleTileEntity::new,
             collect(CYLINDERS, SMALL_CYLINDERS, SOLID_CYLINDERS, SOLID_SMALL_CYLINDERS, SOLID_BLOCKS, PARTICLE_BLOCKS)).build(null));
 
     public static final TagKey<Item> SOLID_ITEM_TAG = TagTools.createItemTagKey(new ResourceLocation(Nice.MODID, "solid"));
@@ -82,9 +87,9 @@ public class Registration {
         return Nice.setup.defaultProperties();
     }
 
-    public static BaseBlock[] collect(Map<DyeColor, RegistryObject<BaseBlock>>... maps) {
+    public static BaseBlock[] collect(Map<DyeColor, DeferredBlock<BaseBlock>>... maps) {
         List<BaseBlock> b = new ArrayList<>();
-        for (Map<DyeColor, RegistryObject<BaseBlock>> map : maps) {
+        for (Map<DyeColor, DeferredBlock<BaseBlock>> map : maps) {
             map.values().forEach(g -> b.add(g.get()));
         }
         return b.toArray(new BaseBlock[b.size()]);
