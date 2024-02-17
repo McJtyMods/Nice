@@ -2,7 +2,6 @@ package mcjty.nice;
 
 import mcjty.lib.datagen.DataGen;
 import mcjty.lib.modules.Modules;
-import mcjty.lib.varia.ClientTools;
 import mcjty.nice.datagen.DataGenerators;
 import mcjty.nice.setup.ClientSetup;
 import mcjty.nice.setup.ModSetup;
@@ -43,7 +42,6 @@ public class Nice {
         if (dist.isClient()) {
             bus.addListener(modules::initClient);
             bus.addListener(ClientSetup::initClient);
-            ClientTools.onTextureStitch(bus, ClientSetup::onTextureStitch);
         }
     }
 
