@@ -14,10 +14,8 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.*;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -75,12 +73,11 @@ public class Registration {
     public static final TagKey<Item> SOLID_CYLINDER_ITEM_TAG = TagTools.createItemTagKey(new ResourceLocation(Nice.MODID, "solid_cylinder"));
     public static final TagKey<Item> SOLID_SMALL_CYLINDER_ITEM_TAG = TagTools.createItemTagKey(new ResourceLocation(Nice.MODID, "solid_small_cylinder"));
 
-    public static void register() {
-        IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
+    public static void register(IEventBus bus) {
         BLOCKS.register(bus);
         ITEMS.register(bus);
         TILES.register(bus);
-        TABS.register(FMLJavaModLoadingContext.get().getModEventBus());
+        TABS.register(bus);
     }
 
     public static Item.Properties createStandardProperties() {

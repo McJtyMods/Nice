@@ -1,6 +1,7 @@
 package mcjty.nice;
 
 import mcjty.lib.modules.Modules;
+import net.minecraftforge.eventbus.api.IEventBus;
 
 public class NiceConfig {
 
@@ -20,8 +21,8 @@ public class NiceConfig {
 //    @Config.RangeDouble(min = 0, max = 1)
     public static double particleBrightnessB = 1.0;
 
-    public static void register(Modules modules) {
-        modules.initConfig();
+    public static void register(IEventBus bus, Modules modules) {
+        modules.initConfig(bus);
 
 //        SERVER_CONFIG = SERVER_BUILDER.build();
 //        CLIENT_CONFIG = CLIENT_BUILDER.build();

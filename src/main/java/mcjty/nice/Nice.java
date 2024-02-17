@@ -11,7 +11,6 @@ import net.minecraft.world.item.Item;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLEnvironment;
@@ -36,8 +35,8 @@ public class Nice {
         instance = this;
         setupModules();
 
-        NiceConfig.register(modules);
-        Registration.register();
+        NiceConfig.register(bus, modules);
+        Registration.register(bus);
 
         bus.addListener(this::onDataGen);
 
