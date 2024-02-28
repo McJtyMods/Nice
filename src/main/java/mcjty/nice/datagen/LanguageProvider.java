@@ -6,7 +6,7 @@ import mcjty.lib.datagen.Dob;
 import mcjty.lib.setup.DeferredBlock;
 import mcjty.nice.setup.Registration;
 import net.minecraft.world.item.DyeColor;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.neoforge.registries.RegistryObject;
 
 import java.util.Map;
 

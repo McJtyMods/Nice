@@ -1,8 +1,8 @@
 package mcjty.nice.setup;
 
 import mcjty.nice.particle.DelayedParticleRenderer;
-import net.minecraftforge.client.event.RenderLevelStageEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.neoforged.neoforge.client.event.RenderLevelStageEvent;
+import net.neoforged.neoforge.eventbus.api.SubscribeEvent;
 
 public class ClientEventHandler {
 
