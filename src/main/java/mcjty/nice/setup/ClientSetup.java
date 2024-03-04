@@ -5,7 +5,7 @@ import mcjty.nice.particle.ParticleRenderer;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
-import net.neoforged.neoforge.common.MinecraftForge;
+import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.fml.event.lifecycle.FMLClientSetupEvent;
 
 import java.util.Collections;
@@ -21,7 +21,7 @@ public class ClientSetup {
         Registration.SOLID_CYLINDERS.values().forEach(b -> ItemBlockRenderTypes.setRenderLayer(b.get(), RenderType.cutout()));
         Registration.SOLID_SMALL_CYLINDERS.values().forEach(b -> ItemBlockRenderTypes.setRenderLayer(b.get(), RenderType.cutout()));
         CylinderRenderer.register();
-        MinecraftForge.EVENT_BUS.register(new ClientEventHandler());
+        NeoForge.EVENT_BUS.register(new ClientEventHandler());
     }
 
 

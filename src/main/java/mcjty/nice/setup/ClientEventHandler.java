@@ -2,7 +2,7 @@ package mcjty.nice.setup;
 
 import mcjty.nice.particle.DelayedParticleRenderer;
 import net.neoforged.neoforge.client.event.RenderLevelStageEvent;
-import net.neoforged.neoforge.eventbus.api.SubscribeEvent;
+import net.neoforged.bus.api.SubscribeEvent;
 
 public class ClientEventHandler {
 

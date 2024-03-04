@@ -1,7 +1,7 @@
 package mcjty.nice;
 
 import mcjty.lib.modules.Modules;
-import net.neoforged.neoforge.eventbus.api.IEventBus;
+import net.neoforged.bus.api.IEventBus;
 
 public class NiceConfig {
 

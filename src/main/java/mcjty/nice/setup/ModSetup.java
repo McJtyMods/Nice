@@ -1,7 +1,7 @@
 package mcjty.nice.setup;
 
 import mcjty.lib.setup.DefaultModSetup;
-import net.neoforged.neoforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 
 public class ModSetup extends DefaultModSetup {
 
