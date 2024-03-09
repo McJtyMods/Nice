@@ -3,7 +3,6 @@ package mcjty.nice.datagen;
 import mcjty.lib.blocks.BaseBlock;
 import mcjty.lib.datagen.DataGen;
 import mcjty.lib.datagen.Dob;
-import mcjty.lib.setup.DeferredBlock;
 import mcjty.nice.setup.Registration;
 import net.minecraft.world.item.DyeColor;
 import net.neoforged.neoforge.registries.RegistryObject;

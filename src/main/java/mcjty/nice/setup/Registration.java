@@ -2,9 +2,7 @@ package mcjty.nice.setup;
 
 
 import mcjty.lib.blocks.BaseBlock;
-import mcjty.lib.setup.DeferredBlock;
 import mcjty.lib.setup.DeferredBlocks;
-import mcjty.lib.setup.DeferredItem;
 import mcjty.lib.setup.DeferredItems;
 import mcjty.lib.varia.TagTools;
 import mcjty.nice.Nice;

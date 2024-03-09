@@ -2,7 +2,6 @@ package mcjty.nice.datagen;
 
 import mcjty.lib.datagen.DataGen;
 import mcjty.lib.datagen.Dob;
-import mcjty.lib.setup.DeferredItem;
 import mcjty.nice.setup.Registration;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
