@@ -1,3 +1,6 @@
+1.20-4.0.2:
+- Update to latest McJtyLib
+
 1.20-4.0.1:
 - Fixed a bug with rendering (for particles)
 
