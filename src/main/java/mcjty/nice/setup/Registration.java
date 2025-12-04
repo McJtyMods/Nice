@@ -7,6 +7,7 @@ import mcjty.lib.setup.DeferredItems;
 import mcjty.lib.varia.TagTools;
 import mcjty.nice.Nice;
 import mcjty.nice.blocks.*;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -14,9 +15,9 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.registries.DeferredBlock;
+import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
-import net.neoforged.neoforge.registries.ForgeRegistries;
-import net.neoforged.neoforge.registries.RegistryObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -32,7 +33,7 @@ public class Registration {
 
     public static final DeferredBlocks BLOCKS = DeferredBlocks.create(MODID);
     public static final DeferredItems ITEMS = DeferredItems.create(MODID);
-    public static final DeferredRegister<BlockEntityType<?>> TILES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, MODID);
+    public static final DeferredRegister<BlockEntityType<?>> TILES = DeferredRegister.create(BuiltInRegistries.BLOCK_ENTITY_TYPE, MODID);
     public static final DeferredRegister<CreativeModeTab> TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
 
     public static final Map<DyeColor, DeferredBlock<BaseBlock>> SOLID_BLOCKS = Arrays.stream(DyeColor.values())
@@ -64,12 +65,12 @@ public class Registration {
     public static final Supplier<BlockEntityType<GenericParticleTileEntity>> TYPE_PARTICLE = TILES.register("generic_particle", () -> BlockEntityType.Builder.of(GenericParticleTileEntity::new,
             collect(CYLINDERS, SMALL_CYLINDERS, SOLID_CYLINDERS, SOLID_SMALL_CYLINDERS, SOLID_BLOCKS, PARTICLE_BLOCKS)).build(null));
 
-    public static final TagKey<Item> SOLID_ITEM_TAG = TagTools.createItemTagKey(new ResourceLocation(Nice.MODID, "solid"));
-    public static final TagKey<Item> PARTICLE_ITEM_TAG = TagTools.createItemTagKey(new ResourceLocation(Nice.MODID, "particle"));
-    public static final TagKey<Item> CYLINDER_ITEM_TAG = TagTools.createItemTagKey(new ResourceLocation(Nice.MODID, "cylinder"));
-    public static final TagKey<Item> SMALL_CYLINDER_ITEM_TAG = TagTools.createItemTagKey(new ResourceLocation(Nice.MODID, "small_cylinder"));
-    public static final TagKey<Item> SOLID_CYLINDER_ITEM_TAG = TagTools.createItemTagKey(new ResourceLocation(Nice.MODID, "solid_cylinder"));
-    public static final TagKey<Item> SOLID_SMALL_CYLINDER_ITEM_TAG = TagTools.createItemTagKey(new ResourceLocation(Nice.MODID, "solid_small_cylinder"));
+    public static final TagKey<Item> SOLID_ITEM_TAG = TagTools.createItemTagKey(ResourceLocation.fromNamespaceAndPath(Nice.MODID, "solid"));
+    public static final TagKey<Item> PARTICLE_ITEM_TAG = TagTools.createItemTagKey(ResourceLocation.fromNamespaceAndPath(Nice.MODID, "particle"));
+    public static final TagKey<Item> CYLINDER_ITEM_TAG = TagTools.createItemTagKey(ResourceLocation.fromNamespaceAndPath(Nice.MODID, "cylinder"));
+    public static final TagKey<Item> SMALL_CYLINDER_ITEM_TAG = TagTools.createItemTagKey(ResourceLocation.fromNamespaceAndPath(Nice.MODID, "small_cylinder"));
+    public static final TagKey<Item> SOLID_CYLINDER_ITEM_TAG = TagTools.createItemTagKey(ResourceLocation.fromNamespaceAndPath(Nice.MODID, "solid_cylinder"));
+    public static final TagKey<Item> SOLID_SMALL_CYLINDER_ITEM_TAG = TagTools.createItemTagKey(ResourceLocation.fromNamespaceAndPath(Nice.MODID, "solid_small_cylinder"));
 
     public static void register(IEventBus bus) {
         BLOCKS.register(bus);
@@ -122,7 +123,7 @@ public class Registration {
 //        event.getRegistry().register(new ItemBlock(ModBlocks.solidSmallCylinderBlock).setRegistryName(ModBlocks.solidSmallCylinderBlock.getRegistryName()));
 //    }
 
-    public static RegistryObject<CreativeModeTab> TAB = TABS.register("nice", () -> CreativeModeTab.builder()
+    public static Supplier<CreativeModeTab> TAB = TABS.register("nice", () -> CreativeModeTab.builder()
             .title(Component.translatable("itemGroup." + MODID))
             .icon(() -> new ItemStack(CYLINDER_ITEMS.get(DyeColor.RED).get()))
             .withTabsBefore(CreativeModeTabs.SPAWN_EGGS)

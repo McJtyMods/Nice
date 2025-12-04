@@ -7,6 +7,7 @@ import mcjty.nice.particle.IParticleSystem;
 import mcjty.nice.particle.ParticleType;
 import mcjty.nice.setup.Registration;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.Block;
@@ -24,7 +25,7 @@ public class GenericParticleTileEntity extends GenericTileEntity implements IPar
     }
 
     @Override
-    public void loadClientDataFromNBT(CompoundTag tag) {
+    public void loadClientDataFromNBT(CompoundTag tag, HolderLookup.Provider provider) {
         if (tag.contains("type")) {
             this.type = ParticleType.getByName(tag.getString("type"));
         }
@@ -32,21 +33,21 @@ public class GenericParticleTileEntity extends GenericTileEntity implements IPar
     }
 
     @Override
-    public void saveClientDataToNBT(CompoundTag tag) {
+    public void saveClientDataToNBT(CompoundTag tag, HolderLookup.Provider provider) {
         tag.putString("type", type.getName());
         tag.putBoolean("visible", visible);
     }
 
     @Override
-    public void load(CompoundTag tag) {
-        loadClientDataFromNBT(tag);
-        super.load(tag);
+    public void loadAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+        loadClientDataFromNBT(tag, provider);
+        super.loadAdditional(tag, provider);
     }
 
     @Override
-    public void saveAdditional(CompoundTag tag) {
-        saveClientDataToNBT(tag);
-        super.saveAdditional(tag);
+    public void saveAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+        saveClientDataToNBT(tag, provider);
+        super.saveAdditional(tag, provider);
     }
 
     public void setType(ParticleType type) {

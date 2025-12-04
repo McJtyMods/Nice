@@ -7,12 +7,11 @@ import mcjty.nice.setup.ClientSetup;
 import mcjty.nice.setup.ModSetup;
 import mcjty.nice.setup.Registration;
 import net.minecraft.world.item.Item;
-import net.neoforged.neoforge.api.distmarker.Dist;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.fml.ModContainer;
+import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 import net.neoforged.bus.api.IEventBus;
-import net.neoforged.neoforge.fml.common.Mod;
-import net.neoforged.neoforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.neoforged.neoforge.fml.loading.FMLEnvironment;
 
 import java.util.Random;
 import java.util.function.Supplier;
@@ -27,10 +26,7 @@ public class Nice {
     private final Modules modules = new Modules();
     public static Random random = new Random();
 
-    public Nice() {
-        IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
-        Dist dist = FMLEnvironment.dist;
-
+    public Nice(ModContainer mod, IEventBus bus, Dist dist) {
         instance = this;
         setupModules();
 

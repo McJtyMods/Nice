@@ -18,7 +18,7 @@ import net.neoforged.neoforge.client.model.data.ModelData;
 
 public class ParticleRenderer {
 
-    public static ResourceLocation PARTICLES = new ResourceLocation(Nice.MODID, "block/effects/particles");
+    public static ResourceLocation PARTICLES = ResourceLocation.fromNamespaceAndPath(Nice.MODID, "block/effects/particles");
 
     public static void renderParticleSystem(IParticleProvider provider, VertexConsumer buffer, PoseStack matrixStack, TextureAtlasSprite sprite) {
         long time = System.currentTimeMillis();

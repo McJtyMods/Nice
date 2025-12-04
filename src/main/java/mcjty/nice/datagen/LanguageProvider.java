@@ -5,7 +5,7 @@ import mcjty.lib.datagen.DataGen;
 import mcjty.lib.datagen.Dob;
 import mcjty.nice.setup.Registration;
 import net.minecraft.world.item.DyeColor;
-import net.neoforged.neoforge.registries.RegistryObject;
+import net.neoforged.neoforge.registries.DeferredBlock;
 
 import java.util.Map;
 

@@ -1,14 +1,11 @@
 modLoader="javafml"
-loaderVersion="[47,)"
-license="MIT License https://github.com/McJtyMods/XNet/blob/1.16/LICENCE"
-issueTrackerURL="http://github.com/McJtyMods/XNet/issues"
-displayURL="http://github.com/McJtyMods/XNet/"
+loaderVersion="[2,)"
+license="MIT License https://github.com/McJtyMods/Nice/blob/1.16/LICENCE"
+issueTrackerURL="http://github.com/McJtyMods/Nice/issues"
+displayURL="http://github.com/McJtyMods/Nice/"
 #logoFile="examplemod.png" #optional
 #credits="Thanks for this example mod goes to Java" #optional
 authors="McJty"
-
-[[accessTransformers]]
-file="META-INF/accesstransformer.cfg"
 
 [[mods]]
 modId="nice"
@@ -16,17 +13,17 @@ version="${file.jarVersion}"
 displayName="NICE"
 #updateJSONURL="http://myurl.me/" #optional
 description='''
-Powerful item/fluid/energy transfer
+Nice decorative blocks
 '''
 [[dependencies.nice]]
-    modId="forge"
-    mandatory=true
-    versionRange="[47,)"
+    modId="neoforge"
+    type="required"
+    versionRange="[21.0,)"
     ordering="NONE"
     side="BOTH"
 [[dependencies.nice]]
     modId="mcjtylib"
     mandatory=true
-    versionRange="[1.20-8.0.0,)"
+    versionRange="[1.21-9.0.18,)"
     ordering="AFTER"
     side="BOTH"

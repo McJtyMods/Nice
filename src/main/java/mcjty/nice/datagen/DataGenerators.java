@@ -5,14 +5,14 @@ import mcjty.lib.datagen.DataGen;
 import mcjty.lib.datagen.Dob;
 import mcjty.nice.Nice;
 import mcjty.nice.setup.Registration;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.client.model.generators.BlockModelBuilder;
 import net.neoforged.neoforge.client.model.generators.loaders.ObjModelBuilder;
-import net.neoforged.neoforge.registries.ForgeRegistries;
-import net.neoforged.neoforge.registries.RegistryObject;
+import net.neoforged.neoforge.registries.DeferredItem;
 
 import java.util.List;
 import java.util.Map;
@@ -22,7 +22,7 @@ public final class DataGenerators {
     public static void datagen(DataGen datagen) {
         Registration.SOLID_BLOCKS.entrySet().forEach(entry -> {
             String colorname = entry.getKey().getName();
-            ResourceLocation rl = new ResourceLocation(Nice.MODID, "block/solid_" + colorname);
+            ResourceLocation rl = ResourceLocation.fromNamespaceAndPath(Nice.MODID, "block/solid_" + colorname);
             datagen.add(Dob.blockBuilder(entry.getValue())
                     .stonePickaxeTags()
                     .simpleLoot()
@@ -30,7 +30,7 @@ public final class DataGenerators {
         });
         Registration.PARTICLE_BLOCKS.entrySet().forEach(entry -> {
             String colorname = entry.getKey().getName();
-            ResourceLocation rl = new ResourceLocation(Nice.MODID, "block/buis_" + colorname);
+            ResourceLocation rl = ResourceLocation.fromNamespaceAndPath(Nice.MODID, "block/buis_" + colorname);
             datagen.add(Dob.blockBuilder(entry.getValue())
                     .stonePickaxeTags()
                     .simpleLoot()
@@ -38,7 +38,7 @@ public final class DataGenerators {
         });
         Registration.CYLINDERS.entrySet().forEach(entry -> {
             String colorname = entry.getKey().getName();
-            ResourceLocation rl = new ResourceLocation(Nice.MODID, "block/buis_" + colorname);
+            ResourceLocation rl = ResourceLocation.fromNamespaceAndPath(Nice.MODID, "block/buis_" + colorname);
             datagen.add(Dob.blockBuilder(entry.getValue())
                     .stonePickaxeTags()
                     .simpleLoot()
@@ -46,7 +46,7 @@ public final class DataGenerators {
         });
         Registration.SMALL_CYLINDERS.entrySet().forEach(entry -> {
             String colorname = entry.getKey().getName();
-            ResourceLocation rl = new ResourceLocation(Nice.MODID, "block/buis_" + colorname);
+            ResourceLocation rl = ResourceLocation.fromNamespaceAndPath(Nice.MODID, "block/buis_" + colorname);
             datagen.add(Dob.blockBuilder(entry.getValue())
                     .stonePickaxeTags()
                     .simpleLoot()
@@ -54,7 +54,7 @@ public final class DataGenerators {
         });
         Registration.SOLID_CYLINDERS.entrySet().forEach(entry -> {
             String colorname = entry.getKey().getName();
-            ResourceLocation rl = new ResourceLocation(Nice.MODID, "block/solid_" + colorname);
+            ResourceLocation rl = ResourceLocation.fromNamespaceAndPath(Nice.MODID, "block/solid_" + colorname);
             datagen.add(Dob.blockBuilder(entry.getValue())
                     .stonePickaxeTags()
                     .simpleLoot()
@@ -62,7 +62,7 @@ public final class DataGenerators {
         });
         Registration.SOLID_SMALL_CYLINDERS.entrySet().forEach(entry -> {
             String colorname = entry.getKey().getName();
-            ResourceLocation rl = new ResourceLocation(Nice.MODID, "block/solid_" + colorname);
+            ResourceLocation rl = ResourceLocation.fromNamespaceAndPath(Nice.MODID, "block/solid_" + colorname);
             datagen.add(Dob.blockBuilder(entry.getValue())
                     .stonePickaxeTags()
                     .simpleLoot()
@@ -103,9 +103,9 @@ public final class DataGenerators {
     }
 
     private static BlockModelBuilder cylinderModel(BaseBlockStateProvider provider, Block block, String objName, ResourceLocation rl) {
-        return provider.models().getBuilder(ForgeRegistries.BLOCKS.getKey(block).getPath())
+        return provider.models().getBuilder(BuiltInRegistries.BLOCK.getKey(block).getPath())
                 .customLoader(ObjModelBuilder::begin)
-                .modelLocation(new ResourceLocation(Nice.MODID, "models/block/" + objName + ".obj"))
+                .modelLocation(ResourceLocation.fromNamespaceAndPath(Nice.MODID, "models/block/" + objName + ".obj"))
                 .flipV(true)
                 .end()
                 .texture("buis", rl);
