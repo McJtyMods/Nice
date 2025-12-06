@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "g": {
+      "item": "minecraft:green_concrete"
+    },
+    "w": {
+      "tag": "minecraft:wool"
+    }
+  },
+  "pattern": [
+    "g g",
+    "gwg"
+  ],
+  "result": {
+    "count": 8,
+    "id": "nice:solid_small_cylinder_green"
+  }
+}

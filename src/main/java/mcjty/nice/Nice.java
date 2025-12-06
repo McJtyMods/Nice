@@ -3,6 +3,7 @@ package mcjty.nice;
 import mcjty.lib.datagen.DataGen;
 import mcjty.lib.modules.Modules;
 import mcjty.nice.datagen.DataGenerators;
+import mcjty.nice.datagen.LanguageProvider;
 import mcjty.nice.setup.ClientSetup;
 import mcjty.nice.setup.ModSetup;
 import mcjty.nice.setup.Registration;
@@ -48,10 +49,10 @@ public class Nice {
     private void onDataGen(GatherDataEvent event) {
         DataGen datagen = new DataGen(MODID, event);
         DataGenerators.datagen(datagen);
+        LanguageProvider.addTranslations(datagen);
         datagen.generate();
     }
 
     private void setupModules() {
-//        modules.register(new CrafterModule());
     }
 }

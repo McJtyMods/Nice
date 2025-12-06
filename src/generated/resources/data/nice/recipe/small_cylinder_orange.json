@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "g": {
+      "item": "minecraft:orange_stained_glass"
+    },
+    "w": {
+      "tag": "minecraft:wool"
+    }
+  },
+  "pattern": [
+    "g g",
+    "gwg"
+  ],
+  "result": {
+    "count": 8,
+    "id": "nice:small_cylinder_orange"
+  }
+}

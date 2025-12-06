@@ -34,15 +34,15 @@ public class LanguageProvider {
     }
 
     private static void addBlockMessages(Dob.Builder builder, boolean withParticles) {
-        builder.keyedMessage(".header", "Use item to change (not consumed)");
+        builder.keyedMessage("header", "Use item to change (not consumed)");
         if (withParticles) {
-            builder.keyedMessage(".diamond", "    Diamond for sparkles");
-            builder.keyedMessage(".water", "    Water bucket for bubbles");
-            builder.keyedMessage(".wool", "    Wool for smoke");
-            builder.keyedMessage(".fish", "    Fish for fish");
-            builder.keyedMessage(".string", "    String for nothing");
-            builder.keyedMessage(".glass", "    Glass to toggle visibility");
+            builder.keyedMessage("diamond", "    Diamond for sparkles");
+            builder.keyedMessage("water", "    Water bucket for bubbles");
+            builder.keyedMessage("wool", "    Wool for smoke");
+            builder.keyedMessage("fish", "    Fish for fish");
+            builder.keyedMessage("string", "    String for nothing");
+            builder.keyedMessage("glass", "    Glass to toggle visibility");
         }
-        builder.keyedMessage(".dye", "    A dye to change the color");
+        builder.keyedMessage("dye", "    A dye to change the color");
     }
 }

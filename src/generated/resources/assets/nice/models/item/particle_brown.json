@@ -1,3 +1,6 @@
 {
-  "parent": "nice:block/particle_brown"
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "nice:block/buis_brown"
+  }
 }

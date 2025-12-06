@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "base": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:pink_stained_glass"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "nice:small_cylinder_pink"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "base"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "nice:small_cylinder_pink"
+    ]
+  }
+}

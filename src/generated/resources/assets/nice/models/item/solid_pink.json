@@ -1,3 +1,6 @@
 {
-  "parent": "nice:block/solid_pink"
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "nice:block/solid_pink"
+  }
 }

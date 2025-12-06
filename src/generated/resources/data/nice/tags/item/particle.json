@@ -1,0 +1,20 @@
+{
+  "values": [
+    "nice:particle_light_blue",
+    "nice:particle_blue",
+    "nice:particle_green",
+    "nice:particle_brown",
+    "nice:particle_lime",
+    "nice:particle_light_gray",
+    "nice:particle_pink",
+    "nice:particle_black",
+    "nice:particle_magenta",
+    "nice:particle_cyan",
+    "nice:particle_purple",
+    "nice:particle_white",
+    "nice:particle_orange",
+    "nice:particle_yellow",
+    "nice:particle_gray",
+    "nice:particle_red"
+  ]
+}

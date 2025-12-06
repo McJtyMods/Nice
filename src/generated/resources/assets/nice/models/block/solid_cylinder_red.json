@@ -1,8 +1,8 @@
 {
+  "flip_v": true,
+  "loader": "neoforge:obj",
+  "model": "nice:models/block/cylinder.obj",
   "textures": {
     "buis": "nice:block/solid_red"
-  },
-  "loader": "forge:obj",
-  "model": "nice:models/block/cylinder.obj",
-  "flip_v": true
+  }
 }

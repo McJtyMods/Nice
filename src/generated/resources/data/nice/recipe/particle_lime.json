@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "g": {
+      "item": "minecraft:lime_concrete"
+    },
+    "w": {
+      "tag": "minecraft:wool"
+    }
+  },
+  "pattern": [
+    "gwg",
+    "ggg",
+    "ggg"
+  ],
+  "result": {
+    "count": 8,
+    "id": "nice:particle_lime"
+  }
+}

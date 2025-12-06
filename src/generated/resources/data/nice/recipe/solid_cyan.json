@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "g": {
+      "item": "minecraft:cyan_concrete"
+    },
+    "w": {
+      "tag": "minecraft:wool"
+    }
+  },
+  "pattern": [
+    "ggg",
+    "gwg",
+    "ggg"
+  ],
+  "result": {
+    "count": 8,
+    "id": "nice:solid_cyan"
+  }
+}

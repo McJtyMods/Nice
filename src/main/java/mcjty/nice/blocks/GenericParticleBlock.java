@@ -77,9 +77,9 @@ public class GenericParticleBlock extends BaseBlock {
         return scale;
     }
 
-    @Nonnull
     @Override
-    public InteractionResult use(@Nonnull BlockState state, Level world, @Nonnull BlockPos pos, @Nonnull Player player, @Nonnull InteractionHand hand, @Nonnull BlockHitResult result) {
+    protected InteractionResult useWithoutItem(BlockState state, Level world, BlockPos pos, Player player, BlockHitResult result) {
+        InteractionHand hand = player.getUsedItemHand();
         ItemStack heldItem = player.getItemInHand(hand);
         if (!heldItem.isEmpty()) {
             BlockEntity blockEntity = world.getBlockEntity(pos);
@@ -113,7 +113,7 @@ public class GenericParticleBlock extends BaseBlock {
                     } else if (Items.STRING.equals(heldItem.getItem())) {
                         pt.setType(ParticleType.NONE);
                         return InteractionResult.SUCCESS;
-                    } else if (TagTools.hasTag(heldItem.getItem(), Tags.Items.GLASS)) {
+                    } else if (TagTools.hasTag(heldItem.getItem(), Tags.Items.GLASS_BLOCKS)) {
                         pt.toggleVisibility();
                         return InteractionResult.SUCCESS;
                     } else if (TagTools.hasTag(heldItem.getItem(), Tags.Items.DYES)) {
@@ -126,6 +126,6 @@ public class GenericParticleBlock extends BaseBlock {
                 }
             }
         }
-        return super.use(state, world, pos, player, hand, result);
+        return super.useWithoutItem(state, world, pos, player, result);
     }
 }
