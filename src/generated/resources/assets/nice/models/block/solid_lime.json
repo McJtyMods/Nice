@@ -6,6 +6,7 @@
     "north": "nice:block/solid_lime",
     "south": "nice:block/solid_lime",
     "east": "nice:block/solid_lime",
-    "west": "nice:block/solid_lime"
+    "west": "nice:block/solid_lime",
+    "particle": "nice:block/solid_lime"
   }
 }

@@ -1,6 +1,7 @@
 {
   "textures": {
-    "buis": "nice:block/solid_black"
+    "buis": "nice:block/solid_black",
+    "particle": "nice:block/solid_black"
   },
   "loader": "forge:obj",
   "model": "nice:models/block/smallcylinder.obj",

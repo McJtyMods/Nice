@@ -6,6 +6,7 @@
     "north": "nice:block/buis_cyan",
     "south": "nice:block/buis_cyan",
     "east": "nice:block/buis_cyan",
-    "west": "nice:block/buis_cyan"
+    "west": "nice:block/buis_cyan",
+    "particle": "nice:block/buis_cyan"
   }
 }

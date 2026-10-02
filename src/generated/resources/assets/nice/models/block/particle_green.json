@@ -6,6 +6,7 @@
     "north": "nice:block/buis_green",
     "south": "nice:block/buis_green",
     "east": "nice:block/buis_green",
-    "west": "nice:block/buis_green"
+    "west": "nice:block/buis_green",
+    "particle": "nice:block/buis_green"
   }
 }

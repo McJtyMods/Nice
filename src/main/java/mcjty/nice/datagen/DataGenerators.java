@@ -30,7 +30,8 @@ public final class DataGenerators {
             datagen.add(Dob.blockBuilder(entry.getValue())
                     .stonePickaxeTags()
                     .simpleLoot()
-                    .blockState(p -> p.simpleBlock(entry.getValue().get(), p.models().cube("solid_" + colorname, rl, rl, rl, rl, rl, rl))));
+                    .blockState(p -> p.simpleBlock(entry.getValue().get(), p.models().cube("solid_" + colorname, rl, rl, rl, rl, rl, rl)
+                            .texture("particle", rl))));
         });
         Registration.PARTICLE_BLOCKS.entrySet().forEach(entry -> {
             String colorname = entry.getKey().getName();
@@ -38,7 +39,8 @@ public final class DataGenerators {
             datagen.add(Dob.blockBuilder(entry.getValue())
                     .stonePickaxeTags()
                     .simpleLoot()
-                    .blockState(p -> p.simpleBlock(entry.getValue().get(), p.models().cube("particle_" + colorname, rl, rl, rl, rl, rl, rl))));
+                    .blockState(p -> p.simpleBlock(entry.getValue().get(), p.models().cube("particle_" + colorname, rl, rl, rl, rl, rl, rl)
+                            .texture("particle", rl))));
         });
         Registration.CYLINDERS.entrySet().forEach(entry -> {
             String colorname = entry.getKey().getName();
@@ -125,6 +127,7 @@ public final class DataGenerators {
                 .modelLocation(new ResourceLocation(Nice.MODID, "models/block/" + objName + ".obj"))
                 .flipV(true)
                 .end()
-                .texture("buis", rl);
+                .texture("buis", rl)
+                .texture("particle", rl);
     }
 }

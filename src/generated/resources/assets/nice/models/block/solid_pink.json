@@ -6,6 +6,7 @@
     "north": "nice:block/solid_pink",
     "south": "nice:block/solid_pink",
     "east": "nice:block/solid_pink",
-    "west": "nice:block/solid_pink"
+    "west": "nice:block/solid_pink",
+    "particle": "nice:block/solid_pink"
   }
 }
