@@ -1,3 +1,6 @@
+Upcoming:
+- Fixes the cylinder rendering so that the renderer correctly respects the orientation of the cylinder block
+
 1.20-4.0.2:
 - Update to latest McJtyLib
 

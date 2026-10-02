@@ -1,7 +1,30 @@
 {
   "variants": {
-    "": {
+    "facing=down": {
+      "model": "nice:block/solid_cylinder_yellow",
+      "x": 180
+    },
+    "facing=up": {
       "model": "nice:block/solid_cylinder_yellow"
+    },
+    "facing=north": {
+      "model": "nice:block/solid_cylinder_yellow",
+      "x": 90
+    },
+    "facing=south": {
+      "model": "nice:block/solid_cylinder_yellow",
+      "x": 90,
+      "y": 180
+    },
+    "facing=west": {
+      "model": "nice:block/solid_cylinder_yellow",
+      "x": 90,
+      "y": 270
+    },
+    "facing=east": {
+      "model": "nice:block/solid_cylinder_yellow",
+      "x": 90,
+      "y": 90
     }
   }
 }

@@ -43,7 +43,7 @@ public final class DataGenerators {
             datagen.add(Dob.blockBuilder(entry.getValue())
                     .stonePickaxeTags()
                     .simpleLoot()
-                    .blockState(p -> p.simpleBlock(entry.getValue().get(), cylinderModel(p, entry.getValue().get(), "cylinder", rl))));
+                    .blockState(p -> p.directionalBlock(entry.getValue().get(), cylinderModel(p, entry.getValue().get(), "cylinder", rl))));
         });
         Registration.SMALL_CYLINDERS.entrySet().forEach(entry -> {
             String colorname = entry.getKey().getName();
@@ -51,7 +51,7 @@ public final class DataGenerators {
             datagen.add(Dob.blockBuilder(entry.getValue())
                     .stonePickaxeTags()
                     .simpleLoot()
-                    .blockState(p -> p.simpleBlock(entry.getValue().get(), cylinderModel(p, entry.getValue().get(), "smallcylinder", rl))));
+                    .blockState(p -> p.directionalBlock(entry.getValue().get(), cylinderModel(p, entry.getValue().get(), "smallcylinder", rl))));
         });
         Registration.SOLID_CYLINDERS.entrySet().forEach(entry -> {
             String colorname = entry.getKey().getName();
@@ -59,7 +59,7 @@ public final class DataGenerators {
             datagen.add(Dob.blockBuilder(entry.getValue())
                     .stonePickaxeTags()
                     .simpleLoot()
-                    .blockState(p -> p.simpleBlock(entry.getValue().get(), cylinderModel(p, entry.getValue().get(), "cylinder", rl))));
+                    .blockState(p -> p.directionalBlock(entry.getValue().get(), cylinderModel(p, entry.getValue().get(), "cylinder", rl))));
         });
         Registration.SOLID_SMALL_CYLINDERS.entrySet().forEach(entry -> {
             String colorname = entry.getKey().getName();
@@ -67,7 +67,7 @@ public final class DataGenerators {
             datagen.add(Dob.blockBuilder(entry.getValue())
                     .stonePickaxeTags()
                     .simpleLoot()
-                    .blockState(p -> p.simpleBlock(entry.getValue().get(), cylinderModel(p, entry.getValue().get(), "smallcylinder", rl))));
+                    .blockState(p -> p.directionalBlock(entry.getValue().get(), cylinderModel(p, entry.getValue().get(), "smallcylinder", rl))));
         });
 
         for (Map.Entry<DyeColor, DeferredItem<Item>> entry : Registration.SOLID_BLOCK_ITEMS.entrySet()) {

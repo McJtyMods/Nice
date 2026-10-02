@@ -8,7 +8,9 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 public class CylinderRenderer<T extends GenericParticleTileEntity> implements BlockEntityRenderer<T> {
 
@@ -29,7 +31,9 @@ public class CylinderRenderer<T extends GenericParticleTileEntity> implements Bl
         if (blockEntity.isVisible()) {
             ParticleRenderer.renderBlock(matrixStack, buffer, blockState, combinedLight, combinedOverlay, null);
         }
-        ParticleRenderer.renderSystem(matrixStack, buffer, blockEntity);
+        Direction facing = blockState.getBlock() instanceof CylinderBlock
+                ? blockState.getValue(BlockStateProperties.FACING) : Direction.UP;
+        ParticleRenderer.renderSystem(matrixStack, buffer, blockEntity, facing);
     }
 
 
