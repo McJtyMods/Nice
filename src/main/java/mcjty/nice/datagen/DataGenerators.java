@@ -1,19 +1,22 @@
 package mcjty.nice.datagen;
 
 import mcjty.lib.datagen.BaseBlockStateProvider;
+import mcjty.lib.datagen.BaseItemModelProvider;
 import mcjty.lib.datagen.DataGen;
 import mcjty.lib.datagen.Dob;
 import mcjty.lib.setup.DeferredItem;
 import mcjty.nice.Nice;
 import mcjty.nice.setup.Registration;
+import net.minecraft.client.renderer.block.model.BlockModel;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.client.model.generators.BlockModelBuilder;
+import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.client.model.generators.loaders.ObjModelBuilder;
 import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
 
 import java.util.List;
 import java.util.Map;
@@ -73,34 +76,47 @@ public final class DataGenerators {
         for (Map.Entry<DyeColor, DeferredItem<Item>> entry : Registration.SOLID_BLOCK_ITEMS.entrySet()) {
             datagen.add(Dob.itemBuilder(entry.getValue())
                     .itemTags(List.of(Registration.SOLID_ITEM_TAG))
-                    .parentedItem("block/solid_" + entry.getKey().getName()));
+                    .itemModel(p -> inventoryModel(p, entry.getValue().get(), "block/solid_" + entry.getKey().getName())));
         }
         for (Map.Entry<DyeColor, DeferredItem<Item>> entry : Registration.PARTICLE_BLOCK_ITEMS.entrySet()) {
             datagen.add(Dob.itemBuilder(entry.getValue())
                     .itemTags(List.of(Registration.PARTICLE_ITEM_TAG))
-                    .parentedItem("block/particle_" + entry.getKey().getName()));
+                    .itemModel(p -> inventoryModel(p, entry.getValue().get(), "block/particle_" + entry.getKey().getName())));
         }
         for (Map.Entry<DyeColor, DeferredItem<Item>> entry : Registration.CYLINDER_ITEMS.entrySet()) {
             datagen.add(Dob.itemBuilder(entry.getValue())
                     .itemTags(List.of(Registration.CYLINDER_ITEM_TAG))
-                    .parentedItem("block/cylinder_" + entry.getKey().getName()));
+                    .itemModel(p -> inventoryModel(p, entry.getValue().get(), "block/cylinder_" + entry.getKey().getName())));
         }
         for (Map.Entry<DyeColor, DeferredItem<Item>> entry : Registration.SMALL_CYLINDER_ITEMS.entrySet()) {
             datagen.add(Dob.itemBuilder(entry.getValue())
                     .itemTags(List.of(Registration.SMALL_CYLINDER_ITEM_TAG))
-                    .parentedItem("block/small_cylinder_" + entry.getKey().getName()));
+                    .itemModel(p -> inventoryModel(p, entry.getValue().get(), "block/small_cylinder_" + entry.getKey().getName())));
         }
         for (Map.Entry<DyeColor, DeferredItem<Item>> entry : Registration.SOLID_CYLINDER_ITEMS.entrySet()) {
             datagen.add(Dob.itemBuilder(entry.getValue())
                     .itemTags(List.of(Registration.SOLID_CYLINDER_ITEM_TAG))
-                    .parentedItem("block/solid_cylinder_" + entry.getKey().getName()));
+                    .itemModel(p -> inventoryModel(p, entry.getValue().get(), "block/solid_cylinder_" + entry.getKey().getName())));
         }
         for (Map.Entry<DyeColor, DeferredItem<Item>> entry : Registration.SOLID_SMALL_CYLINDER_ITEMS.entrySet()) {
             datagen.add(Dob.itemBuilder(entry.getValue())
                     .itemTags(List.of(Registration.SOLID_SMALL_CYLINDER_ITEM_TAG))
-                    .parentedItem("block/solid_small_cylinder_" + entry.getKey().getName()));
+                    .itemModel(p -> inventoryModel(p, entry.getValue().get(), "block/solid_small_cylinder_" + entry.getKey().getName())));
         }
         Recipes.buildCraftingRecipes(datagen);
+    }
+
+    private static void inventoryModel(BaseItemModelProvider provider, Item item, String blockModel) {
+        // Show the top and sides, with directional lighting to reveal the model's depth.
+        provider.getBuilder(ForgeRegistries.ITEMS.getKey(item).getPath())
+                .parent(new ModelFile.UncheckedModelFile(new ResourceLocation(Nice.MODID, blockModel)))
+                .guiLight(BlockModel.GuiLight.SIDE)
+                .transforms()
+                .transform(ItemDisplayContext.GUI)
+                .rotation(30, 225, 0)
+                .scale(0.625f)
+                .end()
+                .end();
     }
 
     private static BlockModelBuilder cylinderModel(BaseBlockStateProvider provider, Block block, String objName, ResourceLocation rl) {

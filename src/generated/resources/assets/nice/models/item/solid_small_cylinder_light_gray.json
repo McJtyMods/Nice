@@ -1,3 +1,18 @@
 {
-  "parent": "nice:block/solid_small_cylinder_light_gray"
+  "parent": "nice:block/solid_small_cylinder_light_gray",
+  "gui_light": "side",
+  "display": {
+    "gui": {
+      "rotation": [
+        30.0,
+        225.0,
+        0.0
+      ],
+      "scale": [
+        0.625,
+        0.625,
+        0.625
+      ]
+    }
+  }
 }
