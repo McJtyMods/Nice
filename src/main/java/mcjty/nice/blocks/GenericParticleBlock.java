@@ -15,12 +15,16 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import net.neoforged.neoforge.common.Tags;
 
 import javax.annotation.Nonnull;
@@ -31,7 +35,7 @@ import static mcjty.lib.builder.TooltipBuilder.*;
 public class GenericParticleBlock extends BaseBlock {
 
     public static final Properties OCCLUSION_PROPERTIES = Properties.of().sound(SoundType.GLASS);
-    public static final Properties NOOCCLUSION_PROPERTIES = Properties.of().sound(SoundType.GLASS).noOcclusion();
+    public static final Properties NOOCCLUSION_PROPERTIES = Properties.of().sound(SoundType.GLASS).noOcclusion().dynamicShape();
     private final float scale;
 
     private final Function<DyeColor, Block> siblingGetter;
@@ -75,6 +79,15 @@ public class GenericParticleBlock extends BaseBlock {
 
     public float getScale() {
         return scale;
+    }
+
+    @Nonnull
+    @Override
+    public VoxelShape getCollisionShape(@Nonnull BlockState state, @Nonnull BlockGetter world, @Nonnull BlockPos pos, @Nonnull CollisionContext context) {
+        if (supportsParticles() && world.getBlockEntity(pos) instanceof GenericParticleTileEntity particles && !particles.isVisible()) {
+            return Shapes.empty();
+        }
+        return super.getCollisionShape(state, world, pos, context);
     }
 
     @Override
