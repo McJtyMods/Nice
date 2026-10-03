@@ -1,4 +1,4 @@
-Upcoming:
+1.20-4.0.3:
 - Fixes the cylinder rendering so that the renderer correctly respects the orientation of the cylinder block
 - The item models for the cylinders are now nicer looking
 - The bounding box for the cylinders is now more correct
