@@ -1,12 +1,13 @@
 {
-  "parent": "minecraft:block/cube",
+  "parent": "minecraft:block/cube_all",
   "textures": {
-    "down": "nice:block/buis_black",
-    "east": "nice:block/buis_black",
-    "north": "nice:block/buis_black",
-    "particle": "nice:block/buis_black",
-    "south": "nice:block/buis_black",
-    "up": "nice:block/buis_black",
-    "west": "nice:block/buis_black"
+    "all": {
+      "force_translucent": true,
+      "sprite": "nice:block/buis_black"
+    },
+    "particle": {
+      "force_translucent": true,
+      "sprite": "nice:block/buis_black"
+    }
   }
 }

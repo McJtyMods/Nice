@@ -10,13 +10,13 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 import java.util.function.Function;
 
 public class SolidCylinderBlock extends GenericParticleBlock {
 
-    public SolidCylinderBlock(float scale, Function<DyeColor, Block> siblingGetter) {
-        super(scale, true, siblingGetter);
+    public SolidCylinderBlock(Properties properties, float scale, Function<DyeColor, Block> siblingGetter) {
+        super(properties, scale, true, siblingGetter);
     }
 
     @Override
@@ -24,7 +24,7 @@ public class SolidCylinderBlock extends GenericParticleBlock {
         return CylinderShapes.getShape(state, getScale());
     }
 
-    @org.jetbrains.annotations.Nullable
+    @Nullable
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
         return this.defaultBlockState().setValue(BlockStateProperties.FACING, context.getClickedFace());

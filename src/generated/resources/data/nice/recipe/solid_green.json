@@ -2,12 +2,8 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "g": {
-      "item": "minecraft:green_concrete"
-    },
-    "w": {
-      "tag": "minecraft:wool"
-    }
+    "g": "minecraft:green_concrete",
+    "w": "#minecraft:wool"
   },
   "pattern": [
     "ggg",

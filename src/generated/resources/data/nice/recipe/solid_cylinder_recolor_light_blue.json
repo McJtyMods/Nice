@@ -2,12 +2,8 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "tag": "nice:solid_cylinder"
-    },
-    {
-      "item": "minecraft:light_blue_dye"
-    }
+    "#nice:solid_cylinder",
+    "minecraft:light_blue_dye"
   ],
   "result": {
     "count": 1,

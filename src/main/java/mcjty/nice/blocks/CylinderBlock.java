@@ -11,13 +11,13 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 import java.util.function.Function;
 
 public class CylinderBlock extends GenericParticleBlock {
 
-    public CylinderBlock(float scale, Function<DyeColor, Block> siblingGetter) {
-        super(scale, true, siblingGetter);
+    public CylinderBlock(Properties properties, float scale, Function<DyeColor, Block> siblingGetter) {
+        super(properties, scale, true, siblingGetter);
     }
 
     @Override
@@ -33,6 +33,6 @@ public class CylinderBlock extends GenericParticleBlock {
 
     @Override
     public RenderShape getRenderShape(BlockState pState) {
-        return RenderShape.ENTITYBLOCK_ANIMATED;
+        return RenderShape.INVISIBLE;
     }
 }

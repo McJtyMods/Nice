@@ -1,11 +1,13 @@
 package mcjty.nice.blocks;
 
-import mcjty.lib.tileentity.GenericTileEntity;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import mcjty.nice.particle.ICalculatedParticleSystem;
 import mcjty.nice.particle.IParticleProvider;
 import mcjty.nice.particle.IParticleSystem;
 import mcjty.nice.particle.ParticleType;
-import mcjty.nice.setup.Registration;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
@@ -13,41 +15,47 @@ import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
-public class GenericParticleTileEntity extends GenericTileEntity implements IParticleProvider {
+public class GenericParticleTileEntity extends BlockEntity implements IParticleProvider {
 
     private ParticleType type = ParticleType.SMOKE;
     private boolean visible = true;
 
     public GenericParticleTileEntity(BlockPos pos, BlockState state) {
-        super(Registration.TYPE_PARTICLE.get(), pos, state);
+        super(mcjty.nice.setup.Registration.TYPE_PARTICLE.get(), pos, state);
     }
 
     @Override
-    public void loadClientDataFromNBT(CompoundTag tag, HolderLookup.Provider provider) {
-        if (tag.contains("type")) {
-            this.type = ParticleType.getByName(tag.getString("type"));
+    protected void loadAdditional(ValueInput input) {
+        super.loadAdditional(input);
+        type = ParticleType.getByName(input.getStringOr("type", "smoke"));
+        visible = input.getBooleanOr("visible", true);
+        calculatedParticleSystem = null;
+    }
+
+    @Override
+    protected void saveAdditional(ValueOutput output) {
+        super.saveAdditional(output);
+        output.putString("type", type.getName());
+        output.putBoolean("visible", visible);
+    }
+
+    @Override
+    public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
+        return saveWithoutMetadata(registries);
+    }
+
+    @Override
+    public ClientboundBlockEntityDataPacket getUpdatePacket() {
+        return ClientboundBlockEntityDataPacket.create(this);
+    }
+
+    private void markDirtyClient() {
+        setChanged();
+        if (level != null && !level.isClientSide()) {
+            level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Block.UPDATE_ALL);
         }
-        this.visible = tag.getBoolean("visible");
-    }
-
-    @Override
-    public void saveClientDataToNBT(CompoundTag tag, HolderLookup.Provider provider) {
-        tag.putString("type", type.getName());
-        tag.putBoolean("visible", visible);
-    }
-
-    @Override
-    public void loadAdditional(CompoundTag tag, HolderLookup.Provider provider) {
-        loadClientDataFromNBT(tag, provider);
-        super.loadAdditional(tag, provider);
-    }
-
-    @Override
-    public void saveAdditional(CompoundTag tag, HolderLookup.Provider provider) {
-        saveClientDataToNBT(tag, provider);
-        super.saveAdditional(tag, provider);
     }
 
     public void setType(ParticleType type) {
@@ -81,20 +89,6 @@ public class GenericParticleTileEntity extends GenericTileEntity implements IPar
     }
 
     private ICalculatedParticleSystem calculatedParticleSystem;
-
-//    @SideOnly(Side.CLIENT)
-//    public AxisAlignedBB getRenderBoundingBox() {
-//        int xCoord = getPos().getX();
-//        int yCoord = getPos().getY();
-//        int zCoord = getPos().getZ();
-//        return new AxisAlignedBB(xCoord - 1, yCoord, zCoord - 1, xCoord + 2, yCoord + 3, zCoord + 2);
-//    }
-
-    //    @SideOnly(Side.CLIENT)
-//    @Override
-//    public double getMaxRenderDistanceSquared() {
-//        return NiceConfig.maxRenderDist * NiceConfig.maxRenderDist;
-//    }
 
     @Override
     public IParticleSystem getParticleSystem() {

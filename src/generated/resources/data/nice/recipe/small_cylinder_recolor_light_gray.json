@@ -2,12 +2,8 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "tag": "nice:small_cylinder"
-    },
-    {
-      "item": "minecraft:light_gray_dye"
-    }
+    "#nice:small_cylinder",
+    "minecraft:light_gray_dye"
   ],
   "result": {
     "count": 1,

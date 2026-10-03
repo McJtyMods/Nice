@@ -2,12 +2,8 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "tag": "nice:cylinder"
-    },
-    {
-      "item": "minecraft:lime_dye"
-    }
+    "#nice:cylinder",
+    "minecraft:lime_dye"
   ],
   "result": {
     "count": 1,

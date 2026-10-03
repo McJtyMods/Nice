@@ -2,12 +2,8 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "tag": "nice:solid"
-    },
-    {
-      "item": "minecraft:red_dye"
-    }
+    "#nice:solid",
+    "minecraft:red_dye"
   ],
   "result": {
     "count": 1,

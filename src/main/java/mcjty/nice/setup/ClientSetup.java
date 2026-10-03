@@ -1,31 +1,17 @@
 package mcjty.nice.setup;
 
 import mcjty.nice.blocks.CylinderRenderer;
-import mcjty.nice.particle.ParticleRenderer;
-import net.minecraft.client.renderer.ItemBlockRenderTypes;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.resources.ResourceLocation;
-import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import mcjty.nice.datagen.DataGenerators;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 
-import java.util.Collections;
-import java.util.List;
-
-public class ClientSetup {
-
-    public static void initClient(FMLClientSetupEvent e) {
-        Registration.SOLID_BLOCKS.values().forEach(b -> ItemBlockRenderTypes.setRenderLayer(b.get(), RenderType.solid()));
-        Registration.PARTICLE_BLOCKS.values().forEach(b -> ItemBlockRenderTypes.setRenderLayer(b.get(), RenderType.translucent()));
-        Registration.CYLINDERS.values().forEach(b -> ItemBlockRenderTypes.setRenderLayer(b.get(), RenderType.translucent()));
-        Registration.SMALL_CYLINDERS.values().forEach(b -> ItemBlockRenderTypes.setRenderLayer(b.get(), RenderType.translucent()));
-        Registration.SOLID_CYLINDERS.values().forEach(b -> ItemBlockRenderTypes.setRenderLayer(b.get(), RenderType.cutout()));
-        Registration.SOLID_SMALL_CYLINDERS.values().forEach(b -> ItemBlockRenderTypes.setRenderLayer(b.get(), RenderType.cutout()));
-        CylinderRenderer.register();
-        NeoForge.EVENT_BUS.register(new ClientEventHandler());
+public final class ClientSetup {
+    public static void register(IEventBus bus) {
+        bus.addListener(ClientSetup::registerRenderers);
+        bus.addListener(DataGenerators::gatherClient);
     }
 
-
-    public static List<ResourceLocation> onTextureStitch() {
-        return Collections.singletonList(ParticleRenderer.PARTICLES);
+    private static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
+        event.registerBlockEntityRenderer(Registration.TYPE_PARTICLE.get(), CylinderRenderer::new);
     }
 }

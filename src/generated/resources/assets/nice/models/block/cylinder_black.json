@@ -3,7 +3,13 @@
   "loader": "neoforge:obj",
   "model": "nice:models/block/cylinder.obj",
   "textures": {
-    "buis": "nice:block/buis_black",
-    "particle": "nice:block/buis_black"
+    "buis": {
+      "force_translucent": true,
+      "sprite": "nice:block/buis_black"
+    },
+    "particle": {
+      "force_translucent": true,
+      "sprite": "nice:block/buis_black"
+    }
   }
 }

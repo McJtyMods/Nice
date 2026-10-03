@@ -2,12 +2,8 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "g": {
-      "item": "minecraft:brown_concrete"
-    },
-    "w": {
-      "tag": "minecraft:wool"
-    }
+    "g": "minecraft:brown_concrete",
+    "w": "#minecraft:wool"
   },
   "pattern": [
     "gwg",

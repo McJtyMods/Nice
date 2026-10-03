@@ -2,12 +2,8 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "g": {
-      "item": "minecraft:pink_concrete"
-    },
-    "w": {
-      "tag": "minecraft:wool"
-    }
+    "g": "minecraft:pink_concrete",
+    "w": "#minecraft:wool"
   },
   "pattern": [
     "g g",

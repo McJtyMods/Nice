@@ -1,33 +1,20 @@
 package mcjty.nice;
 
-import mcjty.lib.modules.Modules;
-import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.ModContainer;
+import net.neoforged.fml.config.ModConfig;
+import net.neoforged.neoforge.common.ModConfigSpec;
 
-public class NiceConfig {
+public final class NiceConfig {
+    private static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
+    public static final ModConfigSpec.DoubleValue MAX_RENDER_DIST = BUILDER
+            .comment("Distance at which decorative particles disappear")
+            .defineInRange("maxRenderDist", 20.0, 1.0, 200.0);
+    public static final ModConfigSpec.DoubleValue BRIGHTNESS_R = BUILDER.defineInRange("particleBrightnessR", 1.0, 0.0, 1.0);
+    public static final ModConfigSpec.DoubleValue BRIGHTNESS_G = BUILDER.defineInRange("particleBrightnessG", 1.0, 0.0, 1.0);
+    public static final ModConfigSpec.DoubleValue BRIGHTNESS_B = BUILDER.defineInRange("particleBrightnessB", 1.0, 0.0, 1.0);
+    private static final ModConfigSpec SPEC = BUILDER.build();
 
-//    @Config.Comment(value = "Render distance at which the particles disappear")
-//    @Config.RangeDouble(min = 1, max = 200)
-    public static double maxRenderDist = 20;
-
-//    @Config.Comment(value = "Particle color/intensity (red)")
-//    @Config.RangeDouble(min = 0, max = 1)
-    public static double particleBrightnessR = 1.0;
-
-//    @Config.Comment(value = "Particle color/intensity (green)")
-//    @Config.RangeDouble(min = 0, max = 1)
-    public static double particleBrightnessG = 1.0;
-
-//    @Config.Comment(value = "Particle color/intensity (blue)")
-//    @Config.RangeDouble(min = 0, max = 1)
-    public static double particleBrightnessB = 1.0;
-
-    public static void register(IEventBus bus, Modules modules) {
-        modules.initConfig(bus);
-
-//        SERVER_CONFIG = SERVER_BUILDER.build();
-//        CLIENT_CONFIG = CLIENT_BUILDER.build();
-
-//        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, CLIENT_CONFIG);
-//        ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, SERVER_CONFIG);
+    public static void register(ModContainer mod) {
+        mod.registerConfig(ModConfig.Type.CLIENT, SPEC);
     }
 }

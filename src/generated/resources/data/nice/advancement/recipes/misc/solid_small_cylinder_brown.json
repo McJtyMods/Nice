@@ -20,8 +20,8 @@
   },
   "requirements": [
     [
-      "has_the_recipe",
-      "base"
+      "base",
+      "has_the_recipe"
     ]
   ],
   "rewards": {

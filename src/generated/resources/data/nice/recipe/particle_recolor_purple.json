@@ -2,12 +2,8 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "tag": "nice:particle"
-    },
-    {
-      "item": "minecraft:purple_dye"
-    }
+    "#nice:particle",
+    "minecraft:purple_dye"
   ],
   "result": {
     "count": 1,

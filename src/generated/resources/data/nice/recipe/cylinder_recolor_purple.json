@@ -2,12 +2,8 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "tag": "nice:cylinder"
-    },
-    {
-      "item": "minecraft:purple_dye"
-    }
+    "#nice:cylinder",
+    "minecraft:purple_dye"
   ],
   "result": {
     "count": 1,

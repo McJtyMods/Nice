@@ -14,20 +14,16 @@ plugins {
     id 'eclipse'
     id 'idea'
     id 'maven-publish'
-    id 'net.neoforged.gradle.userdev' version '7.1.4'
+    id 'net.neoforged.gradle.userdev' version '7.1.38'
 }
 
 apply plugin: 'com.hypherionmc.modutils.modpublisher'
 
-if (project.file('../gradletools.gradle').exists()) {
-    apply from: '../gradletools.gradle'
-} else {
-    apply from: 'https://raw.githubusercontent.com/McJtyMods/MultiWorkspace/1.21_neo/gradletools.gradle'
-}
+apply from: 'gradletools.gradle'
 
 group = "com.github.mcjty"
-archivesBaseName = "nice"
-java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+base { archivesName = "nice" }
+java.toolchain.languageVersion = JavaLanguageVersion.of(25)
 
 repos()
 runs()
@@ -39,9 +35,22 @@ sourceSets.main.resources {
 
 dependencies {
     mc()
-    jei()
-    top()
-    mcjtylib()
 }
 
-modpublisher(['the-one-probe'], ['mcjtylib'], ['the-one-probe'], ['mcjtylib'], [])
+modpublisher([], [], [], [], [])
+
+// In-world migration checks are compiled only when explicitly requested.
+if (project.hasProperty('portTests')) {
+    sourceSets.main.java.srcDir 'src/portTest/java'
+    extensions.getByName("runs").named("gameTestServer") {
+        arguments.addAll '--test', 'nice:*'
+    }
+}
+
+if (project.hasProperty('clientSmoke')) {
+    if (!project.hasProperty('portTests')) throw new GradleException('clientSmoke requires -PportTests')
+    extensions.getByName("runs").named("client") {
+        systemProperty 'nice.clientSmoke', 'true'
+        arguments.addAll '--quickPlaySingleplayer', 'nice-port-smoke'
+    }
+}

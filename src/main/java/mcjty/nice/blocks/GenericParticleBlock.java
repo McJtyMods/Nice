@@ -1,17 +1,16 @@
 package mcjty.nice.blocks;
 
-import mcjty.lib.blocks.BaseBlock;
-import mcjty.lib.builder.BlockBuilder;
-import mcjty.lib.varia.TagTools;
+import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.core.Direction;
 import mcjty.nice.particle.ParticleType;
-import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -27,46 +26,31 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.neoforged.neoforge.common.Tags;
 
-import javax.annotation.Nonnull;
 import java.util.function.Function;
 
-import static mcjty.lib.builder.TooltipBuilder.*;
 
-public class GenericParticleBlock extends BaseBlock {
+public class GenericParticleBlock extends Block implements EntityBlock {
 
-    public static final Properties OCCLUSION_PROPERTIES = Properties.of().sound(SoundType.GLASS);
-    public static final Properties NOOCCLUSION_PROPERTIES = Properties.of().sound(SoundType.GLASS).noOcclusion().dynamicShape();
     private final float scale;
 
     private final Function<DyeColor, Block> siblingGetter;
 
-    public GenericParticleBlock(float scale, boolean noOcclusion, Function<DyeColor, Block> siblingGetter) {
-        super(new BlockBuilder()
-                .properties(noOcclusion ? NOOCCLUSION_PROPERTIES : OCCLUSION_PROPERTIES)
-                .tileEntitySupplier(GenericParticleTileEntity::new)
-//                .harvestLevel(ToolType.PICKAXE, 1)    // @todo tags
-                .info(key("message.nice.shiftmessage"))
-                .infoShift(header(),
-                        general("diamond", GenericParticleBlock::hasParticles, ChatFormatting.AQUA),
-                        general("water", GenericParticleBlock::hasParticles, ChatFormatting.AQUA),
-                        general("wool", GenericParticleBlock::hasParticles, ChatFormatting.AQUA),
-                        general("fish", GenericParticleBlock::hasParticles, ChatFormatting.AQUA),
-                        general("string", GenericParticleBlock::hasParticles, ChatFormatting.AQUA),
-                        general("glass", GenericParticleBlock::hasParticles, ChatFormatting.AQUA),
-                        general("dye", ChatFormatting.AQUA)));
+    public GenericParticleBlock(Properties properties, float scale, boolean noOcclusion, Function<DyeColor, Block> siblingGetter) {
+        super(noOcclusion ? properties.sound(SoundType.GLASS).noOcclusion().dynamicShape()
+                : properties.sound(SoundType.GLASS));
         this.scale = scale;
         this.siblingGetter = siblingGetter;
+        registerDefaultState(stateDefinition.any().setValue(BlockStateProperties.FACING, Direction.UP));
     }
 
-    private static boolean hasParticles(ItemStack stack) {
-        if (stack.getItem() instanceof BlockItem) {
-            BlockItem bi = (BlockItem) stack.getItem();
-            if (bi.getBlock() instanceof GenericParticleBlock) {
-                GenericParticleBlock gpb = (GenericParticleBlock) bi.getBlock();
-                return gpb.supportsParticles();
-            }
-        }
-        return false;
+    @Override
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+        builder.add(BlockStateProperties.FACING);
+    }
+
+    @Override
+    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+        return new GenericParticleTileEntity(pos, state);
     }
 
     public Block recolor(DyeColor color) {
@@ -81,9 +65,8 @@ public class GenericParticleBlock extends BaseBlock {
         return scale;
     }
 
-    @Nonnull
     @Override
-    public VoxelShape getCollisionShape(@Nonnull BlockState state, @Nonnull BlockGetter world, @Nonnull BlockPos pos, @Nonnull CollisionContext context) {
+    public VoxelShape getCollisionShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
         if (supportsParticles() && world.getBlockEntity(pos) instanceof GenericParticleTileEntity particles && !particles.isVisible()) {
             return Shapes.empty();
         }
@@ -91,54 +74,52 @@ public class GenericParticleBlock extends BaseBlock {
     }
 
     @Override
-    protected InteractionResult useWithoutItem(BlockState state, Level world, BlockPos pos, Player player, BlockHitResult result) {
-        InteractionHand hand = player.getUsedItemHand();
-        ItemStack heldItem = player.getItemInHand(hand);
+    protected InteractionResult useItemOn(ItemStack heldItem, BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
         if (!heldItem.isEmpty()) {
             BlockEntity blockEntity = world.getBlockEntity(pos);
             if (blockEntity instanceof GenericParticleTileEntity) {
                 GenericParticleTileEntity pt = (GenericParticleTileEntity) blockEntity;
                 if (!supportsParticles()) {
-                    if (TagTools.hasTag(heldItem.getItem(), Tags.Items.DYES)) {
+                    if (heldItem.is(Tags.Items.DYES)) {
                         DyeColor color = DyeColor.getColor(heldItem);
                         if (color != null) {
-                            pt.setColor(color);
+                            if (!world.isClientSide()) pt.setColor(color);
                             return InteractionResult.SUCCESS;
                         }
                     } else {
-                        if (world.isClientSide) {
+                        if (world.isClientSide()) {
                             player.sendSystemMessage(Component.literal("No particles supported!"));
                         }
                     }
                 } else {
                     if (Items.DIAMOND.equals(heldItem.getItem())) {
-                        pt.setType(ParticleType.BLINK);
+                        if (!world.isClientSide()) pt.setType(ParticleType.BLINK);
                         return InteractionResult.SUCCESS;
-                    } else if (TagTools.hasTag(heldItem.getItem(), ItemTags.FISHES)) {
-                        pt.setType(ParticleType.FISH);
+                    } else if (heldItem.is(ItemTags.FISHES)) {
+                        if (!world.isClientSide()) pt.setType(ParticleType.FISH);
                         return InteractionResult.SUCCESS;
-                    } else if (TagTools.hasTag(heldItem.getItem(), ItemTags.WOOL)) {
-                        pt.setType(ParticleType.SMOKE);
+                    } else if (heldItem.is(ItemTags.WOOL)) {
+                        if (!world.isClientSide()) pt.setType(ParticleType.SMOKE);
                         return InteractionResult.SUCCESS;
                     } else if (Items.WATER_BUCKET.equals(heldItem.getItem())) {
-                        pt.setType(ParticleType.BUBBLE);
+                        if (!world.isClientSide()) pt.setType(ParticleType.BUBBLE);
                         return InteractionResult.SUCCESS;
                     } else if (Items.STRING.equals(heldItem.getItem())) {
-                        pt.setType(ParticleType.NONE);
+                        if (!world.isClientSide()) pt.setType(ParticleType.NONE);
                         return InteractionResult.SUCCESS;
-                    } else if (TagTools.hasTag(heldItem.getItem(), Tags.Items.GLASS_BLOCKS)) {
-                        pt.toggleVisibility();
+                    } else if (heldItem.is(Tags.Items.GLASS_BLOCKS)) {
+                        if (!world.isClientSide()) pt.toggleVisibility();
                         return InteractionResult.SUCCESS;
-                    } else if (TagTools.hasTag(heldItem.getItem(), Tags.Items.DYES)) {
+                    } else if (heldItem.is(Tags.Items.DYES)) {
                         DyeColor color = DyeColor.getColor(heldItem);
                         if (color != null) {
-                            pt.setColor(color);
+                            if (!world.isClientSide()) pt.setColor(color);
                             return InteractionResult.SUCCESS;
                         }
                     }
                 }
             }
         }
-        return super.useWithoutItem(state, world, pos, player, result);
+        return super.useItemOn(heldItem, state, world, pos, player, hand, result);
     }
 }

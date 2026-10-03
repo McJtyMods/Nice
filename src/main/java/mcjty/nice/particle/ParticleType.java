@@ -37,6 +37,6 @@ public enum ParticleType {
     }
 
     public static ParticleType getByName(String name) {
-        return BY_NAME.get(name);
+        return BY_NAME.getOrDefault(name, SMOKE);
     }
 }
