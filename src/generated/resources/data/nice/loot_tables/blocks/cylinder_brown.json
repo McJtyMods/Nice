@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "nice:cylinder_brown"
+        }
+      ],
+      "name": "cylinder_brown",
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "nice:blocks/cylinder_brown"
+}

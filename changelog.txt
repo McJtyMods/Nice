@@ -5,6 +5,7 @@
 - Fixed the particle texture for breaking blocks
 - Changing the color of a particle block no longer reverts the particle system to the default one (smoke)
 - Making a particle block fully transparent will allow the player to walk through it
+- Fixed loot tables for all blocks
 
 1.20-4.0.2:
 - Update to latest McJtyLib
