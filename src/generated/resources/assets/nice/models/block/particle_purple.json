@@ -4,6 +4,7 @@
     "down": "nice:block/buis_purple",
     "east": "nice:block/buis_purple",
     "north": "nice:block/buis_purple",
+    "particle": "nice:block/buis_purple",
     "south": "nice:block/buis_purple",
     "up": "nice:block/buis_purple",
     "west": "nice:block/buis_purple"

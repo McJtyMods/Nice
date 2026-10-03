@@ -4,6 +4,7 @@
     "down": "nice:block/solid_blue",
     "east": "nice:block/solid_blue",
     "north": "nice:block/solid_blue",
+    "particle": "nice:block/solid_blue",
     "south": "nice:block/solid_blue",
     "up": "nice:block/solid_blue",
     "west": "nice:block/solid_blue"

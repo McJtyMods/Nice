@@ -3,6 +3,7 @@
   "loader": "neoforge:obj",
   "model": "nice:models/block/smallcylinder.obj",
   "textures": {
-    "buis": "nice:block/buis_light_blue"
+    "buis": "nice:block/buis_light_blue",
+    "particle": "nice:block/buis_light_blue"
   }
 }

@@ -69,7 +69,14 @@ public class GenericParticleTileEntity extends GenericTileEntity implements IPar
         if (getBlockState().getBlock() instanceof GenericParticleBlock) {
             GenericParticleBlock block = (GenericParticleBlock) getBlockState().getBlock();
             Block newblock = block.recolor(color);
-            level.setBlock(worldPosition, newblock.defaultBlockState(), Block.UPDATE_ALL);
+            level.setBlock(worldPosition, newblock.withPropertiesOf(getBlockState()), Block.UPDATE_ALL);
+            // Recoloring replaces the block entity, so preserve its particle settings.
+            if (level.getBlockEntity(worldPosition) instanceof GenericParticleTileEntity recolored) {
+                recolored.type = type;
+                recolored.visible = visible;
+                recolored.calculatedParticleSystem = null;
+                recolored.markDirtyClient();
+            }
         }
     }
 
