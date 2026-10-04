@@ -1,6 +1,6 @@
 {
+  "fabric:type": "nice:obj",
   "flip_v": true,
-  "loader": "neoforge:obj",
   "model": "nice:models/block/smallcylinder.obj",
   "textures": {
     "buis": "nice:block/solid_gray",

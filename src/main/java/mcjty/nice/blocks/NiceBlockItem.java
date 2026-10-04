@@ -10,6 +10,8 @@ import net.minecraft.world.level.block.Block;
 import java.util.function.Consumer;
 
 public class NiceBlockItem extends BlockItem {
+    public static java.util.function.BooleanSupplier shiftDown = () -> false;
+
     public NiceBlockItem(Block block, Properties properties) {
         super(block, properties);
     }
@@ -18,7 +20,7 @@ public class NiceBlockItem extends BlockItem {
     public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay display,
                                 Consumer<Component> output, TooltipFlag flag) {
         super.appendHoverText(stack, context, display, output, flag);
-        if (!flag.hasShiftDown() && !flag.shouldDisplayAllInformation()) {
+        if (!shiftDown.getAsBoolean() && !flag.isCreative()) {
             output.accept(Component.translatable("message.nice.shiftmessage"));
             return;
         }

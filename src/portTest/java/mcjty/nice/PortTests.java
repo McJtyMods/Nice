@@ -3,12 +3,7 @@ package mcjty.nice;
 import mcjty.nice.blocks.GenericParticleTileEntity;
 import mcjty.nice.setup.Registration;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.gametest.framework.FunctionGameTestInstance;
 import net.minecraft.gametest.framework.GameTestHelper;
-import net.minecraft.gametest.framework.TestData;
-import net.minecraft.resources.Identifier;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
@@ -18,31 +13,9 @@ import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.core.Direction;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.event.RegisterGameTestsEvent;
-import net.neoforged.neoforge.registries.RegisterEvent;
+import net.fabricmc.fabric.api.gametest.v1.GameTest;
 
-@EventBusSubscriber(modid = Nice.MODID)
 public final class PortTests {
-    private static final Identifier INTERACTIONS = Identifier.fromNamespaceAndPath(Nice.MODID, "port_interactions");
-    private static final Identifier SOLIDS = Identifier.fromNamespaceAndPath(Nice.MODID, "port_solids");
-
-    @SubscribeEvent
-    public static void functions(RegisterEvent event) {
-        event.register(Registries.TEST_FUNCTION, INTERACTIONS, () -> PortTests::interactions);
-        event.register(Registries.TEST_FUNCTION, SOLIDS, () -> PortTests::solids);
-    }
-
-    @SubscribeEvent
-    public static void tests(RegisterGameTestsEvent event) {
-        var environment = event.registerEnvironment(Identifier.fromNamespaceAndPath(Nice.MODID, "port"));
-        for (Identifier id : new Identifier[]{INTERACTIONS, SOLIDS}) {
-            event.registerTest(id, new FunctionGameTestInstance(ResourceKey.create(Registries.TEST_FUNCTION, id),
-                    new TestData<>(environment, Identifier.withDefaultNamespace("empty"), 100, 0, true)));
-        }
-    }
-
     private static void use(GameTestHelper helper, BlockPos pos, Item item) {
         var player = helper.makeMockPlayer(GameType.SURVIVAL);
         player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(item));
@@ -58,7 +31,8 @@ public final class PortTests {
         return entity(helper, pos).getUpdateTag(helper.getLevel().registryAccess()).getStringOr("type", "missing");
     }
 
-    private static void interactions(GameTestHelper helper) {
+    @GameTest(maxTicks = 100)
+    public void interactions(GameTestHelper helper) {
         BlockPos pos = new BlockPos(0, 1, 0);
         for (var family : java.util.List.of(Registration.PARTICLE_BLOCKS, Registration.CYLINDERS, Registration.SMALL_CYLINDERS)) {
             for (Direction direction : Direction.values()) {
@@ -96,7 +70,8 @@ public final class PortTests {
         helper.succeed();
     }
 
-    private static void solids(GameTestHelper helper) {
+    @GameTest(maxTicks = 100)
+    public void solids(GameTestHelper helper) {
         BlockPos pos = new BlockPos(0, 1, 0);
         for (var family : java.util.List.of(Registration.SOLID_BLOCKS, Registration.SOLID_CYLINDERS, Registration.SOLID_SMALL_CYLINDERS)) {
             helper.setBlock(pos, family.get(DyeColor.RED).get());

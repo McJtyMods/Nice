@@ -1,6 +1,6 @@
 package mcjty.nice;
 
-import net.neoforged.fml.ModContainer;
+import fuzs.forgeconfigapiport.fabric.api.v5.ConfigRegistry;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.neoforge.common.ModConfigSpec;
 
@@ -14,7 +14,7 @@ public final class NiceConfig {
     public static final ModConfigSpec.DoubleValue BRIGHTNESS_B = BUILDER.defineInRange("particleBrightnessB", 1.0, 0.0, 1.0);
     private static final ModConfigSpec SPEC = BUILDER.build();
 
-    public static void register(ModContainer mod) {
-        mod.registerConfig(ModConfig.Type.CLIENT, SPEC);
+    public static void register() {
+        ConfigRegistry.INSTANCE.register(Nice.MODID, ModConfig.Type.CLIENT, SPEC);
     }
 }

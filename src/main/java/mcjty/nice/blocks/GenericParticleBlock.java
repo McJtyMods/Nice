@@ -24,7 +24,8 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.neoforged.neoforge.common.Tags;
+import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
+import net.minecraft.core.component.DataComponents;
 
 import java.util.function.Function;
 
@@ -80,8 +81,8 @@ public class GenericParticleBlock extends Block implements EntityBlock {
             if (blockEntity instanceof GenericParticleTileEntity) {
                 GenericParticleTileEntity pt = (GenericParticleTileEntity) blockEntity;
                 if (!supportsParticles()) {
-                    if (heldItem.is(Tags.Items.DYES)) {
-                        DyeColor color = DyeColor.getColor(heldItem);
+                    if (heldItem.is(ConventionalItemTags.DYES)) {
+                        DyeColor color = heldItem.get(DataComponents.DYE);
                         if (color != null) {
                             if (!world.isClientSide()) pt.setColor(color);
                             return InteractionResult.SUCCESS;
@@ -107,11 +108,11 @@ public class GenericParticleBlock extends Block implements EntityBlock {
                     } else if (Items.STRING.equals(heldItem.getItem())) {
                         if (!world.isClientSide()) pt.setType(ParticleType.NONE);
                         return InteractionResult.SUCCESS;
-                    } else if (heldItem.is(Tags.Items.GLASS_BLOCKS)) {
+                    } else if (heldItem.is(ConventionalItemTags.GLASS_BLOCKS)) {
                         if (!world.isClientSide()) pt.toggleVisibility();
                         return InteractionResult.SUCCESS;
-                    } else if (heldItem.is(Tags.Items.DYES)) {
-                        DyeColor color = DyeColor.getColor(heldItem);
+                    } else if (heldItem.is(ConventionalItemTags.DYES)) {
+                        DyeColor color = heldItem.get(DataComponents.DYE);
                         if (color != null) {
                             if (!world.isClientSide()) pt.setColor(color);
                             return InteractionResult.SUCCESS;

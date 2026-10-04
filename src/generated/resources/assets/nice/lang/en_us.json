@@ -576,5 +576,11 @@
   "block.nice.solid_small_cylinder_yellow.dye": "    A dye to change the color",
   "block.nice.solid_small_cylinder_yellow.header": "Use item to change (not consumed)",
   "itemGroup.nice": "NICE",
-  "message.nice.shiftmessage": "<Press Shift>"
+  "message.nice.shiftmessage": "<Press Shift>",
+  "tag.item.nice.cylinder": "Particle Cylinders",
+  "tag.item.nice.particle": "Particle Blocks",
+  "tag.item.nice.small_cylinder": "Small Particle Cylinders",
+  "tag.item.nice.solid": "Solid Blocks",
+  "tag.item.nice.solid_cylinder": "Solid Cylinders",
+  "tag.item.nice.solid_small_cylinder": "Solid Small Cylinders"
 }

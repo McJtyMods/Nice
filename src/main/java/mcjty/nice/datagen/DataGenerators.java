@@ -6,7 +6,6 @@ import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.item.DyeColor;
-import net.neoforged.neoforge.data.event.GatherDataEvent;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -14,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
-/** Generates the block families, including NeoForge OBJ models and modern item definitions. */
+/** Generates the block families, including Fabric OBJ models and modern item definitions. */
 public final class DataGenerators implements DataProvider {
     private static final Gson GSON = new Gson();
     private final Path root;
@@ -31,15 +30,7 @@ public final class DataGenerators implements DataProvider {
             new Family("solid_small_cylinder", "solid_small_cylinder", "solid_small_cylinder", "Solid Small Cylinder", "solid", "smallcylinder", false, "g g", "gwg")
     );
 
-    public static void gatherClient(GatherDataEvent.Client event) {
-        event.getGenerator().addProvider(true, new DataGenerators(event.getGenerator().getPackOutput()));
-    }
-
-    public static void gatherServer(GatherDataEvent.Server event) {
-        event.getGenerator().addProvider(true, new DataGenerators(event.getGenerator().getPackOutput()));
-    }
-
-    private DataGenerators(PackOutput output) {
+    public DataGenerators(PackOutput output) {
         root = output.getOutputFolder();
     }
 
@@ -55,6 +46,7 @@ public final class DataGenerators implements DataProvider {
         language.put("message.nice.shiftmessage", "<Press Shift>");
         List<String> blocks = new ArrayList<>();
         for (Family family : FAMILIES) {
+            language.put("tag.item.nice." + family.item, family.name + "s");
             List<String> items = new ArrayList<>();
             for (DyeColor dye : DyeColor.values()) {
                 String color = dye.getName();
@@ -85,7 +77,7 @@ public final class DataGenerators implements DataProvider {
                     "textures", Map.of("all", material, "particle", material)));
             add("assets/nice/blockstates/" + block + ".json", Map.of("variants", Map.of("", Map.of("model", "nice:block/" + model))));
         } else {
-            add("assets/nice/models/block/" + model + ".json", Map.of("loader", "neoforge:obj", "flip_v", true,
+            add("assets/nice/models/block/" + model + ".json", Map.of("fabric:type", "nice:obj", "flip_v", true,
                     "model", "nice:models/block/" + family.obj + ".obj", "textures", Map.of("buis", material, "particle", material)));
             Map<String, Object> variants = new LinkedHashMap<>();
             variants.put("facing=up", Map.of("model", "nice:block/" + model));

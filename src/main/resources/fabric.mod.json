@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "id": "nice",
+  "version": "${version}",
+  "name": "Nice",
+  "description": "Nice Innovative Creative Enhancements: decorative blocks and particles.",
+  "authors": ["McJty"],
+  "license": "MIT",
+  "environment": "*",
+  "entrypoints": {
+    "main": ["mcjty.nice.Nice"],
+    "client": ["mcjty.nice.setup.ClientSetup"],
+    "fabric-datagen": ["mcjty.nice.datagen.NiceDataGenerator"]
+  },
+  "depends": {
+    "fabricloader": ">=0.19.3",
+    "minecraft": "26.2",
+    "java": ">=25",
+    "fabric-api": ">=0.155.2+26.2",
+    "forgeconfigapiport": ">=26.2.1"
+  }
+}

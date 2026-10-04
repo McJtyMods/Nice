@@ -18,7 +18,6 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.Vec3;
-import net.minecraft.world.phys.AABB;
 import org.jspecify.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,8 +36,9 @@ public class CylinderRenderer implements BlockEntityRenderer<GenericParticleTile
     }
 
     @Override
-    public AABB getRenderBoundingBox(GenericParticleTileEntity entity) {
-        return new AABB(entity.getBlockPos()).inflate(1);
+    public boolean shouldRenderOffScreen() {
+        // Particles can extend beyond the block's bounds at the edge of the screen.
+        return true;
     }
 
     @Override
@@ -57,8 +57,7 @@ public class CylinderRenderer implements BlockEntityRenderer<GenericParticleTile
         if (entity.isVisible()) {
             List<BlockStateModelPart> parts = new ArrayList<>();
             Minecraft.getInstance().getModelManager().getBlockStateModelSet().get(block)
-                    .collectParts(Minecraft.getInstance().level, entity.getBlockPos(), block,
-                            RandomSource.create(block.getSeed(entity.getBlockPos())), parts);
+                    .collectParts(RandomSource.create(block.getSeed(entity.getBlockPos())), parts);
             state.parts = List.copyOf(parts);
         }
         if (Vec3.atCenterOf(entity.getBlockPos()).closerThan(cameraPosition, NiceConfig.MAX_RENDER_DIST.get())) {

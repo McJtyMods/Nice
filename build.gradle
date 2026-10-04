@@ -1,56 +1,82 @@
-buildscript {
-    repositories {
-        maven { url = 'https://maven.firstdark.dev/releases' }
-        mavenCentral()
-        gradlePluginPortal()
-    }
-    dependencies {
-        classpath 'com.hypherionmc.modutils:modpublisher:2.2.1'
-    }
-}
-
 plugins {
     id 'java-library'
     id 'eclipse'
     id 'idea'
     id 'maven-publish'
-    id 'net.neoforged.gradle.userdev' version '7.1.38'
+    id 'com.hypherionmc.modutils.modpublisher' version '2.2.1'
+    id 'net.fabricmc.fabric-loom' version "${loom_version}"
 }
-
-apply plugin: 'com.hypherionmc.modutils.modpublisher'
 
 apply from: 'gradletools.gradle'
+modpublisher([], ['fabric-api', 'forge-config-api-port'], [], ['fabric-api', 'forge-config-api-port'], [])
 
-group = "com.github.mcjty"
-base { archivesName = "nice" }
+group = 'com.github.mcjty'
+base { archivesName = 'nice-fabric' }
 java.toolchain.languageVersion = JavaLanguageVersion.of(25)
-
-repos()
-runs()
-jars()
-
-sourceSets.main.resources {
-    srcDir 'src/generated/resources'
+repositories {
+    mavenCentral()
+    maven { url = 'https://raw.githubusercontent.com/Fuzss/modresources/main/maven/' }
 }
-
+sourceSets.main.resources.srcDir 'src/generated/resources'
 dependencies {
-    mc()
+    minecraft "com.mojang:minecraft:${minecraft_version}"
+    implementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
+    implementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
+    implementation "fuzs.forgeconfigapiport:forgeconfigapiport-fabric:${forge_config_api_port_version}"
 }
-
-modpublisher([], [], [], [], [])
-
-// In-world migration checks are compiled only when explicitly requested.
+loom {
+    runs {
+        client { client(); runDir 'runs/client' }
+        server { server(); runDir 'runs/server' }
+        datagen {
+            server()
+            vmArg '-Dfabric-api.datagen'
+            vmArg '-Dfabric-api.datagen.output-dir=' + file('src/generated/resources').absolutePath
+            vmArg '-Dfabric-api.datagen.modid=nice'
+            runDir 'build/datagen'
+        }
+    }
+}
+processResources {
+    inputs.property 'version', project.version
+    inputs.property 'portTests', project.hasProperty('portTests')
+    filesMatching('fabric.mod.json') { expand version: project.version }
+}
+java { withSourcesJar() }
+// The in-world checks and client scene are opt-in and omitted from release jars.
 if (project.hasProperty('portTests')) {
     sourceSets.main.java.srcDir 'src/portTest/java'
-    extensions.getByName("runs").named("gameTestServer") {
-        arguments.addAll '--test', 'nice:*'
+    loom.runs {
+        gameTestServer {
+            server()
+            vmArg '-Dfabric-api.gametest'
+            runDir 'runs/gameTestServer'
+        }
+    }
+}
+if (project.hasProperty('clientSmoke')) {
+    if (!project.hasProperty('portTests')) throw new GradleException('clientSmoke requires -PportTests')
+    loom.runs.client {
+        vmArg '-Dnice.clientSmoke=true'
+        programArgs '--quickPlaySingleplayer', 'nice-port-smoke'
     }
 }
 
-if (project.hasProperty('clientSmoke')) {
-    if (!project.hasProperty('portTests')) throw new GradleException('clientSmoke requires -PportTests')
-    extensions.getByName("runs").named("client") {
-        systemProperty 'nice.clientSmoke', 'true'
-        arguments.addAll '--quickPlaySingleplayer', 'nice-port-smoke'
+if (project.hasProperty('portTests')) {
+    processResources.doLast {
+        def metadata = file("${destinationDir}/fabric.mod.json")
+        def json = new groovy.json.JsonSlurper().parse(metadata)
+        json.entrypoints['fabric-gametest'] = ['mcjty.nice.PortTests']
+        json.entrypoints.client.add('mcjty.nice.ClientPortSmoke')
+        metadata.text = groovy.json.JsonOutput.prettyPrint(groovy.json.JsonOutput.toJson(json))
+    }
+}
+
+tasks.named('jar') {
+    from('LICENSE') { rename { "${it}_nice" } }
+}
+publishing {
+    publications {
+        mavenJava(MavenPublication) { from components.java }
     }
 }
