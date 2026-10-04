@@ -5,7 +5,6 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import mcjty.nice.Nice;
 import mcjty.nice.NiceConfig;
 import net.minecraft.client.renderer.SubmitNodeCollector;
-import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.Identifier;
@@ -43,7 +42,7 @@ public final class ParticleRenderer {
             stack.pushPose();
             stack.translate(0.5 + p.offset.x, 0.5 + p.offset.y, 0.5 + p.offset.z);
             stack.mulPose(camera);
-            collector.submitCustomGeometry(stack, RenderTypes.entityTranslucentEmissive(PARTICLES), (pose, buffer) -> {
+            collector.submitCustomGeometry(stack, ParticleRenderTypes.PARTICLES, (pose, buffer) -> {
                 vertex(buffer, pose, -p.scale, -p.scale, p.u1, p.v1, p.color);
                 vertex(buffer, pose, -p.scale, p.scale, p.u1, p.v2, p.color);
                 vertex(buffer, pose, p.scale, p.scale, p.u2, p.v2, p.color);

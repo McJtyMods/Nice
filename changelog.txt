@@ -1,4 +1,5 @@
 26.2-6.0.0
+- Fixed particle brightness by removing directional face lighting from the emissive renderer
 - Ported to Minecraft 26.2 and NeoForge (Java 25)
 - Migrated block and particle rendering to the extraction/submission pipeline
 - Updated item definitions, translucent materials, recipes, and data generation
