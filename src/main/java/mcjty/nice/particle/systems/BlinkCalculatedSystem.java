@@ -20,7 +20,7 @@ public class BlinkCalculatedSystem extends DefaultCalculatedParticleSystem {
             DefaultParticle particle = (DefaultParticle) particles.get(i);
             Vec3 o = new Vec3(random.nextDouble()*scale-scale/2.0f, random.nextDouble()*.8-.8/2.0f, random.nextDouble()*scale-scale/2.0f);
             particle.setOffset(o);
-            particle.setUV(4D/8, 0, 5D/8, 1D);
+            particle.setTexture("sparkle");
             particle.setColor(255, 255, 255, 128);
             particle.setScale(.2);
         }
@@ -37,6 +37,7 @@ public class BlinkCalculatedSystem extends DefaultCalculatedParticleSystem {
             if (offset < .001) {
                 Vec3 o = new Vec3(random.nextDouble()*.8-.4, random.nextDouble()*.8-.4, random.nextDouble()*.8-.4);
                 particle.setOffset(o);
+                particle.setTexture("sparkle");
             }
         }
     }

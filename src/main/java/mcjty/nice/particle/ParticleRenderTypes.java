@@ -4,8 +4,24 @@ import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.VertexFormat;
 import net.minecraft.client.renderer.RenderStateShard;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.resources.ResourceLocation;
 
 public class ParticleRenderTypes extends RenderType {
+
+    // The standard emissive eyes pass also gives shader packs an emissive program.
+    // It adds color, respects depth testing, and does not write depth for the halo.
+    public static final RenderType PARTICLE_GLOW = RenderType.eyes(new ResourceLocation("minecraft", "textures/misc/white.png"));
+
+    // Add the actual sprite's emission on top of its normal fullbright color.
+    // Source alpha preserves transparent texels and the particle's opacity.
+    public static final RenderType PARTICLE_EMISSION = create("particle_emission", DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 256, false, true,
+            CompositeState.builder()
+                    .setShaderState(RENDERTYPE_EYES_SHADER)
+                    .setTextureState(BLOCK_SHEET_MIPPED)
+                    .setTransparencyState(LIGHTNING_TRANSPARENCY)
+                    .setCullState(NO_CULL)
+                    .setWriteMaskState(COLOR_WRITE)
+                    .createCompositeState(false));
 
     // Dummy
     private ParticleRenderTypes(String p_173178_, VertexFormat p_173179_, VertexFormat.Mode p_173180_, int p_173181_, boolean p_173182_, boolean p_173183_, Runnable p_173184_, Runnable p_173185_) {

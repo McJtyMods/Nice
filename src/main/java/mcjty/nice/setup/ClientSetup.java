@@ -2,16 +2,22 @@ package mcjty.nice.setup;
 
 import mcjty.nice.blocks.CylinderRenderer;
 import mcjty.nice.particle.ParticleRenderer;
+import mcjty.nice.particle.ParticleTextures;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.client.event.RegisterClientReloadListenersEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
 import java.util.Collections;
 import java.util.List;
 
 public class ClientSetup {
+
+    public static void registerReloadListeners(RegisterClientReloadListenersEvent event) {
+        event.registerReloadListener(new ParticleTextures());
+    }
 
     public static void initClient(FMLClientSetupEvent e) {
         Registration.SOLID_BLOCKS.values().forEach(b -> ItemBlockRenderTypes.setRenderLayer(b.get(), RenderType.solid()));

@@ -2,6 +2,8 @@ package mcjty.nice.particle;
 
 import net.minecraft.world.phys.Vec3;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 public class DefaultParticle implements IParticle {
 
     private Vec3 offset;
@@ -14,6 +16,9 @@ public class DefaultParticle implements IParticle {
     private int g;
     private int b;
     private int a;
+    private String textureType;
+    private int textureSeed;
+    private long textureStartTime;
 
     public DefaultParticle() {
     }
@@ -47,6 +52,27 @@ public class DefaultParticle implements IParticle {
         this.u2 = u2;
         this.v1 = v1;
         this.v2 = v2;
+    }
+
+    public void setTexture(String textureType) {
+        this.textureType = textureType;
+        this.textureSeed = ThreadLocalRandom.current().nextInt();
+        this.textureStartTime = System.currentTimeMillis();
+    }
+
+    @Override
+    public String getTextureType() {
+        return textureType;
+    }
+
+    @Override
+    public int getTextureSeed() {
+        return textureSeed;
+    }
+
+    @Override
+    public long getTextureStartTime() {
+        return textureStartTime;
     }
 
     @Override

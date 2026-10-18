@@ -1,0 +1,60 @@
+{
+  "smoke": {
+    "textures": [
+      {
+        "u": 0,
+        "v": 0
+      }
+    ]
+  },
+  "fish1": {
+    "textures": [
+      {
+        "u": 0,
+        "v": 32
+      }
+    ],
+    "animation": true
+  },
+  "fish2": {
+    "textures": [
+      {
+        "u": 0,
+        "v": 64
+      }
+    ],
+    "animation": true
+  },
+  "fish3": {
+    "textures": [
+      {
+        "u": 0,
+        "v": 96
+      }
+    ],
+    "animation": true
+  },
+  "sparkle": {
+    "textures": [
+      {
+        "u": 0,
+        "v": 128
+      },
+      {
+        "u": 32,
+        "v": 128
+      }
+    ],
+    "fullbright": true,
+    "glow": true
+  },
+  "bubble": {
+    "textures": [
+      {
+        "u": 0,
+        "v": 160
+      }
+    ],
+    "fullbright": true
+  }
+}
