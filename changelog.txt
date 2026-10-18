@@ -1,4 +1,6 @@
 Upcoming:
+- Cylinders no longer pop off when hit by flowing water
+- Added placement-only waterlogging for cylinders and particle blocks, including invisible ones
 - Fix the particle rendering so that it looks nicer in combination with shaders like complementary
 - Added a new system to allow the datapack maker to define more textures for the particles and also animation (see particles.json)
 - Added a glow effect to the sparkle particle system
