@@ -1,13 +1,14 @@
 package mcjty.nice.particle;
 
-import com.mojang.blaze3d.pipeline.BlendFunction;
-import com.mojang.blaze3d.pipeline.ColorTargetState;
-import com.mojang.blaze3d.pipeline.DepthStencilState;
-import com.mojang.blaze3d.pipeline.RenderPipeline;
-import com.mojang.blaze3d.platform.CompareOp;
+import com.mojang.renderpearl.api.pipeline.BlendFunction;
+import com.mojang.renderpearl.api.pipeline.ColorTargetState;
+import com.mojang.renderpearl.api.pipeline.CompareOp;
+import com.mojang.renderpearl.api.pipeline.DepthStencilState;
+import com.mojang.renderpearl.api.pipeline.RenderPipeline;
 import mcjty.nice.Nice;
 import net.minecraft.client.renderer.BindGroupLayouts;
 import net.minecraft.client.renderer.RenderPipelines;
+import net.minecraft.client.renderer.oit.OitPipelineSet;
 import net.minecraft.client.renderer.rendertype.RenderSetup;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.resources.Identifier;
@@ -25,8 +26,16 @@ public final class ParticleRenderTypes {
             .withDepthStencilState(new DepthStencilState(CompareOp.GREATER_THAN_OR_EQUAL, false))
             .build();
 
+    public static final OitPipelineSet PARTICLE_OIT_PIPELINES = OitPipelineSet.builder("nice_particles",
+            RenderPipeline.builder(RenderPipelines.OIT_ENTITY_SNIPPET).withCull(false))
+            .withAccumulateModifier(accumulate -> accumulate.withShaderDefine("EMISSIVE")
+                    .withShaderDefine("NO_CARDINAL_LIGHTING")
+                    .withBindGroupLayout(BindGroupLayouts.SAMPLER1))
+            .build();
+
     public static final RenderType PARTICLES = RenderType.create("nice_particles",
             RenderSetup.builder(PARTICLE_PIPELINE)
+                    .setOitPipelines(PARTICLE_OIT_PIPELINES)
                     .withTexture("Sampler0", ParticleRenderer.PARTICLES)
                     .useOverlay()
                     .sortOnUpload()

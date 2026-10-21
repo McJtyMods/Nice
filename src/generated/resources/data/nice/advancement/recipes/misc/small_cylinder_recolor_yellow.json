@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "nice:small_cylinder_recolor_yellow"
+        "recipes": "nice:small_cylinder_recolor_yellow"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

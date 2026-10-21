@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "nice:solid_lime"
+        "recipes": "nice:solid_lime"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

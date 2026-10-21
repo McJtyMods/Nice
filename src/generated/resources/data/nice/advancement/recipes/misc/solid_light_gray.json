@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "nice:solid_light_gray"
+        "recipes": "nice:solid_light_gray"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

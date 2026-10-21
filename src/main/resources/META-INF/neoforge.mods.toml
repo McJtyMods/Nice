@@ -14,13 +14,13 @@ description="Nice decorative blocks"
 [[dependencies.nice]]
 modId="neoforge"
 type="required"
-versionRange="[26.2.0.75,)"
+versionRange="[26.3.0.83,)"
 ordering="NONE"
 side="BOTH"
 
 [[dependencies.nice]]
 modId="minecraft"
 type="required"
-versionRange="[26.2]"
+versionRange="[26.3]"
 ordering="NONE"
 side="BOTH"

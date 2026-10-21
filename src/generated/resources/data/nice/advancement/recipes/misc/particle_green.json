@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "nice:particle_green"
+        "recipes": "nice:particle_green"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

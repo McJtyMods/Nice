@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "nice:cylinder_recolor_black"
+        "recipes": "nice:cylinder_recolor_black"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

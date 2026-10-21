@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "nice:solid_cylinder_recolor_orange"
+        "recipes": "nice:solid_cylinder_recolor_orange"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -41,7 +41,7 @@ public final class ParticleRenderer {
         for (Particle p : particles) {
             stack.pushPose();
             stack.translate(0.5 + p.offset.x, 0.5 + p.offset.y, 0.5 + p.offset.z);
-            stack.mulPose(camera);
+            stack.rotate(camera);
             collector.submitCustomGeometry(stack, ParticleRenderTypes.PARTICLES, (pose, buffer) -> {
                 vertex(buffer, pose, -p.scale, -p.scale, p.u1, p.v1, p.color);
                 vertex(buffer, pose, -p.scale, p.scale, p.u1, p.v2, p.color);

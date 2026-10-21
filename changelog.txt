@@ -1,3 +1,6 @@
+26.3-7.0.0:
+- Port to 26.3/NeoForge
+
 26.2-6.0.0
 - Fixed particle brightness by removing directional face lighting from the emissive renderer
 - Ported to Minecraft 26.2 and NeoForge (Java 25)

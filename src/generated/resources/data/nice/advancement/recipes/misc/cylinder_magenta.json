@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "nice:cylinder_magenta"
+        "recipes": "nice:cylinder_magenta"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

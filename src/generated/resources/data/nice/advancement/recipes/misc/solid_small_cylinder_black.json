@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "nice:solid_small_cylinder_black"
+        "recipes": "nice:solid_small_cylinder_black"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

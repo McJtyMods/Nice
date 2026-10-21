@@ -68,6 +68,7 @@ public final class DataGenerators implements DataProvider {
             add("data/nice/tags/item/" + family.item + ".json", Map.of("values", items));
         }
         add("assets/nice/lang/en_us.json", language);
+        add("data/minecraft/tags/block/blocks_motion_no_leaves.json", Map.of("values", blocks));
         add("data/minecraft/tags/block/mineable/pickaxe.json", Map.of("values", blocks));
         add("data/minecraft/tags/block/needs_stone_tool.json", Map.of("values", blocks));
         return CompletableFuture.allOf(files.entrySet().stream()
@@ -125,13 +126,13 @@ public final class DataGenerators implements DataProvider {
         advancement(recolor, base);
         add("data/nice/loot_table/blocks/" + block + ".json", Map.of("type", "minecraft:block",
                 "pools", List.of(Map.of("rolls", 1, "entries", List.of(Map.of("type", "minecraft:item", "name", "nice:" + item)),
-                        "conditions", List.of(Map.of("condition", "minecraft:survives_explosion"))))));
+                        "condition", Map.of("type", "minecraft:survives_explosion")))));
     }
 
     private void advancement(String recipe, String base) {
         add("data/nice/advancement/recipes/misc/" + recipe + ".json", Map.of("parent", "minecraft:recipes/root",
                 "criteria", Map.of("base", Map.of("trigger", "minecraft:inventory_changed", "conditions", Map.of("items", List.of(Map.of("items", base)))),
-                        "has_the_recipe", Map.of("trigger", "minecraft:recipe_unlocked", "conditions", Map.of("recipe", "nice:" + recipe))),
+                        "has_the_recipe", Map.of("trigger", "minecraft:recipe_unlocked", "conditions", Map.of("recipes", "nice:" + recipe))),
                 "requirements", List.of(List.of("base", "has_the_recipe")), "rewards", Map.of("recipes", List.of("nice:" + recipe))));
     }
 
