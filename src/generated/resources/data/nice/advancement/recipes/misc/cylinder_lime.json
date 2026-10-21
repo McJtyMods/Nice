@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "nice:cylinder_lime"
+        "recipes": "nice:cylinder_lime"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "nice:particle_recolor_white"
+        "recipes": "nice:particle_recolor_white"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

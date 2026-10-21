@@ -1,10 +1,10 @@
 # Nice
 
-Nice Innovative Creative Enhancements — decorative blocks for Minecraft **26.2** with **Fabric Loader 0.19.3 or newer**. Requires **Java 25**, **Fabric API 0.155.2+26.2 or newer**, and **Forge Config API Port 26.2.1 or newer**.
+Nice Innovative Creative Enhancements — decorative blocks for Minecraft **26.3** with **Fabric Loader 0.19.5 or newer**. Requires **Java 25**, **Fabric API 0.164.0+26.3 or newer**, and **Forge Config API Port 26.3.1 or newer**.
 
-Build with `./gradlew build`. The installable mod jar is `build/libs/nice-fabric-26.2-6.0.0-fabric.jar`. Install it alongside Fabric API and Forge Config API Port.
+Build with `./gradlew build`. The installable mod jar is `build/libs/nice-fabric-26.3-7.0.0-fabric.jar`. Install it alongside Fabric API and Forge Config API Port.
 
-Use `./gradlew runClient` or `./gradlew runServer` for development. Regenerate the complete resource set with `./gradlew runDatagen`: models, 26.2 item definitions, translucent materials, recipes, tags, language, and loot tables. The Fabric model loader uses the original cylinder OBJ geometry for both blocks and inventory items.
+Use `./gradlew runClient` or `./gradlew runServer` for development. Regenerate the complete resource set with `./gradlew runDatagen`: models, 26.3 item definitions, translucent materials, recipes, tags, language, and loot tables. The Fabric model loader uses the original cylinder OBJ geometry for both blocks and inventory items.
 
 The port retains all 96 block/item IDs and the block entity's particle and visibility data. McJtyLib is not required. Forge Config API Port preserves `config/nice-client.toml`, including particle render distance and RGB brightness settings.
 

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "nice:solid_small_cylinder_orange"
+        "recipes": "nice:solid_small_cylinder_orange"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

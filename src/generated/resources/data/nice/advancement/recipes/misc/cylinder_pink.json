@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "nice:cylinder_pink"
+        "recipes": "nice:cylinder_pink"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

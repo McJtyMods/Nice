@@ -33,7 +33,7 @@ public final class ObjModel {
         return new CuboidModel((textures, baker, state, debugName) -> {
             var material = baker.materials().resolveSlot(textures, "buis", debugName);
             var sprite = material.sprite();
-            var info = BakedQuad.MaterialInfo.of(material, sprite.transparency(), -1, true, 0);
+            var info = BakedQuad.MaterialInfo.of(material, sprite.transparency(), -1, null, 0);
             var result = new QuadCollection.Builder();
             for (Face face : read(path)) {
                 Vector3f[] positions = new Vector3f[4];

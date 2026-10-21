@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "nice:solid_cylinder_brown"
+        "recipes": "nice:solid_cylinder_brown"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
