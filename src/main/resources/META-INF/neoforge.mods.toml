@@ -21,7 +21,7 @@ side="BOTH"
 [[dependencies.nice]]
 modId="mcjtylib"
 type="required"
-versionRange="[26.2-10.0.0.2,)"
+versionRange="[26.2-10.0.0,)"
 ordering="AFTER"
 side="BOTH"
 
