@@ -25,6 +25,7 @@ public final class ClientPortSmoke {
         var minecraft = Minecraft.getInstance();
         var server = minecraft.getSingleplayerServer();
         if (minecraft.level == null || minecraft.player == null || server == null) return;
+        if (minecraft.gui.screen() != null) return;
         if (ticks++ == 0) {
             server.execute(() -> {
                 var commands = server.getCommands();

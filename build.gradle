@@ -19,7 +19,11 @@ plugins {
 
 apply plugin: 'com.hypherionmc.modutils.modpublisher'
 
-apply from: 'gradletools.gradle'
+if (project.file('../gradletools.gradle').exists()) {
+    apply from: '../gradletools.gradle'
+} else {
+    apply from: 'https://raw.githubusercontent.com/McJtyMods/MultiWorkspace/26.2_neo/gradletools.gradle'
+}
 
 group = "com.github.mcjty"
 base { archivesName = "nice" }
@@ -35,9 +39,17 @@ sourceSets.main.resources {
 
 dependencies {
     mc()
+    top()
+    jei()
+    mcjtylib()
 }
 
-modpublisher([], [], [], [], [])
+modpublisher([], ['mcjtylib'], [], ['mcjtylib'], [])
+
+// The shared script configures clientData; retain the existing server data run too.
+extensions.getByName('runs').named('serverData') {
+    arguments.addAll '--mod', project.mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
+}
 
 // In-world migration checks are compiled only when explicitly requested.
 if (project.hasProperty('portTests')) {

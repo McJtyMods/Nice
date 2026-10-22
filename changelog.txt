@@ -1,3 +1,6 @@
+26.2-6.0.1
+- Depend on McJtyLib again
+
 26.2-6.0.0
 - Fixed particle brightness by removing directional face lighting from the emissive renderer
 - Ported to Minecraft 26.2 and NeoForge (Java 25)
