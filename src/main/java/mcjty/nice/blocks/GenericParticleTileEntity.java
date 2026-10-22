@@ -1,9 +1,8 @@
 package mcjty.nice.blocks;
 
-import net.minecraft.world.level.block.entity.BlockEntity;
+import mcjty.lib.tileentity.GenericTileEntity;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import mcjty.nice.particle.ICalculatedParticleSystem;
 import mcjty.nice.particle.IParticleProvider;
 import mcjty.nice.particle.IParticleSystem;
@@ -17,7 +16,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import org.jspecify.annotations.Nullable;
 
-public class GenericParticleTileEntity extends BlockEntity implements IParticleProvider {
+public class GenericParticleTileEntity extends GenericTileEntity implements IParticleProvider {
 
     private ParticleType type = ParticleType.SMOKE;
     private boolean visible = true;
@@ -29,8 +28,9 @@ public class GenericParticleTileEntity extends BlockEntity implements IParticleP
     @Override
     protected void loadAdditional(ValueInput input) {
         super.loadAdditional(input);
-        type = ParticleType.getByName(input.getStringOr("type", "smoke"));
-        visible = input.getBooleanOr("visible", true);
+        // Client updates store these fields in mcjtylib_client; disk saves keep them at the root.
+        type = ParticleType.getByName(input.getStringOr("type", type.getName()));
+        visible = input.getBooleanOr("visible", visible);
         calculatedParticleSystem = null;
     }
 
@@ -42,20 +42,18 @@ public class GenericParticleTileEntity extends BlockEntity implements IParticleP
     }
 
     @Override
-    public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
-        return saveWithoutMetadata(registries);
+    public void saveClientDataToNBT(CompoundTag tag, HolderLookup.Provider registries) {
+        super.saveClientDataToNBT(tag, registries);
+        tag.putString("type", type.getName());
+        tag.putBoolean("visible", visible);
     }
 
     @Override
-    public ClientboundBlockEntityDataPacket getUpdatePacket() {
-        return ClientboundBlockEntityDataPacket.create(this);
-    }
-
-    private void markDirtyClient() {
-        setChanged();
-        if (level != null && !level.isClientSide()) {
-            level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Block.UPDATE_ALL);
-        }
+    public void loadClientDataFromNBT(CompoundTag tag, HolderLookup.Provider registries) {
+        super.loadClientDataFromNBT(tag, registries);
+        type = ParticleType.getByName(tag.getStringOr("type", "smoke"));
+        visible = tag.getBooleanOr("visible", true);
+        calculatedParticleSystem = null;
     }
 
     public void setType(ParticleType type) {

@@ -28,7 +28,7 @@ public final class PortTests {
     }
 
     private static String type(GameTestHelper helper, BlockPos pos) {
-        return entity(helper, pos).getUpdateTag(helper.getLevel().registryAccess()).getStringOr("type", "missing");
+        return entity(helper, pos).getUpdateTag(helper.getLevel().registryAccess()).getCompoundOrEmpty("mcjtylib_client").getStringOr("type", "missing");
     }
 
     @GameTest(maxTicks = 100)
@@ -59,7 +59,15 @@ public final class PortTests {
                 var saved = entity(helper, pos).saveWithFullMetadata(level.registryAccess());
                 var restored = (GenericParticleTileEntity) BlockEntity.loadStatic(absolute, level.getBlockState(absolute), saved, level.registryAccess());
                 helper.assertTrue(restored != null && !restored.isVisible(), "visibility survives serialization");
-                helper.assertValueEqual(restored.getUpdateTag(level.registryAccess()).getStringOr("type", "missing"), "bubble", "type survives serialization");
+                helper.assertValueEqual(restored.getUpdateTag(level.registryAccess()).getCompoundOrEmpty("mcjtylib_client").getStringOr("type", "missing"), "bubble", "type survives serialization");
+                // Apply the actual client update format through vanilla's load path.
+                var clientCopy = new GenericParticleTileEntity(absolute, level.getBlockState(absolute));
+                clientCopy.loadWithComponents(net.minecraft.world.level.storage.TagValueInput.create(
+                        net.minecraft.util.ProblemReporter.DISCARDING, level.registryAccess(),
+                        entity(helper, pos).getUpdateTag(level.registryAccess())));
+                helper.assertTrue(!clientCopy.isVisible(), "client update preserves hidden state");
+                helper.assertValueEqual(clientCopy.getUpdateTag(level.registryAccess()).getCompoundOrEmpty("mcjtylib_client").getStringOr("type", "missing"), "bubble", "client update preserves particle type");
+                helper.assertValueEqual(saved.getStringOr("type", "missing"), "bubble", "disk format keeps particle type at the root");
                 use(helper, pos, Items.GLASS);
                 helper.assertTrue(entity(helper, pos).isVisible(), "glass reveals block");
                 helper.assertTrue(!level.getBlockState(absolute).getCollisionShape(level, absolute).isEmpty(), "visible block has collision");

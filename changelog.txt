@@ -1,9 +1,11 @@
+26.2-6.0.1
+- Restored McJtyLib integration and dependency (Fabric 26.2-10.0.0-fabric.3), using MultiWorkSpace shared build tools.
+
 26.2-6.0.0
 - Fixed particle brightness by removing directional face lighting from the emissive renderer
-- Ported to Minecraft 26.2 and NeoForge (Java 25)
+- Ported to Minecraft 26.2 and Fabric (Java 25)
 - Migrated block and particle rendering to the extraction/submission pipeline
 - Updated item definitions, translucent materials, recipes, and data generation
-- Replaced McJtyLib helpers with Minecraft and NeoForge APIs
 
 1.21-5.0.1:
 - Fixes the cylinder rendering so that the renderer correctly respects the orientation of the cylinder block

@@ -7,23 +7,22 @@ plugins {
     id 'net.fabricmc.fabric-loom' version "${loom_version}"
 }
 
-apply from: 'gradletools.gradle'
-modpublisher([], ['fabric-api', 'forge-config-api-port'], [], ['fabric-api', 'forge-config-api-port'], [])
+def sharedTools = rootProject.file('gradletools.gradle')
+if (rootProject != project && sharedTools.isFile()) {
+    apply from: sharedTools
+} else {
+    apply from: 'https://raw.githubusercontent.com/McJtyMods/MultiWorkSpace/26.2_fabric/gradletools.gradle'
+}
+modpublisher([], ['fabric-api', 'forge-config-api-port', 'mcjtylib'], [], ['P7dR8mSH', 'ohNO6lps', 'mcjtylib'], [])
 
 group = 'com.github.mcjty'
 base { archivesName = 'nice-fabric' }
 java.toolchain.languageVersion = JavaLanguageVersion.of(25)
-repositories {
-    mavenCentral()
-    maven { url = 'https://raw.githubusercontent.com/Fuzss/modresources/main/maven/' }
-}
+repos()
 sourceSets.main.resources.srcDir 'src/generated/resources'
-dependencies {
-    minecraft "com.mojang:minecraft:${minecraft_version}"
-    implementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
-    implementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
-    implementation "fuzs.forgeconfigapiport:forgeconfigapiport-fabric:${forge_config_api_port_version}"
-}
+mc()
+config()
+mcjtylib()
 loom {
     runs {
         client { client(); runDir 'runs/client' }
