@@ -1,6 +1,12 @@
 package mcjty.nice.blocks;
 
-import net.minecraft.world.level.block.EntityBlock;
+import mcjty.lib.blocks.BaseBlock;
+import mcjty.lib.builder.BlockBuilder;
+import mcjty.lib.varia.SafeClientTools;
+import net.minecraft.ChatFormatting;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.core.Direction;
@@ -27,18 +33,19 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.minecraft.core.component.DataComponents;
 
+import java.util.List;
 import java.util.function.Function;
 
 
-public class GenericParticleBlock extends Block implements EntityBlock {
+public class GenericParticleBlock extends BaseBlock {
 
     private final float scale;
 
     private final Function<DyeColor, Block> siblingGetter;
 
     public GenericParticleBlock(Properties properties, float scale, boolean noOcclusion, Function<DyeColor, Block> siblingGetter) {
-        super(noOcclusion ? properties.sound(SoundType.GLASS).noOcclusion().dynamicShape()
-                : properties.sound(SoundType.GLASS));
+        super(new BlockBuilder().properties(noOcclusion ? properties.sound(SoundType.GLASS).noOcclusion().dynamicShape()
+                : properties.sound(SoundType.GLASS)).tileEntitySupplier(GenericParticleTileEntity::new));
         this.scale = scale;
         this.siblingGetter = siblingGetter;
         registerDefaultState(stateDefinition.any().setValue(BlockStateProperties.FACING, Direction.UP));
@@ -50,8 +57,25 @@ public class GenericParticleBlock extends Block implements EntityBlock {
     }
 
     @Override
-    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new GenericParticleTileEntity(pos, state);
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
+        return defaultBlockState();
+    }
+
+    @Override
+    public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> output, TooltipFlag flag) {
+        super.appendHoverText(stack, context, output, flag);
+        if (!flag.isCreative() && !SafeClientTools.isShiftKeyDown()) {
+            output.add(Component.translatable("message.nice.shiftmessage"));
+            return;
+        }
+        String prefix = getDescriptionId() + ".";
+        output.add(Component.translatable(prefix + "header"));
+        if (supportsParticles()) {
+            for (String key : new String[]{"diamond", "water", "wool", "fish", "string", "glass"}) {
+                output.add(Component.translatable(prefix + key).withStyle(ChatFormatting.AQUA));
+            }
+        }
+        output.add(Component.translatable(prefix + "dye").withStyle(ChatFormatting.AQUA));
     }
 
     public Block recolor(DyeColor color) {

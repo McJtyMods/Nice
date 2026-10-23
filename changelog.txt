@@ -1,3 +1,8 @@
+26.3-7.0.1-fabric:
+- Use McJtyLib 11.0.0 for base blocks, block items, and block entity synchronization
+- Preserve particle and visibility settings and existing saved block entity data
+- Use the shared MultiWorkSpace Fabric build tools and McJtyLib Jenkins build fabric.1
+
 26.3-7.0.0-fabric:
 - Port to Minecraft 26.3 with Fabric
 
