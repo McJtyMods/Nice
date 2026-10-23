@@ -19,6 +19,13 @@ ordering="NONE"
 side="BOTH"
 
 [[dependencies.nice]]
+modId="mcjtylib"
+type="required"
+versionRange="[26.3-11.0.0,)"
+ordering="AFTER"
+side="BOTH"
+
+[[dependencies.nice]]
 modId="minecraft"
 type="required"
 versionRange="[26.3]"

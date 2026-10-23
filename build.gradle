@@ -19,7 +19,15 @@ plugins {
 
 apply plugin: 'com.hypherionmc.modutils.modpublisher'
 
-apply from: 'gradletools.gradle'
+// Integrated workspaces supply the shared script; standalone builds use the published branch.
+def sharedTools = rootProject.file('gradletools.gradle')
+if (rootProject != project && sharedTools.isFile()) {
+    apply from: sharedTools
+} else {
+    apply from: 'https://raw.githubusercontent.com/McJtyMods/MultiWorkspace/26.3_neo/gradletools.gradle'
+}
+// Maven build number only; the mod dependency requirement stays at 26.3-11.0.0.
+ext.mcjtylib_version = '26.3-11.0.0.3'
 
 group = "com.github.mcjty"
 base { archivesName = "nice" }
@@ -35,9 +43,12 @@ sourceSets.main.resources {
 
 dependencies {
     mc()
+    top()
+    jei()
+    mcjtylib()
 }
 
-modpublisher([], [], [], [], [])
+modpublisher([], ['mcjtylib'], [], ['mcjtylib'], [])
 
 // In-world migration checks are compiled only when explicitly requested.
 if (project.hasProperty('portTests')) {

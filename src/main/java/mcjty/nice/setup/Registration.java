@@ -1,5 +1,6 @@
 package mcjty.nice.setup;
 
+import mcjty.lib.items.BaseBlockItem;
 import mcjty.nice.Nice;
 import mcjty.nice.blocks.*;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -44,17 +45,17 @@ public class Registration {
             .collect(Collectors.toMap(c -> c, c -> BLOCKS.registerBlock("solid_small_cylinder_" + c.getName(), props -> new SolidCylinderBlock(props, .3f, color -> Registration.SOLID_SMALL_CYLINDERS.get(color).get()))));
 
     public static final Map<DyeColor, DeferredItem<Item>> SOLID_BLOCK_ITEMS = Arrays.stream(DyeColor.values())
-            .collect(Collectors.toMap(c -> c, c -> ITEMS.registerItem("solid_" + c.getName(), props -> new NiceBlockItem(SOLID_BLOCKS.get(c).get(), props.useBlockDescriptionPrefix()))));
+            .collect(Collectors.toMap(c -> c, c -> ITEMS.registerItem("solid_" + c.getName(), props -> new BaseBlockItem(SOLID_BLOCKS.get(c).get(), props.useBlockDescriptionPrefix()))));
     public static final Map<DyeColor, DeferredItem<Item>> PARTICLE_BLOCK_ITEMS = Arrays.stream(DyeColor.values())
-            .collect(Collectors.toMap(c -> c, c -> ITEMS.registerItem("particle_" + c.getName(), props -> new NiceBlockItem(PARTICLE_BLOCKS.get(c).get(), props.useBlockDescriptionPrefix()))));
+            .collect(Collectors.toMap(c -> c, c -> ITEMS.registerItem("particle_" + c.getName(), props -> new BaseBlockItem(PARTICLE_BLOCKS.get(c).get(), props.useBlockDescriptionPrefix()))));
     public static final Map<DyeColor, DeferredItem<Item>> CYLINDER_ITEMS = Arrays.stream(DyeColor.values())
-            .collect(Collectors.toMap(c -> c, c -> ITEMS.registerItem("cylinder_" + c.getName(), props -> new NiceBlockItem(CYLINDERS.get(c).get(), props.useBlockDescriptionPrefix()))));
+            .collect(Collectors.toMap(c -> c, c -> ITEMS.registerItem("cylinder_" + c.getName(), props -> new BaseBlockItem(CYLINDERS.get(c).get(), props.useBlockDescriptionPrefix()))));
     public static final Map<DyeColor, DeferredItem<Item>> SMALL_CYLINDER_ITEMS = Arrays.stream(DyeColor.values())
-            .collect(Collectors.toMap(c -> c, c -> ITEMS.registerItem("small_cylinder_" + c.getName(), props -> new NiceBlockItem(SMALL_CYLINDERS.get(c).get(), props.useBlockDescriptionPrefix()))));
+            .collect(Collectors.toMap(c -> c, c -> ITEMS.registerItem("small_cylinder_" + c.getName(), props -> new BaseBlockItem(SMALL_CYLINDERS.get(c).get(), props.useBlockDescriptionPrefix()))));
     public static final Map<DyeColor, DeferredItem<Item>> SOLID_CYLINDER_ITEMS = Arrays.stream(DyeColor.values())
-            .collect(Collectors.toMap(c -> c, c -> ITEMS.registerItem("solid_cylinder_" + c.getName(), props -> new NiceBlockItem(SOLID_CYLINDERS.get(c).get(), props.useBlockDescriptionPrefix()))));
+            .collect(Collectors.toMap(c -> c, c -> ITEMS.registerItem("solid_cylinder_" + c.getName(), props -> new BaseBlockItem(SOLID_CYLINDERS.get(c).get(), props.useBlockDescriptionPrefix()))));
     public static final Map<DyeColor, DeferredItem<Item>> SOLID_SMALL_CYLINDER_ITEMS = Arrays.stream(DyeColor.values())
-            .collect(Collectors.toMap(c -> c, c -> ITEMS.registerItem("solid_small_cylinder_" + c.getName(), props -> new NiceBlockItem(SOLID_SMALL_CYLINDERS.get(c).get(), props.useBlockDescriptionPrefix()))));
+            .collect(Collectors.toMap(c -> c, c -> ITEMS.registerItem("solid_small_cylinder_" + c.getName(), props -> new BaseBlockItem(SOLID_SMALL_CYLINDERS.get(c).get(), props.useBlockDescriptionPrefix()))));
 
     public static final Supplier<BlockEntityType<GenericParticleTileEntity>> TYPE_PARTICLE = TILES.register("generic_particle", () -> new BlockEntityType<>(GenericParticleTileEntity::new,
             collect(CYLINDERS, SMALL_CYLINDERS, SOLID_CYLINDERS, SOLID_SMALL_CYLINDERS, SOLID_BLOCKS, PARTICLE_BLOCKS)));
