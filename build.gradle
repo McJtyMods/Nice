@@ -26,8 +26,6 @@ if (rootProject != project && sharedTools.isFile()) {
 } else {
     apply from: 'https://raw.githubusercontent.com/McJtyMods/MultiWorkspace/26.3_neo/gradletools.gradle'
 }
-// Maven build number only; the mod dependency requirement stays at 26.3-11.0.0.
-ext.mcjtylib_version = '26.3-11.0.0.3'
 
 group = "com.github.mcjty"
 base { archivesName = "nice" }

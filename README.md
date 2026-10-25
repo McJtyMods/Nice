@@ -4,7 +4,7 @@ Nice Innovative Creative Enhancements — decorative blocks for Minecraft **26.3
 
 Build with `./gradlew build`. The mod jar is written to `build/libs/nice-26.3-7.0.1.jar`.
 
-The build uses the published `MultiWorkspace/26.3_neo/gradletools.gradle`, or the root shared script in an integrated workspace. No local copy is needed. It selects the McJtyLib Maven artifact `26.3-11.0.0.3`; the mod dependency requirement remains `26.3-11.0.0`. McJtyLib supplies the base blocks, block items, and block entities. Existing registry names, block states, tooltips, and particle save data are preserved. The shared `top()` and `jei()` helpers also include TOP and JEI for development.
+The build uses the published `MultiWorkspace/26.3_neo/gradletools.gradle`, or the root shared script in an integrated workspace. No local copy is needed. The McJtyLib Maven artifact version comes directly from the shared script; the mod dependency requirement remains `26.3-11.0.0`. McJtyLib supplies the base blocks, block items, and block entities. Existing registry names, block states, tooltips, and particle save data are preserved. The shared `top()` and `jei()` helpers also include TOP and JEI for development.
 
 Use `./gradlew runClient` or `./gradlew runServer` for development. Regenerate resources with `./gradlew runServerData` or `./gradlew runClientData`; both generate the complete resource set, including the 26.3 item definitions, material translucency, recipes, tags, and loot tables.
 
