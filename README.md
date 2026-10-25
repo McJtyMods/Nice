@@ -14,4 +14,4 @@ For the optional client rendering check, copy `runs/gameTestServer/world` to `ru
 
 Publication tasks retain the existing CurseForge and Modrinth project settings and declare McJtyLib, Fabric API, and Forge Config API Port as required dependencies.
 
-The build uses [MultiWorkSpace’s shared Fabric helpers](https://github.com/McJtyMods/MultiWorkSpace/blob/26.2_fabric/gradletools.gradle). Standalone builds download that script and resolve McJtyLib from the Jenkins Maven repository; MultiWorkSpace builds use its root script and the McJtyLib project when present.
+The build uses [MultiWorkSpace’s shared Fabric helpers](https://github.com/McJtyMods/MultiWorkSpace/blob/26.2_fabric/gradletools.gradle). Standalone builds download that script and resolve McJtyLib from the Jenkins Maven repository; MultiWorkSpace builds use the same remote script and the McJtyLib project when present.

@@ -7,12 +7,7 @@ plugins {
     id 'net.fabricmc.fabric-loom' version "${loom_version}"
 }
 
-def sharedTools = rootProject.file('gradletools.gradle')
-if (rootProject != project && sharedTools.isFile()) {
-    apply from: sharedTools
-} else {
-    apply from: 'https://raw.githubusercontent.com/McJtyMods/MultiWorkSpace/26.2_fabric/gradletools.gradle'
-}
+apply from: 'https://raw.githubusercontent.com/McJtyMods/MultiWorkSpace/26.2_fabric/gradletools.gradle'
 modpublisher([], ['fabric-api', 'forge-config-api-port', 'mcjtylib'], [], ['P7dR8mSH', 'ohNO6lps', 'mcjtylib'], [])
 
 group = 'com.github.mcjty'
