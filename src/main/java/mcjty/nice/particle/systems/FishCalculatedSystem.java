@@ -21,7 +21,8 @@ public class FishCalculatedSystem extends DefaultCalculatedParticleSystem {
         position = new Vec3[amount];
         movement = new Vec3[amount];
         for (int i = 0 ; i < amount ; i++) {
-            position[i] = new Vec3(random.nextDouble()*scale-scale/2.0, random.nextDouble()*.8-.8/2.0, random.nextDouble()*scale-scale/2.0);
+            position[i] = scale < .5f ? randomCylindricalOffset(random)
+                    : new Vec3(random.nextDouble()*scale-scale/2.0, random.nextDouble()*.8-.8/2.0, random.nextDouble()*scale-scale/2.0);
             randomMovement(i);
             DefaultParticle particle = (DefaultParticle) particles.get(i);
             int type = random.nextInt(3);
@@ -42,7 +43,10 @@ public class FishCalculatedSystem extends DefaultCalculatedParticleSystem {
             DefaultParticle particle = (DefaultParticle) particles.get(i);
             float offset = (time % 2000) / 2000.0f;
             Vec3 newo = o.add(movement[i].scale(offset));
-            if (newo.x <= -.4 || newo.y <= -.4 || newo.z <= -.4 || newo.x >= .4 || newo.y >= .4 || newo.z >= .4) {
+            boolean outside = getScale() < .5f
+                    ? newo.x * newo.x + newo.z * newo.z >= getScale() * getScale() / 4.0 || newo.y <= -.4 || newo.y >= .4
+                    : newo.x <= -.4 || newo.y <= -.4 || newo.z <= -.4 || newo.x >= .4 || newo.y >= .4 || newo.z >= .4;
+            if (outside) {
                 randomMovement(i);
             } else {
                 position[i] = newo;

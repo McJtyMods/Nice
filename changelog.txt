@@ -4,6 +4,7 @@ Upcoming:
 - Fix the particle rendering so that it looks nicer in combination with shaders like complementary
 - Added a new system to allow the datapack maker to define more textures for the particles and also animation (see particles.json)
 - Added a glow effect to the sparkle particle system
+- Small cylinders have better fitting particle systems now
 
 1.20-4.0.3:
 - Fixes the cylinder rendering so that the renderer correctly respects the orientation of the cylinder block

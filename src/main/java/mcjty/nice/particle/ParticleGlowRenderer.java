@@ -9,7 +9,7 @@ public class ParticleGlowRenderer {
 
     private static final int SEGMENTS = 24;
     private static final int RINGS = 6;
-    private static final float RADIUS = 2.0f;
+    private static final float RADIUS = 1.0f;
     private static final float INTENSITY = .6f;
     private static final float[] X = new float[SEGMENTS + 1];
     private static final float[] Y = new float[SEGMENTS + 1];
