@@ -45,8 +45,7 @@
         "v": 128
       }
     ],
-    "fullbright": true,
-    "glow": true
+    "fullbright": true
   },
   "bubble": {
     "textures": [
