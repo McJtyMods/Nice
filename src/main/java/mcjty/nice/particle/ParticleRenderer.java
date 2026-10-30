@@ -11,6 +11,7 @@ import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.block.BlockRenderDispatcher;
+import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.BakedModel;
@@ -87,6 +88,7 @@ public class ParticleRenderer {
         buffer.vertex(pose.pose(), x, y, 0)
                 .color(r, g, b, a)
                 .uv(u, v)
+                .overlayCoords(OverlayTexture.NO_OVERLAY)
                 .uv2(light)
                 // The quad faces local -Z. Rotate its normal with the billboard too.
                 .normal(pose.normal(), 0, 0, -1)
@@ -181,7 +183,7 @@ public class ParticleRenderer {
         float r = (float) (color >> 16 & 255) / 255.0F;
         float g = (float) (color >> 8 & 255) / 255.0F;
         float b = (float) (color & 255) / 255.0F;
-        VertexConsumer buffer = buf.getBuffer(ParticleRenderTypes.TRANSLUCENT_PARTICLES);
+        VertexConsumer buffer = buf.getBuffer(ParticleRenderTypes.TRANSLUCENT_SHELL);
         RenderHelper.renderModel(renderer, stack, buffer, state, model, r, g, b, combinedLight, combinedOverlay, ModelData.EMPTY, renderType);
     }
 

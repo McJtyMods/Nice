@@ -70,13 +70,28 @@ public class ParticleRenderTypes extends RenderType {
                     .setOutputState(TRANSLUCENT_TARGET)
                     .createCompositeState(true));
 
-    public static final RenderType TRANSLUCENT_PARTICLES = create("translucent_particles", DefaultVertexFormat.BLOCK, VertexFormat.Mode.QUADS, 262144, true, true,
+    // Use the entity shader for block-entity geometry so deferred buffer draws
+    // cannot select a shader pack's translucent terrain/water program.
+    // Keep color-only writes so transparent particles do not occlude their glows.
+    public static final RenderType TRANSLUCENT_PARTICLES = create("translucent_particles", DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 262144, true, true,
             CompositeState.builder()
                     .setLightmapState(LIGHTMAP)
-                    .setShaderState(RENDERTYPE_TRANSLUCENT_SHADER)
+                    .setOverlayState(OVERLAY)
+                    .setShaderState(RENDERTYPE_ENTITY_TRANSLUCENT_SHADER)
                     .setTextureState(BLOCK_SHEET_MIPPED)
                     .setTransparencyState(TRANSLUCENT_TRANSPARENCY)
-//                    .setOutputState(TRANSLUCENT_TARGET)
+                    .setCullState(NO_CULL)
+                    .setWriteMaskState(COLOR_WRITE)
+                    .createCompositeState(true));
+
+    // Shells keep face culling, unlike the billboarded particles.
+    public static final RenderType TRANSLUCENT_SHELL = create("translucent_shell", DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 262144, true, true,
+            CompositeState.builder()
+                    .setLightmapState(LIGHTMAP)
+                    .setOverlayState(OVERLAY)
+                    .setShaderState(RENDERTYPE_ENTITY_TRANSLUCENT_CULL_SHADER)
+                    .setTextureState(BLOCK_SHEET_MIPPED)
+                    .setTransparencyState(TRANSLUCENT_TRANSPARENCY)
                     .setWriteMaskState(COLOR_WRITE)
                     .createCompositeState(true));
 
