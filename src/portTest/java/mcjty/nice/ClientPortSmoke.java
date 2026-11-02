@@ -2,8 +2,14 @@ package mcjty.nice;
 
 import mcjty.nice.blocks.GenericParticleTileEntity;
 import mcjty.nice.particle.ParticleType;
+import mcjty.nice.particle.ParticleTextures;
 import mcjty.nice.setup.Registration;
+import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.screens.BackupConfirmScreen;
+import net.minecraft.client.input.KeyEvent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.DyeColor;
@@ -21,14 +27,32 @@ public final class ClientPortSmoke implements ClientModInitializer {
     }
 
     private static int ticks;
+    private static boolean confirmedWorld;
 
     public static void tick(Minecraft event) {
         if (!Boolean.getBoolean("nice.clientSmoke")) return;
         var minecraft = Minecraft.getInstance();
+        // This opt-in run opens a disposable copy of the game-test world.
+        if (!confirmedWorld && minecraft.gui.screen() instanceof BackupConfirmScreen screen) {
+            for (var child : screen.children()) {
+                if (child instanceof Button button && button.getMessage().equals(Component.translatable("selectWorld.backupJoinSkipButton"))) {
+                    confirmedWorld = true;
+                    button.onPress(new KeyEvent(InputConstants.KEY_RETURN, 0, 0));
+                    return;
+                }
+            }
+        }
         var server = minecraft.getSingleplayerServer();
         if (minecraft.level == null || minecraft.player == null || server == null) return;
         if (ticks > 0 && minecraft.gui.screen() != null) return;
         if (ticks++ == 0) {
+            if (Boolean.getBoolean("nice.oitSmoke")) {
+                minecraft.options.improvedTransparency().set(true);
+                if (!minecraft.options.improvedTransparency().get()) {
+                    throw new IllegalStateException("Improved transparency could not be enabled");
+                }
+                System.out.println("NICE CLIENT SMOKE: improved transparency enabled");
+            }
             server.execute(() -> {
                 var commands = server.getCommands();
                 var source = server.createCommandSourceStack();
@@ -62,6 +86,12 @@ public final class ClientPortSmoke implements ClientModInitializer {
             });
         }
         if (ticks == 180) {
+            for (String type : new String[]{"smoke", "fish1", "fish2", "fish3", "sparkle", "bubble"}) {
+                if (ParticleTextures.get(type) == null) {
+                    throw new IllegalStateException("Missing particle texture definition: " + type);
+                }
+            }
+            System.out.println("NICE CLIENT SMOKE: loaded all particle texture definitions");
             int count = 0;
             for (var family : java.util.List.of(Registration.SOLID_BLOCK_ITEMS, Registration.PARTICLE_BLOCK_ITEMS,
                     Registration.CYLINDER_ITEMS, Registration.SMALL_CYLINDER_ITEMS,

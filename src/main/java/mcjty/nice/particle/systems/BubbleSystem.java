@@ -25,7 +25,7 @@ public class BubbleSystem implements IParticleSystem {
         for (int i = 0 ; i < offsets.length ; i++) {
             DefaultParticle particle = (DefaultParticle) particles.get(i);
             particle.setScale(.13);
-            particle.setUV(5.0D/8, 0, 6.0D / 8, 1.0D);
+            particle.setTexture("bubble");
             particle.setColor(255, 255, 255, 128);
         }
         return calculated;
@@ -41,6 +41,9 @@ public class BubbleSystem implements IParticleSystem {
             double oy = (o.y + offset +.5f) % 1f-.5f;
             double oz = o.z * calculated.getScale() / 0.8f;
             DefaultParticle particle = (DefaultParticle) particles.get(i);
+            if (particle.getOffset() != null && oy < particle.getOffset().y) {
+                particle.setTexture("bubble");
+            }
             particle.setOffset(new Vec3(ox, oy, oz));
         }
 
