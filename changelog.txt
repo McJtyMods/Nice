@@ -1,3 +1,12 @@
+26.3-7.0.2:
+- Improve compatibility of translucent particle blocks and cylinders with shaders during replay playback
+- Cylinders no longer pop off when hit by flowing water
+- Added placement-only waterlogging for cylinders and particle blocks, including invisible ones
+- Fix the particle rendering so that it looks nicer in combination with shaders like complementary
+- Added a new system to allow the datapack maker to define more textures for the particles and also animation (see particles.json)
+- Added a glow effect to the sparkle particle system
+- Small cylinders have better fitting particle systems now
+
 26.3-7.0.1:
 - Use the published MultiWorkspace 26.3 shared Gradle script and McJtyLib build 26.3-11.0.0.3
 - Restore McJtyLib base blocks, block items, and block entities while preserving particle settings and tooltips

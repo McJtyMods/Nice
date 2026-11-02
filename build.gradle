@@ -60,6 +60,7 @@ if (project.hasProperty('clientSmoke')) {
     if (!project.hasProperty('portTests')) throw new GradleException('clientSmoke requires -PportTests')
     extensions.getByName("runs").named("client") {
         systemProperty 'nice.clientSmoke', 'true'
+        systemProperty 'nice.oitSmoke', project.hasProperty('oitSmoke').toString()
         arguments.addAll '--quickPlaySingleplayer', 'nice-port-smoke'
     }
 }

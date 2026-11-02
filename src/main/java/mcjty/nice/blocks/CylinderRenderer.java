@@ -13,6 +13,7 @@ import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.state.BlockState;
@@ -70,7 +71,7 @@ public class CylinderRenderer implements BlockEntityRenderer<GenericParticleTile
     @Override
     public void submit(State state, PoseStack stack, SubmitNodeCollector collector, CameraRenderState camera) {
         if (!state.parts.isEmpty()) {
-            collector.submitBlockModel(stack, RenderTypes.translucentMovingBlock(), state.parts, new int[0],
+            collector.submitBlockModel(stack, RenderTypes.entityTranslucentCull(TextureAtlas.LOCATION_BLOCKS), state.parts, new int[0],
                     state.lightCoords, OverlayTexture.NO_OVERLAY, 0);
         }
         ParticleRenderer.submit(state.particles, stack, collector, camera.orientation);
