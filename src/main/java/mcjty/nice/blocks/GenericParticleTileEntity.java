@@ -9,6 +9,8 @@ import mcjty.nice.setup.Registration;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.tags.FluidTags;
+import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
@@ -63,6 +65,13 @@ public class GenericParticleTileEntity extends GenericTileEntity implements IPar
     public void toggleVisibility() {
         visible = !visible;
         markDirtyClient();
+        // Hiding the shell opens its collision shape, allowing contained water to flow.
+        if (level != null && !level.isClientSide) {
+            FluidState fluid = getBlockState().getFluidState();
+            if (fluid.is(FluidTags.WATER)) {
+                level.scheduleTick(worldPosition, fluid.getType(), fluid.getType().getTickDelay(level));
+            }
+        }
     }
 
     public void setColor(DyeColor color) {

@@ -39,6 +39,7 @@ public class Nice {
         if (dist.isClient()) {
             bus.addListener(modules::initClient);
             bus.addListener(ClientSetup::initClient);
+            bus.addListener(ClientSetup::registerReloadListeners);
         }
     }
 

@@ -14,10 +14,10 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import javax.annotation.Nullable;
 import java.util.function.Function;
 
-public class CylinderBlock extends GenericParticleBlock {
+public class CylinderBlock extends WaterloggedParticleBlock {
 
     public CylinderBlock(float scale, Function<DyeColor, Block> siblingGetter) {
-        super(scale, true, siblingGetter);
+        super(scale, siblingGetter);
     }
 
     @Override
@@ -28,7 +28,8 @@ public class CylinderBlock extends GenericParticleBlock {
     @Nullable
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
-        return this.defaultBlockState().setValue(BlockStateProperties.FACING, context.getClickedFace());
+        BlockState state = super.getStateForPlacement(context);
+        return state == null ? null : state.setValue(BlockStateProperties.FACING, context.getClickedFace());
     }
 
     @Override

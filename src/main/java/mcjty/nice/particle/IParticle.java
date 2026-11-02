@@ -9,14 +9,25 @@ public interface IParticle {
     double getScale();
 
     double getU1();
+
     double getU2();
 
     double getV1();
+
     double getV2();
 
+    default String getTextureType() { return null; }
+
+    default int getTextureSeed() { return 0; }
+
+    default long getTextureStartTime() { return 0; }
+
     int getR();
+
     int getG();
+
     int getB();
+
     int getA();
 
 }

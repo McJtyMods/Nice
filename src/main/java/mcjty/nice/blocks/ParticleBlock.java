@@ -5,10 +5,10 @@ import mcjty.nice.setup.Registration;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class ParticleBlock extends GenericParticleBlock {
+public class ParticleBlock extends WaterloggedParticleBlock {
 
     public ParticleBlock() {
-        super(0.8f, true, color -> Registration.PARTICLE_BLOCKS.get(color).get());
+        super(0.8f, color -> Registration.PARTICLE_BLOCKS.get(color).get());
     }
 
     @Override
