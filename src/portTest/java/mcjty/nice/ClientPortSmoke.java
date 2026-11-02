@@ -2,6 +2,7 @@ package mcjty.nice;
 
 import mcjty.nice.blocks.GenericParticleTileEntity;
 import mcjty.nice.particle.ParticleType;
+import mcjty.nice.particle.ParticleTextures;
 import mcjty.nice.setup.Registration;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
@@ -56,6 +57,12 @@ public final class ClientPortSmoke {
             });
         }
         if (ticks == 180) {
+            for (String type : new String[]{"smoke", "fish1", "fish2", "fish3", "sparkle", "bubble"}) {
+                if (ParticleTextures.get(type) == null) {
+                    throw new IllegalStateException("Missing particle texture definition: " + type);
+                }
+            }
+            System.out.println("NICE CLIENT SMOKE: loaded all particle texture definitions");
             int count = 0;
             for (var family : java.util.List.of(Registration.SOLID_BLOCK_ITEMS, Registration.PARTICLE_BLOCK_ITEMS,
                     Registration.CYLINDER_ITEMS, Registration.SMALL_CYLINDER_ITEMS,

@@ -2,7 +2,7 @@
 
 Nice Innovative Creative Enhancements — decorative blocks for Minecraft **26.2** with **NeoForge 26.2.0.75 or newer**. Requires **Java 25** and **McJtyLib 26.2-10.0.0.2 or newer**.
 
-Build with `./gradlew build`. The mod jar is written to `build/libs/nice-26.2-6.0.0.jar`.
+Build with `./gradlew build`. The mod jar is written to `build/libs/nice-26.2-6.0.2.jar`.
 
 The build uses the shared `gradletools.gradle` from the parent workspace when present, otherwise from the MultiWorkspace `26.2_neo` branch. McJtyLib supplies the base blocks, block items, and block entities. Existing registry names, block states, and particle save data are preserved.
 
@@ -13,3 +13,5 @@ Run the in-world migration checks with `./gradlew -PportTests runGameTestServer`
 For the optional client rendering check, copy the generated test world from `runs/gameTestServer/gametestserver/gametestworld` to `runs/client/saves/nice-port-smoke`, then run `./gradlew -PportTests -PclientSmoke runClient`. This places a temporary test scene in that world, resolves all 96 inventory models, saves `runs/client/screenshots/nice-port-smoke.png`, and exits automatically. On a fresh client, complete the accessibility onboarding before running it.
 
 Client settings are available in `config/nice-client.toml`: particle render distance and red, green, and blue brightness.
+
+Particle textures are configured in client resource packs at `assets/nice/textures/block/effects/particles.json`, alongside the 256×256 `particles.png` atlas. Each type (`smoke`, `fish1`, `fish2`, `fish3`, `sparkle`, `bubble`) lists 32×32 frames as pixel `u`/`v` coordinates. Set `animation` to loop frames at ten frames per second; otherwise each particle picks one frame. The optional `fullbright` and `glow` flags control lighting and additive glow. Reload resources to apply changes.
