@@ -67,6 +67,10 @@ if (project.hasProperty('portTests')) {
 }
 
 tasks.named('jar') {
+    if (!project.hasProperty('portTests')) {
+        // Workspace runs can leave test classes in the shared build directory.
+        exclude 'mcjty/nice/PortTests*.class', 'mcjty/nice/ClientPortSmoke*.class'
+    }
     from('LICENSE') { rename { "${it}_nice" } }
 }
 publishing {
